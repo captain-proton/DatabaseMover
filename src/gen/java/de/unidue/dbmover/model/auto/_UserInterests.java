@@ -17,6 +17,8 @@ public abstract class _UserInterests extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String CONTROLLED_VOCAB_ENTRY_ID_PK_COLUMN = "controlled_vocab_entry_id";
+    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<Long> CONTROLLED_VOCAB_ENTRY_ID = Property.create("controlledVocabEntryId", Long.class);

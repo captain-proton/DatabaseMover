@@ -51,6 +51,7 @@
                     <dbimport>
                         <defaultPackage>de.unidue.dbmover.model</defaultPackage>
                         <includeTable>.*</includeTable>
+                        <skipPrimaryKeyLoading>true</skipPrimaryKeyLoading>
                     </dbimport>
                 </configuration>
 

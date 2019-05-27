@@ -17,6 +17,9 @@ public abstract class _AnnouncementSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String ANNOUNCEMENT_ID_PK_COLUMN = "announcement_id";
+    public static final String LOCALE_PK_COLUMN = "locale";
+    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> ANNOUNCEMENT_ID = Property.create("announcementId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

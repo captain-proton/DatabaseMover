@@ -18,6 +18,9 @@ public abstract class _ItemViews extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String ASSOC_ID_PK_COLUMN = "assoc_id";
+    public static final String ASSOC_TYPE_PK_COLUMN = "assoc_type";
+    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<String> ASSOC_ID = Property.create("assocId", String.class);
@@ -26,7 +29,7 @@ public abstract class _ItemViews extends BaseDataObject {
 
     protected long assocType;
     protected String assocId;
-    protected Long userId;
+    protected long userId;
     protected LocalDateTime dateLastViewed;
 
 
@@ -57,9 +60,6 @@ public abstract class _ItemViews extends BaseDataObject {
 
     public long getUserId() {
         beforePropertyRead("userId");
-        if(this.userId == null) {
-            return 0;
-        }
         return this.userId;
     }
 
@@ -107,7 +107,7 @@ public abstract class _ItemViews extends BaseDataObject {
                 this.assocId = (String)val;
                 break;
             case "userId":
-                this.userId = (Long)val;
+                this.userId = val == null ? 0 : (long)val;
                 break;
             case "dateLastViewed":
                 this.dateLastViewed = (LocalDateTime)val;
@@ -130,7 +130,7 @@ public abstract class _ItemViews extends BaseDataObject {
         super.writeState(out);
         out.writeLong(this.assocType);
         out.writeObject(this.assocId);
-        out.writeObject(this.userId);
+        out.writeLong(this.userId);
         out.writeObject(this.dateLastViewed);
     }
 
@@ -139,7 +139,7 @@ public abstract class _ItemViews extends BaseDataObject {
         super.readState(in);
         this.assocType = in.readLong();
         this.assocId = (String)in.readObject();
-        this.userId = (Long)in.readObject();
+        this.userId = in.readLong();
         this.dateLastViewed = (LocalDateTime)in.readObject();
     }
 

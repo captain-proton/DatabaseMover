@@ -17,25 +17,17 @@ public abstract class _SubmissionSearchObjectKeywords extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String OBJECT_ID_PK_COLUMN = "object_id";
+    public static final String POS_PK_COLUMN = "pos";
 
-    public static final Property<Long> OBJECT_ID = Property.create("objectId", Long.class);
     public static final Property<Long> KEYWORD_ID = Property.create("keywordId", Long.class);
     public static final Property<Integer> POS = Property.create("pos", Integer.class);
+    public static final Property<Long> ID = Property.create("id", Long.class);
 
-    protected long objectId;
     protected long keywordId;
     protected int pos;
+    protected long id;
 
-
-    public void setObjectId(long objectId) {
-        beforePropertyWrite("objectId", this.objectId, objectId);
-        this.objectId = objectId;
-    }
-
-    public long getObjectId() {
-        beforePropertyRead("objectId");
-        return this.objectId;
-    }
 
     public void setKeywordId(long keywordId) {
         beforePropertyWrite("keywordId", this.keywordId, keywordId);
@@ -57,6 +49,16 @@ public abstract class _SubmissionSearchObjectKeywords extends BaseDataObject {
         return this.pos;
     }
 
+    public void setId(long id) {
+        beforePropertyWrite("id", this.id, id);
+        this.id = id;
+    }
+
+    public long getId() {
+        beforePropertyRead("id");
+        return this.id;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -64,12 +66,12 @@ public abstract class _SubmissionSearchObjectKeywords extends BaseDataObject {
         }
 
         switch(propName) {
-            case "objectId":
-                return this.objectId;
             case "keywordId":
                 return this.keywordId;
             case "pos":
                 return this.pos;
+            case "id":
+                return this.id;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -82,14 +84,14 @@ public abstract class _SubmissionSearchObjectKeywords extends BaseDataObject {
         }
 
         switch (propName) {
-            case "objectId":
-                this.objectId = val == null ? 0 : (long)val;
-                break;
             case "keywordId":
                 this.keywordId = val == null ? 0 : (long)val;
                 break;
             case "pos":
                 this.pos = val == null ? 0 : (int)val;
+                break;
+            case "id":
+                this.id = val == null ? 0 : (long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -107,17 +109,17 @@ public abstract class _SubmissionSearchObjectKeywords extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
-        out.writeLong(this.objectId);
         out.writeLong(this.keywordId);
         out.writeInt(this.pos);
+        out.writeLong(this.id);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
-        this.objectId = in.readLong();
         this.keywordId = in.readLong();
         this.pos = in.readInt();
+        this.id = in.readLong();
     }
 
 }

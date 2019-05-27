@@ -17,6 +17,8 @@ public abstract class _EmailTemplatesDefaultData extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String EMAIL_KEY_PK_COLUMN = "email_key";
+    public static final String LOCALE_PK_COLUMN = "locale";
 
     public static final Property<String> EMAIL_KEY = Property.create("emailKey", String.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

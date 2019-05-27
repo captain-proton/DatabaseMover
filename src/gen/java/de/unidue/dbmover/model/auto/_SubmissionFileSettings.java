@@ -17,6 +17,9 @@ public abstract class _SubmissionFileSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String FILE_ID_PK_COLUMN = "file_id";
+    public static final String LOCALE_PK_COLUMN = "locale";
+    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> FILE_ID = Property.create("fileId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

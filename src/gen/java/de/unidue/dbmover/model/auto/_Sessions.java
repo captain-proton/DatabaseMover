@@ -17,6 +17,7 @@ public abstract class _Sessions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String SESSION_ID_PK_COLUMN = "session_id";
 
     public static final Property<String> SESSION_ID = Property.create("sessionId", String.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);

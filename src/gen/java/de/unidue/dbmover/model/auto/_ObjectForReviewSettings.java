@@ -17,27 +17,19 @@ public abstract class _ObjectForReviewSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String OBJECT_ID_PK_COLUMN = "object_id";
+    public static final String REVIEW_OBJECT_METADATA_ID_PK_COLUMN = "review_object_metadata_id";
 
-    public static final Property<Long> OBJECT_ID = Property.create("objectId", Long.class);
     public static final Property<Long> REVIEW_OBJECT_METADATA_ID = Property.create("reviewObjectMetadataId", Long.class);
     public static final Property<String> SETTING_VALUE = Property.create("settingValue", String.class);
     public static final Property<String> SETTING_TYPE = Property.create("settingType", String.class);
+    public static final Property<Long> ID = Property.create("id", Long.class);
 
-    protected long objectId;
     protected long reviewObjectMetadataId;
     protected String settingValue;
     protected String settingType;
+    protected long id;
 
-
-    public void setObjectId(long objectId) {
-        beforePropertyWrite("objectId", this.objectId, objectId);
-        this.objectId = objectId;
-    }
-
-    public long getObjectId() {
-        beforePropertyRead("objectId");
-        return this.objectId;
-    }
 
     public void setReviewObjectMetadataId(long reviewObjectMetadataId) {
         beforePropertyWrite("reviewObjectMetadataId", this.reviewObjectMetadataId, reviewObjectMetadataId);
@@ -69,6 +61,16 @@ public abstract class _ObjectForReviewSettings extends BaseDataObject {
         return this.settingType;
     }
 
+    public void setId(long id) {
+        beforePropertyWrite("id", this.id, id);
+        this.id = id;
+    }
+
+    public long getId() {
+        beforePropertyRead("id");
+        return this.id;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -76,14 +78,14 @@ public abstract class _ObjectForReviewSettings extends BaseDataObject {
         }
 
         switch(propName) {
-            case "objectId":
-                return this.objectId;
             case "reviewObjectMetadataId":
                 return this.reviewObjectMetadataId;
             case "settingValue":
                 return this.settingValue;
             case "settingType":
                 return this.settingType;
+            case "id":
+                return this.id;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -96,9 +98,6 @@ public abstract class _ObjectForReviewSettings extends BaseDataObject {
         }
 
         switch (propName) {
-            case "objectId":
-                this.objectId = val == null ? 0 : (long)val;
-                break;
             case "reviewObjectMetadataId":
                 this.reviewObjectMetadataId = val == null ? 0 : (long)val;
                 break;
@@ -107,6 +106,9 @@ public abstract class _ObjectForReviewSettings extends BaseDataObject {
                 break;
             case "settingType":
                 this.settingType = (String)val;
+                break;
+            case "id":
+                this.id = val == null ? 0 : (long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -124,19 +126,19 @@ public abstract class _ObjectForReviewSettings extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
-        out.writeLong(this.objectId);
         out.writeLong(this.reviewObjectMetadataId);
         out.writeObject(this.settingValue);
         out.writeObject(this.settingType);
+        out.writeLong(this.id);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
-        this.objectId = in.readLong();
         this.reviewObjectMetadataId = in.readLong();
         this.settingValue = (String)in.readObject();
         this.settingType = (String)in.readObject();
+        this.id = in.readLong();
     }
 
 }

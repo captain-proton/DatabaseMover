@@ -19,30 +19,20 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
 
     public static final String PERSON_ID_PK_COLUMN = "person_id";
 
-    public static final Property<Long> OBJECT_ID = Property.create("objectId", Long.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
     public static final Property<String> ROLE = Property.create("role", String.class);
     public static final Property<String> FIRST_NAME = Property.create("firstName", String.class);
     public static final Property<String> MIDDLE_NAME = Property.create("middleName", String.class);
     public static final Property<String> LAST_NAME = Property.create("lastName", String.class);
+    public static final Property<Long> ID = Property.create("id", Long.class);
 
-    protected long objectId;
     protected double seq;
     protected String role;
     protected String firstName;
     protected String middleName;
     protected String lastName;
+    protected long id;
 
-
-    public void setObjectId(long objectId) {
-        beforePropertyWrite("objectId", this.objectId, objectId);
-        this.objectId = objectId;
-    }
-
-    public long getObjectId() {
-        beforePropertyRead("objectId");
-        return this.objectId;
-    }
 
     public void setSeq(double seq) {
         beforePropertyWrite("seq", this.seq, seq);
@@ -94,6 +84,16 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
         return this.lastName;
     }
 
+    public void setId(long id) {
+        beforePropertyWrite("id", this.id, id);
+        this.id = id;
+    }
+
+    public long getId() {
+        beforePropertyRead("id");
+        return this.id;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -101,8 +101,6 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
         }
 
         switch(propName) {
-            case "objectId":
-                return this.objectId;
             case "seq":
                 return this.seq;
             case "role":
@@ -113,6 +111,8 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
                 return this.middleName;
             case "lastName":
                 return this.lastName;
+            case "id":
+                return this.id;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -125,9 +125,6 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
         }
 
         switch (propName) {
-            case "objectId":
-                this.objectId = val == null ? 0 : (long)val;
-                break;
             case "seq":
                 this.seq = val == null ? 0 : (double)val;
                 break;
@@ -142,6 +139,9 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
                 break;
             case "lastName":
                 this.lastName = (String)val;
+                break;
+            case "id":
+                this.id = val == null ? 0 : (long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -159,23 +159,23 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
-        out.writeLong(this.objectId);
         out.writeDouble(this.seq);
         out.writeObject(this.role);
         out.writeObject(this.firstName);
         out.writeObject(this.middleName);
         out.writeObject(this.lastName);
+        out.writeLong(this.id);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
-        this.objectId = in.readLong();
         this.seq = in.readDouble();
         this.role = (String)in.readObject();
         this.firstName = (String)in.readObject();
         this.middleName = (String)in.readObject();
         this.lastName = (String)in.readObject();
+        this.id = in.readLong();
     }
 
 }

@@ -17,6 +17,9 @@ public abstract class _JournalSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String JOURNAL_ID_PK_COLUMN = "journal_id";
+    public static final String LOCALE_PK_COLUMN = "locale";
+    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

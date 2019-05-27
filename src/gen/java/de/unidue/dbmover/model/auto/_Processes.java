@@ -17,6 +17,7 @@ public abstract class _Processes extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String PROCESS_ID_PK_COLUMN = "process_id";
 
     public static final Property<String> PROCESS_ID = Property.create("processId", String.class);
     public static final Property<Short> PROCESS_TYPE = Property.create("processType", Short.class);

@@ -17,6 +17,9 @@ public abstract class _ReviewFormElementSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String LOCALE_PK_COLUMN = "locale";
+    public static final String REVIEW_FORM_ELEMENT_ID_PK_COLUMN = "review_form_element_id";
+    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> REVIEW_FORM_ELEMENT_ID = Property.create("reviewFormElementId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

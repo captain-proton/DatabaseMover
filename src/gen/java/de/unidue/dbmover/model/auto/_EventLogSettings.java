@@ -17,6 +17,8 @@ public abstract class _EventLogSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String LOG_ID_PK_COLUMN = "log_id";
+    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> LOG_ID = Property.create("logId", Long.class);
     public static final Property<String> SETTING_NAME = Property.create("settingName", String.class);

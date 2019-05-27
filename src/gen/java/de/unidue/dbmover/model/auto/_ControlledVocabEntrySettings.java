@@ -17,6 +17,9 @@ public abstract class _ControlledVocabEntrySettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String CONTROLLED_VOCAB_ENTRY_ID_PK_COLUMN = "controlled_vocab_entry_id";
+    public static final String LOCALE_PK_COLUMN = "locale";
+    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> CONTROLLED_VOCAB_ENTRY_ID = Property.create("controlledVocabEntryId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

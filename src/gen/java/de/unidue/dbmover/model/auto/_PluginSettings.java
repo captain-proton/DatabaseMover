@@ -17,6 +17,9 @@ public abstract class _PluginSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
+    public static final String CONTEXT_ID_PK_COLUMN = "context_id";
+    public static final String PLUGIN_NAME_PK_COLUMN = "plugin_name";
+    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<String> PLUGIN_NAME = Property.create("pluginName", String.class);
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
