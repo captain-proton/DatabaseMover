@@ -1,6 +1,6 @@
 package de.unidue.dbmover;
 
-import de.unidue.dbmover.cayenne.model.*;
+import org.apache.cayenne.datamap.*;
 import org.apache.cayenne.dba.TypesMapping;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
