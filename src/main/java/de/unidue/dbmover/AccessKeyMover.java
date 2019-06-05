@@ -61,8 +61,7 @@ public class AccessKeyMover {
 
             for (AccessKeys srcObject : accessKeys) {
 
-                AccessKeys dstObject = new AccessKeys();
-                dstObject.setAccessKeyId(srcObject.getAccessKeyId());
+                AccessKeys dstObject = destinationContext.newObject(AccessKeys.class);
 
                 for (Property property : properties) {
 
@@ -70,7 +69,6 @@ public class AccessKeyMover {
                     Object propertyValue = srcObject.readProperty(propertyName);
                     dstObject.writeProperty(propertyName, propertyValue);
                 }
-                destinationContext.registerNewObject(dstObject);
             }
             destinationContext.commitChanges();
 
