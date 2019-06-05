@@ -17,7 +17,6 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String GALLEY_ID_PK_COLUMN = "galley_id";
 
     public static final Property<String> LOCALE = Property.create("locale", String.class);
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
@@ -26,6 +25,7 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
     public static final Property<String> REMOTE_URL = Property.create("remoteUrl", String.class);
     public static final Property<Short> IS_APPROVED = Property.create("isApproved", Short.class);
+    public static final Property<Long> GALLEY_ID = Property.create("galleyId", Long.class);
 
     protected String locale;
     protected long submissionId;
@@ -34,6 +34,7 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
     protected double seq;
     protected String remoteUrl;
     protected short isApproved;
+    protected Long galleyId;
 
 
     public void setLocale(String locale) {
@@ -109,6 +110,16 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
         return this.isApproved;
     }
 
+    public void setGalleyId(Long galleyId) {
+        beforePropertyWrite("galleyId", this.galleyId, galleyId);
+        this.galleyId = galleyId;
+    }
+
+    public Long getGalleyId() {
+        beforePropertyRead("galleyId");
+        return this.galleyId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -130,6 +141,8 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
                 return this.remoteUrl;
             case "isApproved":
                 return this.isApproved;
+            case "galleyId":
+                return this.galleyId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -163,6 +176,9 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
             case "isApproved":
                 this.isApproved = val == null ? 0 : (short)val;
                 break;
+            case "galleyId":
+                this.galleyId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -186,6 +202,7 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
         out.writeDouble(this.seq);
         out.writeObject(this.remoteUrl);
         out.writeShort(this.isApproved);
+        out.writeObject(this.galleyId);
     }
 
     @Override
@@ -198,6 +215,7 @@ public abstract class _SubmissionGalleys extends BaseDataObject {
         this.seq = in.readDouble();
         this.remoteUrl = (String)in.readObject();
         this.isApproved = in.readShort();
+        this.galleyId = (Long)in.readObject();
     }
 
 }

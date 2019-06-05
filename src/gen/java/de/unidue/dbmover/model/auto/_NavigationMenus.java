@@ -17,15 +17,16 @@ public abstract class _NavigationMenus extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String NAVIGATION_MENU_ID_PK_COLUMN = "navigation_menu_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<String> AREA_NAME = Property.create("areaName", String.class);
     public static final Property<String> TITLE = Property.create("title", String.class);
+    public static final Property<Integer> NAVIGATION_MENU_ID = Property.create("navigationMenuId", Integer.class);
 
     protected long contextId;
     protected String areaName;
     protected String title;
+    protected Integer navigationMenuId;
 
 
     public void setContextId(long contextId) {
@@ -58,6 +59,16 @@ public abstract class _NavigationMenus extends BaseDataObject {
         return this.title;
     }
 
+    public void setNavigationMenuId(Integer navigationMenuId) {
+        beforePropertyWrite("navigationMenuId", this.navigationMenuId, navigationMenuId);
+        this.navigationMenuId = navigationMenuId;
+    }
+
+    public Integer getNavigationMenuId() {
+        beforePropertyRead("navigationMenuId");
+        return this.navigationMenuId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -71,6 +82,8 @@ public abstract class _NavigationMenus extends BaseDataObject {
                 return this.areaName;
             case "title":
                 return this.title;
+            case "navigationMenuId":
+                return this.navigationMenuId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -92,6 +105,9 @@ public abstract class _NavigationMenus extends BaseDataObject {
             case "title":
                 this.title = (String)val;
                 break;
+            case "navigationMenuId":
+                this.navigationMenuId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -111,6 +127,7 @@ public abstract class _NavigationMenus extends BaseDataObject {
         out.writeLong(this.contextId);
         out.writeObject(this.areaName);
         out.writeObject(this.title);
+        out.writeObject(this.navigationMenuId);
     }
 
     @Override
@@ -119,6 +136,7 @@ public abstract class _NavigationMenus extends BaseDataObject {
         this.contextId = in.readLong();
         this.areaName = (String)in.readObject();
         this.title = (String)in.readObject();
+        this.navigationMenuId = (Integer)in.readObject();
     }
 
 }

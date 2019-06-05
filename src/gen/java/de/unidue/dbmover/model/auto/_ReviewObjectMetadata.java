@@ -17,7 +17,6 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String METADATA_ID_PK_COLUMN = "metadata_id";
 
     public static final Property<Long> REVIEW_OBJECT_TYPE_ID = Property.create("reviewObjectTypeId", Long.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
@@ -25,6 +24,7 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
     public static final Property<Short> REQUIRED = Property.create("required", Short.class);
     public static final Property<Short> DISPLAY = Property.create("display", Short.class);
     public static final Property<String> METADATA_KEY = Property.create("metadataKey", String.class);
+    public static final Property<Integer> METADATA_ID = Property.create("metadataId", Integer.class);
 
     protected long reviewObjectTypeId;
     protected Double seq;
@@ -32,6 +32,7 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
     protected Short required;
     protected Short display;
     protected String metadataKey;
+    protected Integer metadataId;
 
 
     public void setReviewObjectTypeId(long reviewObjectTypeId) {
@@ -106,6 +107,16 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
         return this.metadataKey;
     }
 
+    public void setMetadataId(Integer metadataId) {
+        beforePropertyWrite("metadataId", this.metadataId, metadataId);
+        this.metadataId = metadataId;
+    }
+
+    public Integer getMetadataId() {
+        beforePropertyRead("metadataId");
+        return this.metadataId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -125,6 +136,8 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
                 return this.display;
             case "metadataKey":
                 return this.metadataKey;
+            case "metadataId":
+                return this.metadataId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -155,6 +168,9 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
             case "metadataKey":
                 this.metadataKey = (String)val;
                 break;
+            case "metadataId":
+                this.metadataId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -177,6 +193,7 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
         out.writeObject(this.required);
         out.writeObject(this.display);
         out.writeObject(this.metadataKey);
+        out.writeObject(this.metadataId);
     }
 
     @Override
@@ -188,6 +205,7 @@ public abstract class _ReviewObjectMetadata extends BaseDataObject {
         this.required = (Short)in.readObject();
         this.display = (Short)in.readObject();
         this.metadataKey = (String)in.readObject();
+        this.metadataId = (Integer)in.readObject();
     }
 
 }

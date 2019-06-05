@@ -18,7 +18,6 @@ public abstract class _CompletedPayments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String COMPLETED_PAYMENT_ID_PK_COLUMN = "completed_payment_id";
 
     public static final Property<LocalDateTime> TIMESTAMP = Property.create("timestamp", LocalDateTime.class);
     public static final Property<Long> PAYMENT_TYPE = Property.create("paymentType", Long.class);
@@ -28,6 +27,7 @@ public abstract class _CompletedPayments extends BaseDataObject {
     public static final Property<Double> AMOUNT = Property.create("amount", Double.class);
     public static final Property<String> CURRENCY_CODE_ALPHA = Property.create("currencyCodeAlpha", String.class);
     public static final Property<String> PAYMENT_METHOD_PLUGIN_NAME = Property.create("paymentMethodPluginName", String.class);
+    public static final Property<Long> COMPLETED_PAYMENT_ID = Property.create("completedPaymentId", Long.class);
 
     protected LocalDateTime timestamp;
     protected long paymentType;
@@ -37,6 +37,7 @@ public abstract class _CompletedPayments extends BaseDataObject {
     protected double amount;
     protected String currencyCodeAlpha;
     protected String paymentMethodPluginName;
+    protected Long completedPaymentId;
 
 
     public void setTimestamp(LocalDateTime timestamp) {
@@ -125,6 +126,16 @@ public abstract class _CompletedPayments extends BaseDataObject {
         return this.paymentMethodPluginName;
     }
 
+    public void setCompletedPaymentId(Long completedPaymentId) {
+        beforePropertyWrite("completedPaymentId", this.completedPaymentId, completedPaymentId);
+        this.completedPaymentId = completedPaymentId;
+    }
+
+    public Long getCompletedPaymentId() {
+        beforePropertyRead("completedPaymentId");
+        return this.completedPaymentId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -148,6 +159,8 @@ public abstract class _CompletedPayments extends BaseDataObject {
                 return this.currencyCodeAlpha;
             case "paymentMethodPluginName":
                 return this.paymentMethodPluginName;
+            case "completedPaymentId":
+                return this.completedPaymentId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -184,6 +197,9 @@ public abstract class _CompletedPayments extends BaseDataObject {
             case "paymentMethodPluginName":
                 this.paymentMethodPluginName = (String)val;
                 break;
+            case "completedPaymentId":
+                this.completedPaymentId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -208,6 +224,7 @@ public abstract class _CompletedPayments extends BaseDataObject {
         out.writeDouble(this.amount);
         out.writeObject(this.currencyCodeAlpha);
         out.writeObject(this.paymentMethodPluginName);
+        out.writeObject(this.completedPaymentId);
     }
 
     @Override
@@ -221,6 +238,7 @@ public abstract class _CompletedPayments extends BaseDataObject {
         this.amount = in.readDouble();
         this.currencyCodeAlpha = (String)in.readObject();
         this.paymentMethodPluginName = (String)in.readObject();
+        this.completedPaymentId = (Long)in.readObject();
     }
 
 }

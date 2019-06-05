@@ -17,7 +17,6 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String METADATA_DESCRIPTION_ID_PK_COLUMN = "metadata_description_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
@@ -25,6 +24,7 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
     public static final Property<String> SCHEMA_NAME = Property.create("schemaName", String.class);
     public static final Property<String> DISPLAY_NAME = Property.create("displayName", String.class);
     public static final Property<Long> SEQ = Property.create("seq", Long.class);
+    public static final Property<Long> METADATA_DESCRIPTION_ID = Property.create("metadataDescriptionId", Long.class);
 
     protected long assocType;
     protected long assocId;
@@ -32,6 +32,7 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
     protected String schemaName;
     protected String displayName;
     protected long seq;
+    protected Long metadataDescriptionId;
 
 
     public void setAssocType(long assocType) {
@@ -94,6 +95,16 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
         return this.seq;
     }
 
+    public void setMetadataDescriptionId(Long metadataDescriptionId) {
+        beforePropertyWrite("metadataDescriptionId", this.metadataDescriptionId, metadataDescriptionId);
+        this.metadataDescriptionId = metadataDescriptionId;
+    }
+
+    public Long getMetadataDescriptionId() {
+        beforePropertyRead("metadataDescriptionId");
+        return this.metadataDescriptionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -113,6 +124,8 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
                 return this.displayName;
             case "seq":
                 return this.seq;
+            case "metadataDescriptionId":
+                return this.metadataDescriptionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -143,6 +156,9 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
             case "seq":
                 this.seq = val == null ? 0 : (long)val;
                 break;
+            case "metadataDescriptionId":
+                this.metadataDescriptionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -165,6 +181,7 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
         out.writeObject(this.schemaName);
         out.writeObject(this.displayName);
         out.writeLong(this.seq);
+        out.writeObject(this.metadataDescriptionId);
     }
 
     @Override
@@ -176,6 +193,7 @@ public abstract class _MetadataDescriptions extends BaseDataObject {
         this.schemaName = (String)in.readObject();
         this.displayName = (String)in.readObject();
         this.seq = in.readLong();
+        this.metadataDescriptionId = (Long)in.readObject();
     }
 
 }

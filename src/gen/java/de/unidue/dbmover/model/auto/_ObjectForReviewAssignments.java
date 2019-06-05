@@ -18,7 +18,6 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String ASSIGNMENT_ID_PK_COLUMN = "assignment_id";
 
     public static final Property<Long> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Long.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
@@ -31,6 +30,7 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_REMINDED_BEFORE = Property.create("dateRemindedBefore", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_REMINDED_AFTER = Property.create("dateRemindedAfter", LocalDateTime.class);
     public static final Property<String> NOTES = Property.create("notes", String.class);
+    public static final Property<Integer> ASSIGNMENT_ID = Property.create("assignmentId", Integer.class);
 
     protected long objectIdentifier;
     protected Long userId;
@@ -43,6 +43,7 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
     protected LocalDateTime dateRemindedBefore;
     protected LocalDateTime dateRemindedAfter;
     protected String notes;
+    protected Integer assignmentId;
 
 
     public void setObjectIdentifier(long objectIdentifier) {
@@ -161,6 +162,16 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         return this.notes;
     }
 
+    public void setAssignmentId(Integer assignmentId) {
+        beforePropertyWrite("assignmentId", this.assignmentId, assignmentId);
+        this.assignmentId = assignmentId;
+    }
+
+    public Integer getAssignmentId() {
+        beforePropertyRead("assignmentId");
+        return this.assignmentId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -190,6 +201,8 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
                 return this.dateRemindedAfter;
             case "notes":
                 return this.notes;
+            case "assignmentId":
+                return this.assignmentId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -235,6 +248,9 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
             case "notes":
                 this.notes = (String)val;
                 break;
+            case "assignmentId":
+                this.assignmentId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -262,6 +278,7 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         out.writeObject(this.dateRemindedBefore);
         out.writeObject(this.dateRemindedAfter);
         out.writeObject(this.notes);
+        out.writeObject(this.assignmentId);
     }
 
     @Override
@@ -278,6 +295,7 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         this.dateRemindedBefore = (LocalDateTime)in.readObject();
         this.dateRemindedAfter = (LocalDateTime)in.readObject();
         this.notes = (String)in.readObject();
+        this.assignmentId = (Integer)in.readObject();
     }
 
 }

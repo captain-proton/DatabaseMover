@@ -18,19 +18,20 @@ public abstract class _DataObjectTombstones extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String TOMBSTONE_ID_PK_COLUMN = "tombstone_id";
 
     public static final Property<Long> DATA_OBJECT_ID = Property.create("dataObjectId", Long.class);
     public static final Property<LocalDateTime> DATE_DELETED = Property.create("dateDeleted", LocalDateTime.class);
     public static final Property<String> SET_SPEC = Property.create("setSpec", String.class);
     public static final Property<String> SET_NAME = Property.create("setName", String.class);
     public static final Property<String> OAI_IDENTIFIER = Property.create("oaiIdentifier", String.class);
+    public static final Property<Long> TOMBSTONE_ID = Property.create("tombstoneId", Long.class);
 
     protected long dataObjectId;
     protected LocalDateTime dateDeleted;
     protected String setSpec;
     protected String setName;
     protected String oaiIdentifier;
+    protected Long tombstoneId;
 
 
     public void setDataObjectId(long dataObjectId) {
@@ -83,6 +84,16 @@ public abstract class _DataObjectTombstones extends BaseDataObject {
         return this.oaiIdentifier;
     }
 
+    public void setTombstoneId(Long tombstoneId) {
+        beforePropertyWrite("tombstoneId", this.tombstoneId, tombstoneId);
+        this.tombstoneId = tombstoneId;
+    }
+
+    public Long getTombstoneId() {
+        beforePropertyRead("tombstoneId");
+        return this.tombstoneId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -100,6 +111,8 @@ public abstract class _DataObjectTombstones extends BaseDataObject {
                 return this.setName;
             case "oaiIdentifier":
                 return this.oaiIdentifier;
+            case "tombstoneId":
+                return this.tombstoneId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -127,6 +140,9 @@ public abstract class _DataObjectTombstones extends BaseDataObject {
             case "oaiIdentifier":
                 this.oaiIdentifier = (String)val;
                 break;
+            case "tombstoneId":
+                this.tombstoneId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -148,6 +164,7 @@ public abstract class _DataObjectTombstones extends BaseDataObject {
         out.writeObject(this.setSpec);
         out.writeObject(this.setName);
         out.writeObject(this.oaiIdentifier);
+        out.writeObject(this.tombstoneId);
     }
 
     @Override
@@ -158,6 +175,7 @@ public abstract class _DataObjectTombstones extends BaseDataObject {
         this.setSpec = (String)in.readObject();
         this.setName = (String)in.readObject();
         this.oaiIdentifier = (String)in.readObject();
+        this.tombstoneId = (Long)in.readObject();
     }
 
 }

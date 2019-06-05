@@ -18,7 +18,6 @@ public abstract class _BooksForReview extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String BOOK_ID_PK_COLUMN = "book_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Short> STATUS = Property.create("status", Short.class);
@@ -41,6 +40,7 @@ public abstract class _BooksForReview extends BaseDataObject {
     public static final Property<Long> EDITOR_ID = Property.create("editorId", Long.class);
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<String> NOTES = Property.create("notes", String.class);
+    public static final Property<Integer> BOOK_ID = Property.create("bookId", Integer.class);
 
     protected long journalId;
     protected short status;
@@ -63,6 +63,7 @@ public abstract class _BooksForReview extends BaseDataObject {
     protected Long editorId;
     protected Long submissionId;
     protected String notes;
+    protected Integer bookId;
 
 
     public void setJournalId(long journalId) {
@@ -290,6 +291,16 @@ public abstract class _BooksForReview extends BaseDataObject {
         return this.notes;
     }
 
+    public void setBookId(Integer bookId) {
+        beforePropertyWrite("bookId", this.bookId, bookId);
+        this.bookId = bookId;
+    }
+
+    public Integer getBookId() {
+        beforePropertyRead("bookId");
+        return this.bookId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -339,6 +350,8 @@ public abstract class _BooksForReview extends BaseDataObject {
                 return this.submissionId;
             case "notes":
                 return this.notes;
+            case "bookId":
+                return this.bookId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -414,6 +427,9 @@ public abstract class _BooksForReview extends BaseDataObject {
             case "notes":
                 this.notes = (String)val;
                 break;
+            case "bookId":
+                this.bookId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -451,6 +467,7 @@ public abstract class _BooksForReview extends BaseDataObject {
         out.writeObject(this.editorId);
         out.writeObject(this.submissionId);
         out.writeObject(this.notes);
+        out.writeObject(this.bookId);
     }
 
     @Override
@@ -477,6 +494,7 @@ public abstract class _BooksForReview extends BaseDataObject {
         this.editorId = (Long)in.readObject();
         this.submissionId = (Long)in.readObject();
         this.notes = (String)in.readObject();
+        this.bookId = (Integer)in.readObject();
     }
 
 }

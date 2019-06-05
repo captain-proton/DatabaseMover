@@ -18,7 +18,6 @@ public abstract class _ReviewAssignments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String REVIEW_ID_PK_COLUMN = "review_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Long> REVIEWER_ID = Property.create("reviewerId", Long.class);
@@ -46,6 +45,7 @@ public abstract class _ReviewAssignments extends BaseDataObject {
     public static final Property<Short> STEP = Property.create("step", Short.class);
     public static final Property<Long> REVIEW_FORM_ID = Property.create("reviewFormId", Long.class);
     public static final Property<Short> UNCONSIDERED = Property.create("unconsidered", Short.class);
+    public static final Property<Long> REVIEW_ID = Property.create("reviewId", Long.class);
 
     protected long submissionId;
     protected long reviewerId;
@@ -73,6 +73,7 @@ public abstract class _ReviewAssignments extends BaseDataObject {
     protected short step;
     protected Long reviewFormId;
     protected Short unconsidered;
+    protected Long reviewId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -353,6 +354,16 @@ public abstract class _ReviewAssignments extends BaseDataObject {
         return this.unconsidered;
     }
 
+    public void setReviewId(Long reviewId) {
+        beforePropertyWrite("reviewId", this.reviewId, reviewId);
+        this.reviewId = reviewId;
+    }
+
+    public Long getReviewId() {
+        beforePropertyRead("reviewId");
+        return this.reviewId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -412,6 +423,8 @@ public abstract class _ReviewAssignments extends BaseDataObject {
                 return this.reviewFormId;
             case "unconsidered":
                 return this.unconsidered;
+            case "reviewId":
+                return this.reviewId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -502,6 +515,9 @@ public abstract class _ReviewAssignments extends BaseDataObject {
             case "unconsidered":
                 this.unconsidered = (Short)val;
                 break;
+            case "reviewId":
+                this.reviewId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -544,6 +560,7 @@ public abstract class _ReviewAssignments extends BaseDataObject {
         out.writeShort(this.step);
         out.writeObject(this.reviewFormId);
         out.writeObject(this.unconsidered);
+        out.writeObject(this.reviewId);
     }
 
     @Override
@@ -575,6 +592,7 @@ public abstract class _ReviewAssignments extends BaseDataObject {
         this.step = in.readShort();
         this.reviewFormId = (Long)in.readObject();
         this.unconsidered = (Short)in.readObject();
+        this.reviewId = (Long)in.readObject();
     }
 
 }

@@ -17,7 +17,6 @@ public abstract class _Genres extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String GENRE_ID_PK_COLUMN = "genre_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<Long> SEQ = Property.create("seq", Long.class);
@@ -27,6 +26,7 @@ public abstract class _Genres extends BaseDataObject {
     public static final Property<Short> DEPENDENT = Property.create("dependent", Short.class);
     public static final Property<Short> SUPPLEMENTARY = Property.create("supplementary", Short.class);
     public static final Property<String> ENTRY_KEY = Property.create("entryKey", String.class);
+    public static final Property<Integer> GENRE_ID = Property.create("genreId", Integer.class);
 
     protected long contextId;
     protected Long seq;
@@ -36,6 +36,7 @@ public abstract class _Genres extends BaseDataObject {
     protected short dependent;
     protected Short supplementary;
     protected String entryKey;
+    protected Integer genreId;
 
 
     public void setContextId(long contextId) {
@@ -124,6 +125,16 @@ public abstract class _Genres extends BaseDataObject {
         return this.entryKey;
     }
 
+    public void setGenreId(Integer genreId) {
+        beforePropertyWrite("genreId", this.genreId, genreId);
+        this.genreId = genreId;
+    }
+
+    public Integer getGenreId() {
+        beforePropertyRead("genreId");
+        return this.genreId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -147,6 +158,8 @@ public abstract class _Genres extends BaseDataObject {
                 return this.supplementary;
             case "entryKey":
                 return this.entryKey;
+            case "genreId":
+                return this.genreId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -183,6 +196,9 @@ public abstract class _Genres extends BaseDataObject {
             case "entryKey":
                 this.entryKey = (String)val;
                 break;
+            case "genreId":
+                this.genreId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -207,6 +223,7 @@ public abstract class _Genres extends BaseDataObject {
         out.writeShort(this.dependent);
         out.writeObject(this.supplementary);
         out.writeObject(this.entryKey);
+        out.writeObject(this.genreId);
     }
 
     @Override
@@ -220,6 +237,7 @@ public abstract class _Genres extends BaseDataObject {
         this.dependent = in.readShort();
         this.supplementary = (Short)in.readObject();
         this.entryKey = (String)in.readObject();
+        this.genreId = (Integer)in.readObject();
     }
 
 }

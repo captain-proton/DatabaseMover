@@ -18,7 +18,6 @@ public abstract class _LibraryFiles extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String FILE_ID_PK_COLUMN = "file_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<String> FILE_NAME = Property.create("fileName", String.class);
@@ -29,6 +28,7 @@ public abstract class _LibraryFiles extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_UPLOADED = Property.create("dateUploaded", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_MODIFIED = Property.create("dateModified", LocalDateTime.class);
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
+    public static final Property<Integer> FILE_ID = Property.create("fileId", Integer.class);
 
     protected long contextId;
     protected String fileName;
@@ -39,6 +39,7 @@ public abstract class _LibraryFiles extends BaseDataObject {
     protected LocalDateTime dateUploaded;
     protected LocalDateTime dateModified;
     protected long submissionId;
+    protected Integer fileId;
 
 
     public void setContextId(long contextId) {
@@ -131,6 +132,16 @@ public abstract class _LibraryFiles extends BaseDataObject {
         return this.submissionId;
     }
 
+    public void setFileId(Integer fileId) {
+        beforePropertyWrite("fileId", this.fileId, fileId);
+        this.fileId = fileId;
+    }
+
+    public Integer getFileId() {
+        beforePropertyRead("fileId");
+        return this.fileId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -156,6 +167,8 @@ public abstract class _LibraryFiles extends BaseDataObject {
                 return this.dateModified;
             case "submissionId":
                 return this.submissionId;
+            case "fileId":
+                return this.fileId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -195,6 +208,9 @@ public abstract class _LibraryFiles extends BaseDataObject {
             case "submissionId":
                 this.submissionId = val == null ? 0 : (long)val;
                 break;
+            case "fileId":
+                this.fileId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -220,6 +236,7 @@ public abstract class _LibraryFiles extends BaseDataObject {
         out.writeObject(this.dateUploaded);
         out.writeObject(this.dateModified);
         out.writeLong(this.submissionId);
+        out.writeObject(this.fileId);
     }
 
     @Override
@@ -234,6 +251,7 @@ public abstract class _LibraryFiles extends BaseDataObject {
         this.dateUploaded = (LocalDateTime)in.readObject();
         this.dateModified = (LocalDateTime)in.readObject();
         this.submissionId = in.readLong();
+        this.fileId = (Integer)in.readObject();
     }
 
 }

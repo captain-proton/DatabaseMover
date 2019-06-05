@@ -17,7 +17,6 @@ public abstract class _DataverseStudies extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String STUDY_ID_PK_COLUMN = "study_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<String> EDIT_URI = Property.create("editUri", String.class);
@@ -25,6 +24,7 @@ public abstract class _DataverseStudies extends BaseDataObject {
     public static final Property<String> STATEMENT_URI = Property.create("statementUri", String.class);
     public static final Property<String> PERSISTENT_URI = Property.create("persistentUri", String.class);
     public static final Property<String> DATA_CITATION = Property.create("dataCitation", String.class);
+    public static final Property<Integer> STUDY_ID = Property.create("studyId", Integer.class);
 
     protected long submissionId;
     protected String editUri;
@@ -32,6 +32,7 @@ public abstract class _DataverseStudies extends BaseDataObject {
     protected String statementUri;
     protected String persistentUri;
     protected String dataCitation;
+    protected Integer studyId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -94,6 +95,16 @@ public abstract class _DataverseStudies extends BaseDataObject {
         return this.dataCitation;
     }
 
+    public void setStudyId(Integer studyId) {
+        beforePropertyWrite("studyId", this.studyId, studyId);
+        this.studyId = studyId;
+    }
+
+    public Integer getStudyId() {
+        beforePropertyRead("studyId");
+        return this.studyId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -113,6 +124,8 @@ public abstract class _DataverseStudies extends BaseDataObject {
                 return this.persistentUri;
             case "dataCitation":
                 return this.dataCitation;
+            case "studyId":
+                return this.studyId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -143,6 +156,9 @@ public abstract class _DataverseStudies extends BaseDataObject {
             case "dataCitation":
                 this.dataCitation = (String)val;
                 break;
+            case "studyId":
+                this.studyId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -165,6 +181,7 @@ public abstract class _DataverseStudies extends BaseDataObject {
         out.writeObject(this.statementUri);
         out.writeObject(this.persistentUri);
         out.writeObject(this.dataCitation);
+        out.writeObject(this.studyId);
     }
 
     @Override
@@ -176,6 +193,7 @@ public abstract class _DataverseStudies extends BaseDataObject {
         this.statementUri = (String)in.readObject();
         this.persistentUri = (String)in.readObject();
         this.dataCitation = (String)in.readObject();
+        this.studyId = (Integer)in.readObject();
     }
 
 }

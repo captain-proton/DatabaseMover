@@ -18,19 +18,20 @@ public abstract class _Announcements extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String ANNOUNCEMENT_ID_PK_COLUMN = "announcement_id";
 
     public static final Property<Short> ASSOC_TYPE = Property.create("assocType", Short.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
     public static final Property<Long> TYPE_ID = Property.create("typeId", Long.class);
     public static final Property<LocalDateTime> DATE_EXPIRE = Property.create("dateExpire", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_POSTED = Property.create("datePosted", LocalDateTime.class);
+    public static final Property<Long> ANNOUNCEMENT_ID = Property.create("announcementId", Long.class);
 
     protected Short assocType;
     protected long assocId;
     protected Long typeId;
     protected LocalDateTime dateExpire;
     protected LocalDateTime datePosted;
+    protected Long announcementId;
 
 
     public void setAssocType(short assocType) {
@@ -89,6 +90,16 @@ public abstract class _Announcements extends BaseDataObject {
         return this.datePosted;
     }
 
+    public void setAnnouncementId(Long announcementId) {
+        beforePropertyWrite("announcementId", this.announcementId, announcementId);
+        this.announcementId = announcementId;
+    }
+
+    public Long getAnnouncementId() {
+        beforePropertyRead("announcementId");
+        return this.announcementId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -106,6 +117,8 @@ public abstract class _Announcements extends BaseDataObject {
                 return this.dateExpire;
             case "datePosted":
                 return this.datePosted;
+            case "announcementId":
+                return this.announcementId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -133,6 +146,9 @@ public abstract class _Announcements extends BaseDataObject {
             case "datePosted":
                 this.datePosted = (LocalDateTime)val;
                 break;
+            case "announcementId":
+                this.announcementId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -154,6 +170,7 @@ public abstract class _Announcements extends BaseDataObject {
         out.writeObject(this.typeId);
         out.writeObject(this.dateExpire);
         out.writeObject(this.datePosted);
+        out.writeObject(this.announcementId);
     }
 
     @Override
@@ -164,6 +181,7 @@ public abstract class _Announcements extends BaseDataObject {
         this.typeId = (Long)in.readObject();
         this.dateExpire = (LocalDateTime)in.readObject();
         this.datePosted = (LocalDateTime)in.readObject();
+        this.announcementId = (Long)in.readObject();
     }
 
 }

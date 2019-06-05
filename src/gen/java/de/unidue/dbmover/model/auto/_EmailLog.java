@@ -18,7 +18,6 @@ public abstract class _EmailLog extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String LOG_ID_PK_COLUMN = "log_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
@@ -32,6 +31,7 @@ public abstract class _EmailLog extends BaseDataObject {
     public static final Property<String> BCC_RECIPIENTS = Property.create("bccRecipients", String.class);
     public static final Property<String> SUBJECT = Property.create("subject", String.class);
     public static final Property<String> BODY = Property.create("body", String.class);
+    public static final Property<Long> LOG_ID = Property.create("logId", Long.class);
 
     protected Long assocType;
     protected Long assocId;
@@ -45,6 +45,7 @@ public abstract class _EmailLog extends BaseDataObject {
     protected String bccRecipients;
     protected String subject;
     protected String body;
+    protected Long logId;
 
 
     public void setAssocType(long assocType) {
@@ -176,6 +177,16 @@ public abstract class _EmailLog extends BaseDataObject {
         return this.body;
     }
 
+    public void setLogId(Long logId) {
+        beforePropertyWrite("logId", this.logId, logId);
+        this.logId = logId;
+    }
+
+    public Long getLogId() {
+        beforePropertyRead("logId");
+        return this.logId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -207,6 +218,8 @@ public abstract class _EmailLog extends BaseDataObject {
                 return this.subject;
             case "body":
                 return this.body;
+            case "logId":
+                return this.logId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -255,6 +268,9 @@ public abstract class _EmailLog extends BaseDataObject {
             case "body":
                 this.body = (String)val;
                 break;
+            case "logId":
+                this.logId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -283,6 +299,7 @@ public abstract class _EmailLog extends BaseDataObject {
         out.writeObject(this.bccRecipients);
         out.writeObject(this.subject);
         out.writeObject(this.body);
+        out.writeObject(this.logId);
     }
 
     @Override
@@ -300,6 +317,7 @@ public abstract class _EmailLog extends BaseDataObject {
         this.bccRecipients = (String)in.readObject();
         this.subject = (String)in.readObject();
         this.body = (String)in.readObject();
+        this.logId = (Long)in.readObject();
     }
 
 }

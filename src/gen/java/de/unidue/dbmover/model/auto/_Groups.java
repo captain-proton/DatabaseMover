@@ -17,7 +17,6 @@ public abstract class _Groups extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String GROUP_ID_PK_COLUMN = "group_id";
 
     public static final Property<Short> ASSOC_TYPE = Property.create("assocType", Short.class);
     public static final Property<Short> PUBLISH_EMAIL = Property.create("publishEmail", Short.class);
@@ -25,6 +24,7 @@ public abstract class _Groups extends BaseDataObject {
     public static final Property<Long> CONTEXT = Property.create("context", Long.class);
     public static final Property<Short> ABOUT_DISPLAYED = Property.create("aboutDisplayed", Short.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
+    public static final Property<Integer> GROUP_ID = Property.create("groupId", Integer.class);
 
     protected Short assocType;
     protected Short publishEmail;
@@ -32,6 +32,7 @@ public abstract class _Groups extends BaseDataObject {
     protected Long context;
     protected short aboutDisplayed;
     protected double seq;
+    protected Integer groupId;
 
 
     public void setAssocType(short assocType) {
@@ -106,6 +107,16 @@ public abstract class _Groups extends BaseDataObject {
         return this.seq;
     }
 
+    public void setGroupId(Integer groupId) {
+        beforePropertyWrite("groupId", this.groupId, groupId);
+        this.groupId = groupId;
+    }
+
+    public Integer getGroupId() {
+        beforePropertyRead("groupId");
+        return this.groupId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -125,6 +136,8 @@ public abstract class _Groups extends BaseDataObject {
                 return this.aboutDisplayed;
             case "seq":
                 return this.seq;
+            case "groupId":
+                return this.groupId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -155,6 +168,9 @@ public abstract class _Groups extends BaseDataObject {
             case "seq":
                 this.seq = val == null ? 0 : (double)val;
                 break;
+            case "groupId":
+                this.groupId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -177,6 +193,7 @@ public abstract class _Groups extends BaseDataObject {
         out.writeObject(this.context);
         out.writeShort(this.aboutDisplayed);
         out.writeDouble(this.seq);
+        out.writeObject(this.groupId);
     }
 
     @Override
@@ -188,6 +205,7 @@ public abstract class _Groups extends BaseDataObject {
         this.context = (Long)in.readObject();
         this.aboutDisplayed = in.readShort();
         this.seq = in.readDouble();
+        this.groupId = (Integer)in.readObject();
     }
 
 }

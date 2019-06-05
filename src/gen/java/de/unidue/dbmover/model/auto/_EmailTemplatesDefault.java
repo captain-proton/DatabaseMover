@@ -17,19 +17,20 @@ public abstract class _EmailTemplatesDefault extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String EMAIL_ID_PK_COLUMN = "email_id";
 
     public static final Property<String> EMAIL_KEY = Property.create("emailKey", String.class);
     public static final Property<Short> CAN_DISABLE = Property.create("canDisable", Short.class);
     public static final Property<Short> CAN_EDIT = Property.create("canEdit", Short.class);
     public static final Property<Long> FROM_ROLE_ID = Property.create("fromRoleId", Long.class);
     public static final Property<Long> TO_ROLE_ID = Property.create("toRoleId", Long.class);
+    public static final Property<Long> EMAIL_ID = Property.create("emailId", Long.class);
 
     protected String emailKey;
     protected short canDisable;
     protected short canEdit;
     protected Long fromRoleId;
     protected Long toRoleId;
+    protected Long emailId;
 
 
     public void setEmailKey(String emailKey) {
@@ -88,6 +89,16 @@ public abstract class _EmailTemplatesDefault extends BaseDataObject {
         return this.toRoleId;
     }
 
+    public void setEmailId(Long emailId) {
+        beforePropertyWrite("emailId", this.emailId, emailId);
+        this.emailId = emailId;
+    }
+
+    public Long getEmailId() {
+        beforePropertyRead("emailId");
+        return this.emailId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -105,6 +116,8 @@ public abstract class _EmailTemplatesDefault extends BaseDataObject {
                 return this.fromRoleId;
             case "toRoleId":
                 return this.toRoleId;
+            case "emailId":
+                return this.emailId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -132,6 +145,9 @@ public abstract class _EmailTemplatesDefault extends BaseDataObject {
             case "toRoleId":
                 this.toRoleId = (Long)val;
                 break;
+            case "emailId":
+                this.emailId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -153,6 +169,7 @@ public abstract class _EmailTemplatesDefault extends BaseDataObject {
         out.writeShort(this.canEdit);
         out.writeObject(this.fromRoleId);
         out.writeObject(this.toRoleId);
+        out.writeObject(this.emailId);
     }
 
     @Override
@@ -163,6 +180,7 @@ public abstract class _EmailTemplatesDefault extends BaseDataObject {
         this.canEdit = in.readShort();
         this.fromRoleId = (Long)in.readObject();
         this.toRoleId = (Long)in.readObject();
+        this.emailId = (Long)in.readObject();
     }
 
 }

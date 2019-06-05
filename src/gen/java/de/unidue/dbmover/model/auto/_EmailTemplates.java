@@ -17,17 +17,18 @@ public abstract class _EmailTemplates extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String EMAIL_ID_PK_COLUMN = "email_id";
 
     public static final Property<String> EMAIL_KEY = Property.create("emailKey", String.class);
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
     public static final Property<Short> ENABLED = Property.create("enabled", Short.class);
+    public static final Property<Long> EMAIL_ID = Property.create("emailId", Long.class);
 
     protected String emailKey;
     protected Long assocType;
     protected Long assocId;
     protected short enabled;
+    protected Long emailId;
 
 
     public void setEmailKey(String emailKey) {
@@ -76,6 +77,16 @@ public abstract class _EmailTemplates extends BaseDataObject {
         return this.enabled;
     }
 
+    public void setEmailId(Long emailId) {
+        beforePropertyWrite("emailId", this.emailId, emailId);
+        this.emailId = emailId;
+    }
+
+    public Long getEmailId() {
+        beforePropertyRead("emailId");
+        return this.emailId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -91,6 +102,8 @@ public abstract class _EmailTemplates extends BaseDataObject {
                 return this.assocId;
             case "enabled":
                 return this.enabled;
+            case "emailId":
+                return this.emailId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -115,6 +128,9 @@ public abstract class _EmailTemplates extends BaseDataObject {
             case "enabled":
                 this.enabled = val == null ? 0 : (short)val;
                 break;
+            case "emailId":
+                this.emailId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -135,6 +151,7 @@ public abstract class _EmailTemplates extends BaseDataObject {
         out.writeObject(this.assocType);
         out.writeObject(this.assocId);
         out.writeShort(this.enabled);
+        out.writeObject(this.emailId);
     }
 
     @Override
@@ -144,6 +161,7 @@ public abstract class _EmailTemplates extends BaseDataObject {
         this.assocType = (Long)in.readObject();
         this.assocId = (Long)in.readObject();
         this.enabled = in.readShort();
+        this.emailId = (Long)in.readObject();
     }
 
 }

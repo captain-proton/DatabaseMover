@@ -17,7 +17,6 @@ public abstract class _RtSearches extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String SEARCH_ID_PK_COLUMN = "search_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<String> TITLE = Property.create("title", String.class);
@@ -26,6 +25,7 @@ public abstract class _RtSearches extends BaseDataObject {
     public static final Property<String> SEARCH_URL = Property.create("searchUrl", String.class);
     public static final Property<String> SEARCH_POST = Property.create("searchPost", String.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
+    public static final Property<Long> SEARCH_ID = Property.create("searchId", Long.class);
 
     protected long contextId;
     protected String title;
@@ -34,6 +34,7 @@ public abstract class _RtSearches extends BaseDataObject {
     protected String searchUrl;
     protected String searchPost;
     protected double seq;
+    protected Long searchId;
 
 
     public void setContextId(long contextId) {
@@ -106,6 +107,16 @@ public abstract class _RtSearches extends BaseDataObject {
         return this.seq;
     }
 
+    public void setSearchId(Long searchId) {
+        beforePropertyWrite("searchId", this.searchId, searchId);
+        this.searchId = searchId;
+    }
+
+    public Long getSearchId() {
+        beforePropertyRead("searchId");
+        return this.searchId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -127,6 +138,8 @@ public abstract class _RtSearches extends BaseDataObject {
                 return this.searchPost;
             case "seq":
                 return this.seq;
+            case "searchId":
+                return this.searchId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -160,6 +173,9 @@ public abstract class _RtSearches extends BaseDataObject {
             case "seq":
                 this.seq = val == null ? 0 : (double)val;
                 break;
+            case "searchId":
+                this.searchId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -183,6 +199,7 @@ public abstract class _RtSearches extends BaseDataObject {
         out.writeObject(this.searchUrl);
         out.writeObject(this.searchPost);
         out.writeDouble(this.seq);
+        out.writeObject(this.searchId);
     }
 
     @Override
@@ -195,6 +212,7 @@ public abstract class _RtSearches extends BaseDataObject {
         this.searchUrl = (String)in.readObject();
         this.searchPost = (String)in.readObject();
         this.seq = in.readDouble();
+        this.searchId = (Long)in.readObject();
     }
 
 }

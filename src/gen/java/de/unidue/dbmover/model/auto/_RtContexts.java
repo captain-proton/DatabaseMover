@@ -17,7 +17,6 @@ public abstract class _RtContexts extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CONTEXT_ID_PK_COLUMN = "context_id";
 
     public static final Property<Long> VERSION_ID = Property.create("versionId", Long.class);
     public static final Property<String> TITLE = Property.create("title", String.class);
@@ -28,6 +27,7 @@ public abstract class _RtContexts extends BaseDataObject {
     public static final Property<Short> DEFINE_TERMS = Property.create("defineTerms", Short.class);
     public static final Property<Short> GEO_TERMS = Property.create("geoTerms", Short.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
+    public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
 
     protected long versionId;
     protected String title;
@@ -38,6 +38,7 @@ public abstract class _RtContexts extends BaseDataObject {
     protected short defineTerms;
     protected short geoTerms;
     protected double seq;
+    protected Long contextId;
 
 
     public void setVersionId(long versionId) {
@@ -130,6 +131,16 @@ public abstract class _RtContexts extends BaseDataObject {
         return this.seq;
     }
 
+    public void setContextId(Long contextId) {
+        beforePropertyWrite("contextId", this.contextId, contextId);
+        this.contextId = contextId;
+    }
+
+    public Long getContextId() {
+        beforePropertyRead("contextId");
+        return this.contextId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -155,6 +166,8 @@ public abstract class _RtContexts extends BaseDataObject {
                 return this.geoTerms;
             case "seq":
                 return this.seq;
+            case "contextId":
+                return this.contextId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -194,6 +207,9 @@ public abstract class _RtContexts extends BaseDataObject {
             case "seq":
                 this.seq = val == null ? 0 : (double)val;
                 break;
+            case "contextId":
+                this.contextId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -219,6 +235,7 @@ public abstract class _RtContexts extends BaseDataObject {
         out.writeShort(this.defineTerms);
         out.writeShort(this.geoTerms);
         out.writeDouble(this.seq);
+        out.writeObject(this.contextId);
     }
 
     @Override
@@ -233,6 +250,7 @@ public abstract class _RtContexts extends BaseDataObject {
         this.defineTerms = in.readShort();
         this.geoTerms = in.readShort();
         this.seq = in.readDouble();
+        this.contextId = (Long)in.readObject();
     }
 
 }

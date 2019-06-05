@@ -17,17 +17,18 @@ public abstract class _InstitutionalSubscriptionIp extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String INSTITUTIONAL_SUBSCRIPTION_IP_ID_PK_COLUMN = "institutional_subscription_ip_id";
 
     public static final Property<Long> SUBSCRIPTION_ID = Property.create("subscriptionId", Long.class);
     public static final Property<String> IP_STRING = Property.create("ipString", String.class);
     public static final Property<Long> IP_START = Property.create("ipStart", Long.class);
     public static final Property<Long> IP_END = Property.create("ipEnd", Long.class);
+    public static final Property<Long> INSTITUTIONAL_SUBSCRIPTION_IP_ID = Property.create("institutionalSubscriptionIpId", Long.class);
 
     protected long subscriptionId;
     protected String ipString;
     protected long ipStart;
     protected Long ipEnd;
+    protected Long institutionalSubscriptionIpId;
 
 
     public void setSubscriptionId(long subscriptionId) {
@@ -73,6 +74,16 @@ public abstract class _InstitutionalSubscriptionIp extends BaseDataObject {
         return this.ipEnd;
     }
 
+    public void setInstitutionalSubscriptionIpId(Long institutionalSubscriptionIpId) {
+        beforePropertyWrite("institutionalSubscriptionIpId", this.institutionalSubscriptionIpId, institutionalSubscriptionIpId);
+        this.institutionalSubscriptionIpId = institutionalSubscriptionIpId;
+    }
+
+    public Long getInstitutionalSubscriptionIpId() {
+        beforePropertyRead("institutionalSubscriptionIpId");
+        return this.institutionalSubscriptionIpId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -88,6 +99,8 @@ public abstract class _InstitutionalSubscriptionIp extends BaseDataObject {
                 return this.ipStart;
             case "ipEnd":
                 return this.ipEnd;
+            case "institutionalSubscriptionIpId":
+                return this.institutionalSubscriptionIpId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -112,6 +125,9 @@ public abstract class _InstitutionalSubscriptionIp extends BaseDataObject {
             case "ipEnd":
                 this.ipEnd = (Long)val;
                 break;
+            case "institutionalSubscriptionIpId":
+                this.institutionalSubscriptionIpId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -132,6 +148,7 @@ public abstract class _InstitutionalSubscriptionIp extends BaseDataObject {
         out.writeObject(this.ipString);
         out.writeLong(this.ipStart);
         out.writeObject(this.ipEnd);
+        out.writeObject(this.institutionalSubscriptionIpId);
     }
 
     @Override
@@ -141,6 +158,7 @@ public abstract class _InstitutionalSubscriptionIp extends BaseDataObject {
         this.ipString = (String)in.readObject();
         this.ipStart = in.readLong();
         this.ipEnd = (Long)in.readObject();
+        this.institutionalSubscriptionIpId = (Long)in.readObject();
     }
 
 }

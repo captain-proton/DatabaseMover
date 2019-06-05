@@ -17,15 +17,16 @@ public abstract class _DataObjectTombstoneOaiSetObjects extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String OBJECT_ID_PK_COLUMN = "object_id";
 
     public static final Property<Long> TOMBSTONE_ID = Property.create("tombstoneId", Long.class);
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
+    public static final Property<Long> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Long.class);
 
     protected long tombstoneId;
     protected long assocType;
     protected long assocId;
+    protected Long objectIdentifier;
 
 
     public void setTombstoneId(long tombstoneId) {
@@ -58,6 +59,16 @@ public abstract class _DataObjectTombstoneOaiSetObjects extends BaseDataObject {
         return this.assocId;
     }
 
+    public void setObjectIdentifier(Long objectIdentifier) {
+        beforePropertyWrite("objectIdentifier", this.objectIdentifier, objectIdentifier);
+        this.objectIdentifier = objectIdentifier;
+    }
+
+    public Long getObjectIdentifier() {
+        beforePropertyRead("objectIdentifier");
+        return this.objectIdentifier;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -71,6 +82,8 @@ public abstract class _DataObjectTombstoneOaiSetObjects extends BaseDataObject {
                 return this.assocType;
             case "assocId":
                 return this.assocId;
+            case "objectIdentifier":
+                return this.objectIdentifier;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -92,6 +105,9 @@ public abstract class _DataObjectTombstoneOaiSetObjects extends BaseDataObject {
             case "assocId":
                 this.assocId = val == null ? 0 : (long)val;
                 break;
+            case "objectIdentifier":
+                this.objectIdentifier = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -111,6 +127,7 @@ public abstract class _DataObjectTombstoneOaiSetObjects extends BaseDataObject {
         out.writeLong(this.tombstoneId);
         out.writeLong(this.assocType);
         out.writeLong(this.assocId);
+        out.writeObject(this.objectIdentifier);
     }
 
     @Override
@@ -119,6 +136,7 @@ public abstract class _DataObjectTombstoneOaiSetObjects extends BaseDataObject {
         this.tombstoneId = in.readLong();
         this.assocType = in.readLong();
         this.assocId = in.readLong();
+        this.objectIdentifier = (Long)in.readObject();
     }
 
 }

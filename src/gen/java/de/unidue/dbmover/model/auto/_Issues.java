@@ -18,7 +18,6 @@ public abstract class _Issues extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String ISSUE_ID_PK_COLUMN = "issue_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Short> VOLUME = Property.create("volume", Short.class);
@@ -37,6 +36,7 @@ public abstract class _Issues extends BaseDataObject {
     public static final Property<Short> SHOW_TITLE = Property.create("showTitle", Short.class);
     public static final Property<String> STYLE_FILE_NAME = Property.create("styleFileName", String.class);
     public static final Property<String> ORIGINAL_STYLE_FILE_NAME = Property.create("originalStyleFileName", String.class);
+    public static final Property<Long> ISSUE_ID = Property.create("issueId", Long.class);
 
     protected long journalId;
     protected Short volume;
@@ -55,6 +55,7 @@ public abstract class _Issues extends BaseDataObject {
     protected short showTitle;
     protected String styleFileName;
     protected String originalStyleFileName;
+    protected Long issueId;
 
 
     public void setJournalId(long journalId) {
@@ -233,6 +234,16 @@ public abstract class _Issues extends BaseDataObject {
         return this.originalStyleFileName;
     }
 
+    public void setIssueId(Long issueId) {
+        beforePropertyWrite("issueId", this.issueId, issueId);
+        this.issueId = issueId;
+    }
+
+    public Long getIssueId() {
+        beforePropertyRead("issueId");
+        return this.issueId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -274,6 +285,8 @@ public abstract class _Issues extends BaseDataObject {
                 return this.styleFileName;
             case "originalStyleFileName":
                 return this.originalStyleFileName;
+            case "issueId":
+                return this.issueId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -337,6 +350,9 @@ public abstract class _Issues extends BaseDataObject {
             case "originalStyleFileName":
                 this.originalStyleFileName = (String)val;
                 break;
+            case "issueId":
+                this.issueId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -370,6 +386,7 @@ public abstract class _Issues extends BaseDataObject {
         out.writeShort(this.showTitle);
         out.writeObject(this.styleFileName);
         out.writeObject(this.originalStyleFileName);
+        out.writeObject(this.issueId);
     }
 
     @Override
@@ -392,6 +409,7 @@ public abstract class _Issues extends BaseDataObject {
         this.showTitle = in.readShort();
         this.styleFileName = (String)in.readObject();
         this.originalStyleFileName = (String)in.readObject();
+        this.issueId = (Long)in.readObject();
     }
 
 }

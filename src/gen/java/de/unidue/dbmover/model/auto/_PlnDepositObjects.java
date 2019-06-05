@@ -18,7 +18,6 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String DEPOSIT_OBJECT_ID_PK_COLUMN = "deposit_object_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Long> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Long.class);
@@ -26,6 +25,7 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
     public static final Property<Long> DEPOSIT_ID = Property.create("depositId", Long.class);
     public static final Property<LocalDateTime> DATE_CREATED = Property.create("dateCreated", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_MODIFIED = Property.create("dateModified", LocalDateTime.class);
+    public static final Property<Integer> DEPOSIT_OBJECT_ID = Property.create("depositObjectId", Integer.class);
 
     protected long journalId;
     protected long objectIdentifier;
@@ -33,6 +33,7 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
     protected Long depositId;
     protected LocalDateTime dateCreated;
     protected LocalDateTime dateModified;
+    protected Integer depositObjectId;
 
 
     public void setJournalId(long journalId) {
@@ -98,6 +99,16 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
         return this.dateModified;
     }
 
+    public void setDepositObjectId(Integer depositObjectId) {
+        beforePropertyWrite("depositObjectId", this.depositObjectId, depositObjectId);
+        this.depositObjectId = depositObjectId;
+    }
+
+    public Integer getDepositObjectId() {
+        beforePropertyRead("depositObjectId");
+        return this.depositObjectId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -117,6 +128,8 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
                 return this.dateCreated;
             case "dateModified":
                 return this.dateModified;
+            case "depositObjectId":
+                return this.depositObjectId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -147,6 +160,9 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
             case "dateModified":
                 this.dateModified = (LocalDateTime)val;
                 break;
+            case "depositObjectId":
+                this.depositObjectId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -169,6 +185,7 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
         out.writeObject(this.depositId);
         out.writeObject(this.dateCreated);
         out.writeObject(this.dateModified);
+        out.writeObject(this.depositObjectId);
     }
 
     @Override
@@ -180,6 +197,7 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
         this.depositId = (Long)in.readObject();
         this.dateCreated = (LocalDateTime)in.readObject();
         this.dateModified = (LocalDateTime)in.readObject();
+        this.depositObjectId = (Integer)in.readObject();
     }
 
 }

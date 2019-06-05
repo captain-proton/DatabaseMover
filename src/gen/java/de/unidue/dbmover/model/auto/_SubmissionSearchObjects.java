@@ -17,15 +17,16 @@ public abstract class _SubmissionSearchObjects extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String OBJECT_ID_PK_COLUMN = "object_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Integer> TYPE = Property.create("type", Integer.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
+    public static final Property<Long> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Long.class);
 
     protected long submissionId;
     protected int type;
     protected Long assocId;
+    protected Long objectIdentifier;
 
 
     public void setSubmissionId(long submissionId) {
@@ -61,6 +62,16 @@ public abstract class _SubmissionSearchObjects extends BaseDataObject {
         return this.assocId;
     }
 
+    public void setObjectIdentifier(Long objectIdentifier) {
+        beforePropertyWrite("objectIdentifier", this.objectIdentifier, objectIdentifier);
+        this.objectIdentifier = objectIdentifier;
+    }
+
+    public Long getObjectIdentifier() {
+        beforePropertyRead("objectIdentifier");
+        return this.objectIdentifier;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -74,6 +85,8 @@ public abstract class _SubmissionSearchObjects extends BaseDataObject {
                 return this.type;
             case "assocId":
                 return this.assocId;
+            case "objectIdentifier":
+                return this.objectIdentifier;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -95,6 +108,9 @@ public abstract class _SubmissionSearchObjects extends BaseDataObject {
             case "assocId":
                 this.assocId = (Long)val;
                 break;
+            case "objectIdentifier":
+                this.objectIdentifier = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -114,6 +130,7 @@ public abstract class _SubmissionSearchObjects extends BaseDataObject {
         out.writeLong(this.submissionId);
         out.writeInt(this.type);
         out.writeObject(this.assocId);
+        out.writeObject(this.objectIdentifier);
     }
 
     @Override
@@ -122,6 +139,7 @@ public abstract class _SubmissionSearchObjects extends BaseDataObject {
         this.submissionId = in.readLong();
         this.type = in.readInt();
         this.assocId = (Long)in.readObject();
+        this.objectIdentifier = (Long)in.readObject();
     }
 
 }

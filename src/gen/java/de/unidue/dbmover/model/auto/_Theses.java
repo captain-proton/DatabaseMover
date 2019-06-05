@@ -18,7 +18,6 @@ public abstract class _Theses extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String THESIS_ID_PK_COLUMN = "thesis_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Short> STATUS = Property.create("status", Short.class);
@@ -50,6 +49,7 @@ public abstract class _Theses extends BaseDataObject {
     public static final Property<String> METHOD = Property.create("method", String.class);
     public static final Property<String> LANGUAGE = Property.create("language", String.class);
     public static final Property<LocalDateTime> DATE_SUBMITTED = Property.create("dateSubmitted", LocalDateTime.class);
+    public static final Property<Integer> THESIS_ID = Property.create("thesisId", Integer.class);
 
     protected long journalId;
     protected short status;
@@ -81,6 +81,7 @@ public abstract class _Theses extends BaseDataObject {
     protected String method;
     protected String language;
     protected LocalDateTime dateSubmitted;
+    protected Integer thesisId;
 
 
     public void setJournalId(long journalId) {
@@ -386,6 +387,16 @@ public abstract class _Theses extends BaseDataObject {
         return this.dateSubmitted;
     }
 
+    public void setThesisId(Integer thesisId) {
+        beforePropertyWrite("thesisId", this.thesisId, thesisId);
+        this.thesisId = thesisId;
+    }
+
+    public Integer getThesisId() {
+        beforePropertyRead("thesisId");
+        return this.thesisId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -453,6 +464,8 @@ public abstract class _Theses extends BaseDataObject {
                 return this.language;
             case "dateSubmitted":
                 return this.dateSubmitted;
+            case "thesisId":
+                return this.thesisId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -555,6 +568,9 @@ public abstract class _Theses extends BaseDataObject {
             case "dateSubmitted":
                 this.dateSubmitted = (LocalDateTime)val;
                 break;
+            case "thesisId":
+                this.thesisId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -601,6 +617,7 @@ public abstract class _Theses extends BaseDataObject {
         out.writeObject(this.method);
         out.writeObject(this.language);
         out.writeObject(this.dateSubmitted);
+        out.writeObject(this.thesisId);
     }
 
     @Override
@@ -636,6 +653,7 @@ public abstract class _Theses extends BaseDataObject {
         this.method = (String)in.readObject();
         this.language = (String)in.readObject();
         this.dateSubmitted = (LocalDateTime)in.readObject();
+        this.thesisId = (Integer)in.readObject();
     }
 
 }

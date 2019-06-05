@@ -17,13 +17,14 @@ public abstract class _AnnouncementTypes extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String TYPE_ID_PK_COLUMN = "type_id";
 
     public static final Property<Short> ASSOC_TYPE = Property.create("assocType", Short.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
+    public static final Property<Long> TYPE_ID = Property.create("typeId", Long.class);
 
     protected Short assocType;
     protected long assocId;
+    protected long typeId;
 
 
     public void setAssocType(short assocType) {
@@ -49,6 +50,16 @@ public abstract class _AnnouncementTypes extends BaseDataObject {
         return this.assocId;
     }
 
+    public void setTypeId(long typeId) {
+        beforePropertyWrite("typeId", this.typeId, typeId);
+        this.typeId = typeId;
+    }
+
+    public long getTypeId() {
+        beforePropertyRead("typeId");
+        return this.typeId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -60,6 +71,8 @@ public abstract class _AnnouncementTypes extends BaseDataObject {
                 return this.assocType;
             case "assocId":
                 return this.assocId;
+            case "typeId":
+                return this.typeId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -77,6 +90,9 @@ public abstract class _AnnouncementTypes extends BaseDataObject {
                 break;
             case "assocId":
                 this.assocId = val == null ? 0 : (long)val;
+                break;
+            case "typeId":
+                this.typeId = val == null ? 0 : (long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -96,6 +112,7 @@ public abstract class _AnnouncementTypes extends BaseDataObject {
         super.writeState(out);
         out.writeObject(this.assocType);
         out.writeLong(this.assocId);
+        out.writeLong(this.typeId);
     }
 
     @Override
@@ -103,6 +120,7 @@ public abstract class _AnnouncementTypes extends BaseDataObject {
         super.readState(in);
         this.assocType = (Short)in.readObject();
         this.assocId = in.readLong();
+        this.typeId = in.readLong();
     }
 
 }

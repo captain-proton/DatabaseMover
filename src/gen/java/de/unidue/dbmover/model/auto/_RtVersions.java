@@ -17,19 +17,20 @@ public abstract class _RtVersions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String VERSION_ID_PK_COLUMN = "version_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<String> VERSION_KEY = Property.create("versionKey", String.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);
     public static final Property<String> TITLE = Property.create("title", String.class);
     public static final Property<String> DESCRIPTION = Property.create("description", String.class);
+    public static final Property<Long> VERSION_ID = Property.create("versionId", Long.class);
 
     protected long journalId;
     protected String versionKey;
     protected String locale;
     protected String title;
     protected String description;
+    protected Long versionId;
 
 
     public void setJournalId(long journalId) {
@@ -82,6 +83,16 @@ public abstract class _RtVersions extends BaseDataObject {
         return this.description;
     }
 
+    public void setVersionId(Long versionId) {
+        beforePropertyWrite("versionId", this.versionId, versionId);
+        this.versionId = versionId;
+    }
+
+    public Long getVersionId() {
+        beforePropertyRead("versionId");
+        return this.versionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -99,6 +110,8 @@ public abstract class _RtVersions extends BaseDataObject {
                 return this.title;
             case "description":
                 return this.description;
+            case "versionId":
+                return this.versionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -126,6 +139,9 @@ public abstract class _RtVersions extends BaseDataObject {
             case "description":
                 this.description = (String)val;
                 break;
+            case "versionId":
+                this.versionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -147,6 +163,7 @@ public abstract class _RtVersions extends BaseDataObject {
         out.writeObject(this.locale);
         out.writeObject(this.title);
         out.writeObject(this.description);
+        out.writeObject(this.versionId);
     }
 
     @Override
@@ -157,6 +174,7 @@ public abstract class _RtVersions extends BaseDataObject {
         this.locale = (String)in.readObject();
         this.title = (String)in.readObject();
         this.description = (String)in.readObject();
+        this.versionId = (Long)in.readObject();
     }
 
 }

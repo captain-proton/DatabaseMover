@@ -17,15 +17,16 @@ public abstract class _ReviewObjectTypes extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String TYPE_ID_PK_COLUMN = "type_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<Short> IS_ACTIVE = Property.create("isActive", Short.class);
     public static final Property<String> TYPE_KEY = Property.create("typeKey", String.class);
+    public static final Property<Integer> TYPE_ID = Property.create("typeId", Integer.class);
 
     protected long contextId;
     protected short isActive;
     protected String typeKey;
+    protected Integer typeId;
 
 
     public void setContextId(long contextId) {
@@ -58,6 +59,16 @@ public abstract class _ReviewObjectTypes extends BaseDataObject {
         return this.typeKey;
     }
 
+    public void setTypeId(Integer typeId) {
+        beforePropertyWrite("typeId", this.typeId, typeId);
+        this.typeId = typeId;
+    }
+
+    public Integer getTypeId() {
+        beforePropertyRead("typeId");
+        return this.typeId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -71,6 +82,8 @@ public abstract class _ReviewObjectTypes extends BaseDataObject {
                 return this.isActive;
             case "typeKey":
                 return this.typeKey;
+            case "typeId":
+                return this.typeId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -92,6 +105,9 @@ public abstract class _ReviewObjectTypes extends BaseDataObject {
             case "typeKey":
                 this.typeKey = (String)val;
                 break;
+            case "typeId":
+                this.typeId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -111,6 +127,7 @@ public abstract class _ReviewObjectTypes extends BaseDataObject {
         out.writeLong(this.contextId);
         out.writeShort(this.isActive);
         out.writeObject(this.typeKey);
+        out.writeObject(this.typeId);
     }
 
     @Override
@@ -119,6 +136,7 @@ public abstract class _ReviewObjectTypes extends BaseDataObject {
         this.contextId = in.readLong();
         this.isActive = in.readShort();
         this.typeKey = (String)in.readObject();
+        this.typeId = (Integer)in.readObject();
     }
 
 }

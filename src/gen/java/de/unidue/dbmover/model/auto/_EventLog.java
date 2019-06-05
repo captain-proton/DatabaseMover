@@ -18,7 +18,6 @@ public abstract class _EventLog extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String LOG_ID_PK_COLUMN = "log_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
@@ -28,6 +27,7 @@ public abstract class _EventLog extends BaseDataObject {
     public static final Property<Long> EVENT_TYPE = Property.create("eventType", Long.class);
     public static final Property<String> MESSAGE = Property.create("message", String.class);
     public static final Property<Short> IS_TRANSLATED = Property.create("isTranslated", Short.class);
+    public static final Property<Long> LOG_ID = Property.create("logId", Long.class);
 
     protected Long assocType;
     protected Long assocId;
@@ -37,6 +37,7 @@ public abstract class _EventLog extends BaseDataObject {
     protected Long eventType;
     protected String message;
     protected Short isTranslated;
+    protected Long logId;
 
 
     public void setAssocType(long assocType) {
@@ -131,6 +132,16 @@ public abstract class _EventLog extends BaseDataObject {
         return this.isTranslated;
     }
 
+    public void setLogId(Long logId) {
+        beforePropertyWrite("logId", this.logId, logId);
+        this.logId = logId;
+    }
+
+    public Long getLogId() {
+        beforePropertyRead("logId");
+        return this.logId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -154,6 +165,8 @@ public abstract class _EventLog extends BaseDataObject {
                 return this.message;
             case "isTranslated":
                 return this.isTranslated;
+            case "logId":
+                return this.logId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -190,6 +203,9 @@ public abstract class _EventLog extends BaseDataObject {
             case "isTranslated":
                 this.isTranslated = (Short)val;
                 break;
+            case "logId":
+                this.logId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -214,6 +230,7 @@ public abstract class _EventLog extends BaseDataObject {
         out.writeObject(this.eventType);
         out.writeObject(this.message);
         out.writeObject(this.isTranslated);
+        out.writeObject(this.logId);
     }
 
     @Override
@@ -227,6 +244,7 @@ public abstract class _EventLog extends BaseDataObject {
         this.eventType = (Long)in.readObject();
         this.message = (String)in.readObject();
         this.isTranslated = (Short)in.readObject();
+        this.logId = (Long)in.readObject();
     }
 
 }

@@ -17,7 +17,6 @@ public abstract class _Sections extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String SECTION_ID_PK_COLUMN = "section_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Long> REVIEW_FORM_ID = Property.create("reviewFormId", Long.class);
@@ -29,6 +28,7 @@ public abstract class _Sections extends BaseDataObject {
     public static final Property<Short> HIDE_TITLE = Property.create("hideTitle", Short.class);
     public static final Property<Short> HIDE_AUTHOR = Property.create("hideAuthor", Short.class);
     public static final Property<Long> ABSTRACT_WORD_COUNT = Property.create("abstractWordCount", Long.class);
+    public static final Property<Long> SECTION_ID = Property.create("sectionId", Long.class);
 
     protected long journalId;
     protected Long reviewFormId;
@@ -40,6 +40,7 @@ public abstract class _Sections extends BaseDataObject {
     protected short hideTitle;
     protected short hideAuthor;
     protected Long abstractWordCount;
+    protected Long sectionId;
 
 
     public void setJournalId(long journalId) {
@@ -148,6 +149,16 @@ public abstract class _Sections extends BaseDataObject {
         return this.abstractWordCount;
     }
 
+    public void setSectionId(Long sectionId) {
+        beforePropertyWrite("sectionId", this.sectionId, sectionId);
+        this.sectionId = sectionId;
+    }
+
+    public Long getSectionId() {
+        beforePropertyRead("sectionId");
+        return this.sectionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -175,6 +186,8 @@ public abstract class _Sections extends BaseDataObject {
                 return this.hideAuthor;
             case "abstractWordCount":
                 return this.abstractWordCount;
+            case "sectionId":
+                return this.sectionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -217,6 +230,9 @@ public abstract class _Sections extends BaseDataObject {
             case "abstractWordCount":
                 this.abstractWordCount = (Long)val;
                 break;
+            case "sectionId":
+                this.sectionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -243,6 +259,7 @@ public abstract class _Sections extends BaseDataObject {
         out.writeShort(this.hideTitle);
         out.writeShort(this.hideAuthor);
         out.writeObject(this.abstractWordCount);
+        out.writeObject(this.sectionId);
     }
 
     @Override
@@ -258,6 +275,7 @@ public abstract class _Sections extends BaseDataObject {
         this.hideTitle = in.readShort();
         this.hideAuthor = in.readShort();
         this.abstractWordCount = (Long)in.readObject();
+        this.sectionId = (Long)in.readObject();
     }
 
 }

@@ -17,15 +17,16 @@ public abstract class _ControlledVocabs extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CONTROLLED_VOCAB_ID_PK_COLUMN = "controlled_vocab_id";
 
     public static final Property<String> SYMBOLIC = Property.create("symbolic", String.class);
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
+    public static final Property<Long> CONTROLLED_VOCAB_ID = Property.create("controlledVocabId", Long.class);
 
     protected String symbolic;
     protected long assocType;
     protected long assocId;
+    protected Long controlledVocabId;
 
 
     public void setSymbolic(String symbolic) {
@@ -58,6 +59,16 @@ public abstract class _ControlledVocabs extends BaseDataObject {
         return this.assocId;
     }
 
+    public void setControlledVocabId(Long controlledVocabId) {
+        beforePropertyWrite("controlledVocabId", this.controlledVocabId, controlledVocabId);
+        this.controlledVocabId = controlledVocabId;
+    }
+
+    public Long getControlledVocabId() {
+        beforePropertyRead("controlledVocabId");
+        return this.controlledVocabId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -71,6 +82,8 @@ public abstract class _ControlledVocabs extends BaseDataObject {
                 return this.assocType;
             case "assocId":
                 return this.assocId;
+            case "controlledVocabId":
+                return this.controlledVocabId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -92,6 +105,9 @@ public abstract class _ControlledVocabs extends BaseDataObject {
             case "assocId":
                 this.assocId = val == null ? 0 : (long)val;
                 break;
+            case "controlledVocabId":
+                this.controlledVocabId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -111,6 +127,7 @@ public abstract class _ControlledVocabs extends BaseDataObject {
         out.writeObject(this.symbolic);
         out.writeLong(this.assocType);
         out.writeLong(this.assocId);
+        out.writeObject(this.controlledVocabId);
     }
 
     @Override
@@ -119,6 +136,7 @@ public abstract class _ControlledVocabs extends BaseDataObject {
         this.symbolic = (String)in.readObject();
         this.assocType = in.readLong();
         this.assocId = in.readLong();
+        this.controlledVocabId = (Long)in.readObject();
     }
 
 }

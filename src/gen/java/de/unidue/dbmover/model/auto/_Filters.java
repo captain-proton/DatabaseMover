@@ -17,7 +17,6 @@ public abstract class _Filters extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String FILTER_ID_PK_COLUMN = "filter_id";
 
     public static final Property<Long> FILTER_GROUP_ID = Property.create("filterGroupId", Long.class);
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
@@ -26,6 +25,7 @@ public abstract class _Filters extends BaseDataObject {
     public static final Property<Short> IS_TEMPLATE = Property.create("isTemplate", Short.class);
     public static final Property<Long> PARENT_FILTER_ID = Property.create("parentFilterId", Long.class);
     public static final Property<Long> SEQ = Property.create("seq", Long.class);
+    public static final Property<Long> FILTER_ID = Property.create("filterId", Long.class);
 
     protected long filterGroupId;
     protected long contextId;
@@ -34,6 +34,7 @@ public abstract class _Filters extends BaseDataObject {
     protected short isTemplate;
     protected long parentFilterId;
     protected long seq;
+    protected Long filterId;
 
 
     public void setFilterGroupId(long filterGroupId) {
@@ -106,6 +107,16 @@ public abstract class _Filters extends BaseDataObject {
         return this.seq;
     }
 
+    public void setFilterId(Long filterId) {
+        beforePropertyWrite("filterId", this.filterId, filterId);
+        this.filterId = filterId;
+    }
+
+    public Long getFilterId() {
+        beforePropertyRead("filterId");
+        return this.filterId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -127,6 +138,8 @@ public abstract class _Filters extends BaseDataObject {
                 return this.parentFilterId;
             case "seq":
                 return this.seq;
+            case "filterId":
+                return this.filterId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -160,6 +173,9 @@ public abstract class _Filters extends BaseDataObject {
             case "seq":
                 this.seq = val == null ? 0 : (long)val;
                 break;
+            case "filterId":
+                this.filterId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -183,6 +199,7 @@ public abstract class _Filters extends BaseDataObject {
         out.writeShort(this.isTemplate);
         out.writeLong(this.parentFilterId);
         out.writeLong(this.seq);
+        out.writeObject(this.filterId);
     }
 
     @Override
@@ -195,6 +212,7 @@ public abstract class _Filters extends BaseDataObject {
         this.isTemplate = in.readShort();
         this.parentFilterId = in.readLong();
         this.seq = in.readLong();
+        this.filterId = (Long)in.readObject();
     }
 
 }

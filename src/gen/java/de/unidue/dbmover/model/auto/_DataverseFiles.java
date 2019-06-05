@@ -17,17 +17,18 @@ public abstract class _DataverseFiles extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String DVFILE_ID_PK_COLUMN = "dvfile_id";
 
     public static final Property<Long> SUPP_ID = Property.create("suppId", Long.class);
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Long> STUDY_ID = Property.create("studyId", Long.class);
     public static final Property<String> CONTENT_SOURCE_URI = Property.create("contentSourceUri", String.class);
+    public static final Property<Integer> DVFILE_ID = Property.create("dvfileId", Integer.class);
 
     protected long suppId;
     protected long submissionId;
     protected long studyId;
     protected String contentSourceUri;
+    protected Integer dvfileId;
 
 
     public void setSuppId(long suppId) {
@@ -70,6 +71,16 @@ public abstract class _DataverseFiles extends BaseDataObject {
         return this.contentSourceUri;
     }
 
+    public void setDvfileId(Integer dvfileId) {
+        beforePropertyWrite("dvfileId", this.dvfileId, dvfileId);
+        this.dvfileId = dvfileId;
+    }
+
+    public Integer getDvfileId() {
+        beforePropertyRead("dvfileId");
+        return this.dvfileId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -85,6 +96,8 @@ public abstract class _DataverseFiles extends BaseDataObject {
                 return this.studyId;
             case "contentSourceUri":
                 return this.contentSourceUri;
+            case "dvfileId":
+                return this.dvfileId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -109,6 +122,9 @@ public abstract class _DataverseFiles extends BaseDataObject {
             case "contentSourceUri":
                 this.contentSourceUri = (String)val;
                 break;
+            case "dvfileId":
+                this.dvfileId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -129,6 +145,7 @@ public abstract class _DataverseFiles extends BaseDataObject {
         out.writeLong(this.submissionId);
         out.writeLong(this.studyId);
         out.writeObject(this.contentSourceUri);
+        out.writeObject(this.dvfileId);
     }
 
     @Override
@@ -138,6 +155,7 @@ public abstract class _DataverseFiles extends BaseDataObject {
         this.submissionId = in.readLong();
         this.studyId = in.readLong();
         this.contentSourceUri = (String)in.readObject();
+        this.dvfileId = (Integer)in.readObject();
     }
 
 }

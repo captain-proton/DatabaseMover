@@ -18,7 +18,6 @@ public abstract class _Notes extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String NOTE_ID_PK_COLUMN = "note_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
@@ -27,6 +26,7 @@ public abstract class _Notes extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_MODIFIED = Property.create("dateModified", LocalDateTime.class);
     public static final Property<String> TITLE = Property.create("title", String.class);
     public static final Property<String> CONTENTS = Property.create("contents", String.class);
+    public static final Property<Long> NOTE_ID = Property.create("noteId", Long.class);
 
     protected Long assocType;
     protected Long assocId;
@@ -35,6 +35,7 @@ public abstract class _Notes extends BaseDataObject {
     protected LocalDateTime dateModified;
     protected String title;
     protected String contents;
+    protected Long noteId;
 
 
     public void setAssocType(long assocType) {
@@ -113,6 +114,16 @@ public abstract class _Notes extends BaseDataObject {
         return this.contents;
     }
 
+    public void setNoteId(Long noteId) {
+        beforePropertyWrite("noteId", this.noteId, noteId);
+        this.noteId = noteId;
+    }
+
+    public Long getNoteId() {
+        beforePropertyRead("noteId");
+        return this.noteId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -134,6 +145,8 @@ public abstract class _Notes extends BaseDataObject {
                 return this.title;
             case "contents":
                 return this.contents;
+            case "noteId":
+                return this.noteId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -167,6 +180,9 @@ public abstract class _Notes extends BaseDataObject {
             case "contents":
                 this.contents = (String)val;
                 break;
+            case "noteId":
+                this.noteId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -190,6 +206,7 @@ public abstract class _Notes extends BaseDataObject {
         out.writeObject(this.dateModified);
         out.writeObject(this.title);
         out.writeObject(this.contents);
+        out.writeObject(this.noteId);
     }
 
     @Override
@@ -202,6 +219,7 @@ public abstract class _Notes extends BaseDataObject {
         this.dateModified = (LocalDateTime)in.readObject();
         this.title = (String)in.readObject();
         this.contents = (String)in.readObject();
+        this.noteId = (Long)in.readObject();
     }
 
 }

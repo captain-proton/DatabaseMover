@@ -18,7 +18,6 @@ public abstract class _ObjectsForReview extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String OBJECT_ID_PK_COLUMN = "object_id";
 
     public static final Property<Long> REVIEW_OBJECT_TYPE_ID = Property.create("reviewObjectTypeId", Long.class);
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
@@ -26,6 +25,7 @@ public abstract class _ObjectsForReview extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_CREATED = Property.create("dateCreated", LocalDateTime.class);
     public static final Property<Long> EDITOR_ID = Property.create("editorId", Long.class);
     public static final Property<String> NOTES = Property.create("notes", String.class);
+    public static final Property<Integer> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Integer.class);
 
     protected long reviewObjectTypeId;
     protected long contextId;
@@ -33,6 +33,7 @@ public abstract class _ObjectsForReview extends BaseDataObject {
     protected LocalDateTime dateCreated;
     protected Long editorId;
     protected String notes;
+    protected Integer objectIdentifier;
 
 
     public void setReviewObjectTypeId(long reviewObjectTypeId) {
@@ -98,6 +99,16 @@ public abstract class _ObjectsForReview extends BaseDataObject {
         return this.notes;
     }
 
+    public void setObjectIdentifier(Integer objectIdentifier) {
+        beforePropertyWrite("objectIdentifier", this.objectIdentifier, objectIdentifier);
+        this.objectIdentifier = objectIdentifier;
+    }
+
+    public Integer getObjectIdentifier() {
+        beforePropertyRead("objectIdentifier");
+        return this.objectIdentifier;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -117,6 +128,8 @@ public abstract class _ObjectsForReview extends BaseDataObject {
                 return this.editorId;
             case "notes":
                 return this.notes;
+            case "objectIdentifier":
+                return this.objectIdentifier;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -147,6 +160,9 @@ public abstract class _ObjectsForReview extends BaseDataObject {
             case "notes":
                 this.notes = (String)val;
                 break;
+            case "objectIdentifier":
+                this.objectIdentifier = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -169,6 +185,7 @@ public abstract class _ObjectsForReview extends BaseDataObject {
         out.writeObject(this.dateCreated);
         out.writeObject(this.editorId);
         out.writeObject(this.notes);
+        out.writeObject(this.objectIdentifier);
     }
 
     @Override
@@ -180,6 +197,7 @@ public abstract class _ObjectsForReview extends BaseDataObject {
         this.dateCreated = (LocalDateTime)in.readObject();
         this.editorId = (Long)in.readObject();
         this.notes = (String)in.readObject();
+        this.objectIdentifier = (Integer)in.readObject();
     }
 
 }

@@ -18,7 +18,6 @@ public abstract class _Queries extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String QUERY_ID_PK_COLUMN = "query_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
@@ -27,6 +26,7 @@ public abstract class _Queries extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_POSTED = Property.create("datePosted", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_MODIFIED = Property.create("dateModified", LocalDateTime.class);
     public static final Property<Short> CLOSED = Property.create("closed", Short.class);
+    public static final Property<Integer> QUERY_ID = Property.create("queryId", Integer.class);
 
     protected long assocType;
     protected long assocId;
@@ -35,6 +35,7 @@ public abstract class _Queries extends BaseDataObject {
     protected LocalDateTime datePosted;
     protected LocalDateTime dateModified;
     protected short closed;
+    protected Integer queryId;
 
 
     public void setAssocType(long assocType) {
@@ -107,6 +108,16 @@ public abstract class _Queries extends BaseDataObject {
         return this.closed;
     }
 
+    public void setQueryId(Integer queryId) {
+        beforePropertyWrite("queryId", this.queryId, queryId);
+        this.queryId = queryId;
+    }
+
+    public Integer getQueryId() {
+        beforePropertyRead("queryId");
+        return this.queryId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -128,6 +139,8 @@ public abstract class _Queries extends BaseDataObject {
                 return this.dateModified;
             case "closed":
                 return this.closed;
+            case "queryId":
+                return this.queryId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -161,6 +174,9 @@ public abstract class _Queries extends BaseDataObject {
             case "closed":
                 this.closed = val == null ? 0 : (short)val;
                 break;
+            case "queryId":
+                this.queryId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -184,6 +200,7 @@ public abstract class _Queries extends BaseDataObject {
         out.writeObject(this.datePosted);
         out.writeObject(this.dateModified);
         out.writeShort(this.closed);
+        out.writeObject(this.queryId);
     }
 
     @Override
@@ -196,6 +213,7 @@ public abstract class _Queries extends BaseDataObject {
         this.datePosted = (LocalDateTime)in.readObject();
         this.dateModified = (LocalDateTime)in.readObject();
         this.closed = in.readShort();
+        this.queryId = (Integer)in.readObject();
     }
 
 }

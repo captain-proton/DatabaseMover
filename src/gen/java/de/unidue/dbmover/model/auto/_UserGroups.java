@@ -17,19 +17,20 @@ public abstract class _UserGroups extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String USER_GROUP_ID_PK_COLUMN = "user_group_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<Long> ROLE_ID = Property.create("roleId", Long.class);
     public static final Property<Short> IS_DEFAULT = Property.create("isDefault", Short.class);
     public static final Property<Short> SHOW_TITLE = Property.create("showTitle", Short.class);
     public static final Property<Short> PERMIT_SELF_REGISTRATION = Property.create("permitSelfRegistration", Short.class);
+    public static final Property<Integer> USER_GROUP_ID = Property.create("userGroupId", Integer.class);
 
     protected long contextId;
     protected long roleId;
     protected short isDefault;
     protected short showTitle;
     protected short permitSelfRegistration;
+    protected Integer userGroupId;
 
 
     public void setContextId(long contextId) {
@@ -82,6 +83,16 @@ public abstract class _UserGroups extends BaseDataObject {
         return this.permitSelfRegistration;
     }
 
+    public void setUserGroupId(Integer userGroupId) {
+        beforePropertyWrite("userGroupId", this.userGroupId, userGroupId);
+        this.userGroupId = userGroupId;
+    }
+
+    public Integer getUserGroupId() {
+        beforePropertyRead("userGroupId");
+        return this.userGroupId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -99,6 +110,8 @@ public abstract class _UserGroups extends BaseDataObject {
                 return this.showTitle;
             case "permitSelfRegistration":
                 return this.permitSelfRegistration;
+            case "userGroupId":
+                return this.userGroupId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -126,6 +139,9 @@ public abstract class _UserGroups extends BaseDataObject {
             case "permitSelfRegistration":
                 this.permitSelfRegistration = val == null ? 0 : (short)val;
                 break;
+            case "userGroupId":
+                this.userGroupId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -147,6 +163,7 @@ public abstract class _UserGroups extends BaseDataObject {
         out.writeShort(this.isDefault);
         out.writeShort(this.showTitle);
         out.writeShort(this.permitSelfRegistration);
+        out.writeObject(this.userGroupId);
     }
 
     @Override
@@ -157,6 +174,7 @@ public abstract class _UserGroups extends BaseDataObject {
         this.isDefault = in.readShort();
         this.showTitle = in.readShort();
         this.permitSelfRegistration = in.readShort();
+        this.userGroupId = (Integer)in.readObject();
     }
 
 }

@@ -17,7 +17,6 @@ public abstract class _DepositPoints extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String DEPOSIT_POINT_ID_PK_COLUMN = "deposit_point_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<String> URL = Property.create("url", String.class);
@@ -25,6 +24,7 @@ public abstract class _DepositPoints extends BaseDataObject {
     public static final Property<Short> TYPE = Property.create("type", Short.class);
     public static final Property<String> SWORD_USERNAME = Property.create("swordUsername", String.class);
     public static final Property<String> SWORD_PASSWORD = Property.create("swordPassword", String.class);
+    public static final Property<Integer> DEPOSIT_POINT_ID = Property.create("depositPointId", Integer.class);
 
     protected long contextId;
     protected String url;
@@ -32,6 +32,7 @@ public abstract class _DepositPoints extends BaseDataObject {
     protected short type;
     protected String swordUsername;
     protected String swordPassword;
+    protected Integer depositPointId;
 
 
     public void setContextId(long contextId) {
@@ -94,6 +95,16 @@ public abstract class _DepositPoints extends BaseDataObject {
         return this.swordPassword;
     }
 
+    public void setDepositPointId(Integer depositPointId) {
+        beforePropertyWrite("depositPointId", this.depositPointId, depositPointId);
+        this.depositPointId = depositPointId;
+    }
+
+    public Integer getDepositPointId() {
+        beforePropertyRead("depositPointId");
+        return this.depositPointId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -113,6 +124,8 @@ public abstract class _DepositPoints extends BaseDataObject {
                 return this.swordUsername;
             case "swordPassword":
                 return this.swordPassword;
+            case "depositPointId":
+                return this.depositPointId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -143,6 +156,9 @@ public abstract class _DepositPoints extends BaseDataObject {
             case "swordPassword":
                 this.swordPassword = (String)val;
                 break;
+            case "depositPointId":
+                this.depositPointId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -165,6 +181,7 @@ public abstract class _DepositPoints extends BaseDataObject {
         out.writeShort(this.type);
         out.writeObject(this.swordUsername);
         out.writeObject(this.swordPassword);
+        out.writeObject(this.depositPointId);
     }
 
     @Override
@@ -176,6 +193,7 @@ public abstract class _DepositPoints extends BaseDataObject {
         this.type = in.readShort();
         this.swordUsername = (String)in.readObject();
         this.swordPassword = (String)in.readObject();
+        this.depositPointId = (Integer)in.readObject();
     }
 
 }

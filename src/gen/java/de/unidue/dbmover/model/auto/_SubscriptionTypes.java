@@ -17,7 +17,6 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String TYPE_ID_PK_COLUMN = "type_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Double> COST = Property.create("cost", Double.class);
@@ -29,6 +28,7 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
     public static final Property<Short> MEMBERSHIP = Property.create("membership", Short.class);
     public static final Property<Short> DISABLE_PUBLIC_DISPLAY = Property.create("disablePublicDisplay", Short.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
+    public static final Property<Long> TYPE_ID = Property.create("typeId", Long.class);
 
     protected long journalId;
     protected double cost;
@@ -40,6 +40,7 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
     protected short membership;
     protected short disablePublicDisplay;
     protected double seq;
+    protected Long typeId;
 
 
     public void setJournalId(long journalId) {
@@ -145,6 +146,16 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
         return this.seq;
     }
 
+    public void setTypeId(Long typeId) {
+        beforePropertyWrite("typeId", this.typeId, typeId);
+        this.typeId = typeId;
+    }
+
+    public Long getTypeId() {
+        beforePropertyRead("typeId");
+        return this.typeId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -172,6 +183,8 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
                 return this.disablePublicDisplay;
             case "seq":
                 return this.seq;
+            case "typeId":
+                return this.typeId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -214,6 +227,9 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
             case "seq":
                 this.seq = val == null ? 0 : (double)val;
                 break;
+            case "typeId":
+                this.typeId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -240,6 +256,7 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
         out.writeShort(this.membership);
         out.writeShort(this.disablePublicDisplay);
         out.writeDouble(this.seq);
+        out.writeObject(this.typeId);
     }
 
     @Override
@@ -255,6 +272,7 @@ public abstract class _SubscriptionTypes extends BaseDataObject {
         this.membership = in.readShort();
         this.disablePublicDisplay = in.readShort();
         this.seq = in.readDouble();
+        this.typeId = (Long)in.readObject();
     }
 
 }

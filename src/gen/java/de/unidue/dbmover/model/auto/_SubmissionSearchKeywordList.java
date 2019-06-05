@@ -17,11 +17,12 @@ public abstract class _SubmissionSearchKeywordList extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String KEYWORD_ID_PK_COLUMN = "keyword_id";
 
     public static final Property<String> KEYWORD_TEXT = Property.create("keywordText", String.class);
+    public static final Property<Long> KEYWORD_ID = Property.create("keywordId", Long.class);
 
     protected String keywordText;
+    protected Long keywordId;
 
 
     public void setKeywordText(String keywordText) {
@@ -34,6 +35,16 @@ public abstract class _SubmissionSearchKeywordList extends BaseDataObject {
         return this.keywordText;
     }
 
+    public void setKeywordId(Long keywordId) {
+        beforePropertyWrite("keywordId", this.keywordId, keywordId);
+        this.keywordId = keywordId;
+    }
+
+    public Long getKeywordId() {
+        beforePropertyRead("keywordId");
+        return this.keywordId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -43,6 +54,8 @@ public abstract class _SubmissionSearchKeywordList extends BaseDataObject {
         switch(propName) {
             case "keywordText":
                 return this.keywordText;
+            case "keywordId":
+                return this.keywordId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -57,6 +70,9 @@ public abstract class _SubmissionSearchKeywordList extends BaseDataObject {
         switch (propName) {
             case "keywordText":
                 this.keywordText = (String)val;
+                break;
+            case "keywordId":
+                this.keywordId = (Long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -75,12 +91,14 @@ public abstract class _SubmissionSearchKeywordList extends BaseDataObject {
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
         out.writeObject(this.keywordText);
+        out.writeObject(this.keywordId);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
         this.keywordText = (String)in.readObject();
+        this.keywordId = (Long)in.readObject();
     }
 
 }

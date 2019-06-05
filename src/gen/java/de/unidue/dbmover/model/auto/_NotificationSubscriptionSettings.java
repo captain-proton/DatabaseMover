@@ -17,19 +17,20 @@ public abstract class _NotificationSubscriptionSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String SETTING_ID_PK_COLUMN = "setting_id";
 
     public static final Property<String> SETTING_NAME = Property.create("settingName", String.class);
     public static final Property<String> SETTING_VALUE = Property.create("settingValue", String.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<Long> CONTEXT = Property.create("context", Long.class);
     public static final Property<String> SETTING_TYPE = Property.create("settingType", String.class);
+    public static final Property<Long> SETTING_ID = Property.create("settingId", Long.class);
 
     protected String settingName;
     protected String settingValue;
     protected long userId;
     protected long context;
     protected String settingType;
+    protected Long settingId;
 
 
     public void setSettingName(String settingName) {
@@ -82,6 +83,16 @@ public abstract class _NotificationSubscriptionSettings extends BaseDataObject {
         return this.settingType;
     }
 
+    public void setSettingId(Long settingId) {
+        beforePropertyWrite("settingId", this.settingId, settingId);
+        this.settingId = settingId;
+    }
+
+    public Long getSettingId() {
+        beforePropertyRead("settingId");
+        return this.settingId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -99,6 +110,8 @@ public abstract class _NotificationSubscriptionSettings extends BaseDataObject {
                 return this.context;
             case "settingType":
                 return this.settingType;
+            case "settingId":
+                return this.settingId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -126,6 +139,9 @@ public abstract class _NotificationSubscriptionSettings extends BaseDataObject {
             case "settingType":
                 this.settingType = (String)val;
                 break;
+            case "settingId":
+                this.settingId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -147,6 +163,7 @@ public abstract class _NotificationSubscriptionSettings extends BaseDataObject {
         out.writeLong(this.userId);
         out.writeLong(this.context);
         out.writeObject(this.settingType);
+        out.writeObject(this.settingId);
     }
 
     @Override
@@ -157,6 +174,7 @@ public abstract class _NotificationSubscriptionSettings extends BaseDataObject {
         this.userId = in.readLong();
         this.context = in.readLong();
         this.settingType = (String)in.readObject();
+        this.settingId = (Long)in.readObject();
     }
 
 }

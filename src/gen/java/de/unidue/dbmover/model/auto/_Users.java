@@ -18,7 +18,6 @@ public abstract class _Users extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<String> USERNAME = Property.create("username", String.class);
     public static final Property<String> PASSWORD = Property.create("password", String.class);
@@ -46,6 +45,7 @@ public abstract class _Users extends BaseDataObject {
     public static final Property<Short> DISABLED = Property.create("disabled", Short.class);
     public static final Property<String> DISABLED_REASON = Property.create("disabledReason", String.class);
     public static final Property<Short> INLINE_HELP = Property.create("inlineHelp", Short.class);
+    public static final Property<Long> USER_ID = Property.create("userId", Long.class);
 
     protected String username;
     protected String password;
@@ -73,6 +73,7 @@ public abstract class _Users extends BaseDataObject {
     protected short disabled;
     protected String disabledReason;
     protected Short inlineHelp;
+    protected Long userId;
 
 
     public void setUsername(String username) {
@@ -344,6 +345,16 @@ public abstract class _Users extends BaseDataObject {
         return this.inlineHelp;
     }
 
+    public void setUserId(Long userId) {
+        beforePropertyWrite("userId", this.userId, userId);
+        this.userId = userId;
+    }
+
+    public Long getUserId() {
+        beforePropertyRead("userId");
+        return this.userId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -403,6 +414,8 @@ public abstract class _Users extends BaseDataObject {
                 return this.disabledReason;
             case "inlineHelp":
                 return this.inlineHelp;
+            case "userId":
+                return this.userId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -493,6 +506,9 @@ public abstract class _Users extends BaseDataObject {
             case "inlineHelp":
                 this.inlineHelp = (Short)val;
                 break;
+            case "userId":
+                this.userId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -535,6 +551,7 @@ public abstract class _Users extends BaseDataObject {
         out.writeShort(this.disabled);
         out.writeObject(this.disabledReason);
         out.writeObject(this.inlineHelp);
+        out.writeObject(this.userId);
     }
 
     @Override
@@ -566,6 +583,7 @@ public abstract class _Users extends BaseDataObject {
         this.disabled = in.readShort();
         this.disabledReason = (String)in.readObject();
         this.inlineHelp = (Short)in.readObject();
+        this.userId = (Long)in.readObject();
     }
 
 }

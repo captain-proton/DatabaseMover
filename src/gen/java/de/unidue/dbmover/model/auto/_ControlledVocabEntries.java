@@ -17,13 +17,14 @@ public abstract class _ControlledVocabEntries extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CONTROLLED_VOCAB_ENTRY_ID_PK_COLUMN = "controlled_vocab_entry_id";
 
     public static final Property<Long> CONTROLLED_VOCAB_ID = Property.create("controlledVocabId", Long.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
+    public static final Property<Long> CONTROLLED_VOCAB_ENTRY_ID = Property.create("controlledVocabEntryId", Long.class);
 
     protected long controlledVocabId;
     protected Double seq;
+    protected Long controlledVocabEntryId;
 
 
     public void setControlledVocabId(long controlledVocabId) {
@@ -49,6 +50,16 @@ public abstract class _ControlledVocabEntries extends BaseDataObject {
         return this.seq;
     }
 
+    public void setControlledVocabEntryId(Long controlledVocabEntryId) {
+        beforePropertyWrite("controlledVocabEntryId", this.controlledVocabEntryId, controlledVocabEntryId);
+        this.controlledVocabEntryId = controlledVocabEntryId;
+    }
+
+    public Long getControlledVocabEntryId() {
+        beforePropertyRead("controlledVocabEntryId");
+        return this.controlledVocabEntryId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -60,6 +71,8 @@ public abstract class _ControlledVocabEntries extends BaseDataObject {
                 return this.controlledVocabId;
             case "seq":
                 return this.seq;
+            case "controlledVocabEntryId":
+                return this.controlledVocabEntryId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -77,6 +90,9 @@ public abstract class _ControlledVocabEntries extends BaseDataObject {
                 break;
             case "seq":
                 this.seq = (Double)val;
+                break;
+            case "controlledVocabEntryId":
+                this.controlledVocabEntryId = (Long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -96,6 +112,7 @@ public abstract class _ControlledVocabEntries extends BaseDataObject {
         super.writeState(out);
         out.writeLong(this.controlledVocabId);
         out.writeObject(this.seq);
+        out.writeObject(this.controlledVocabEntryId);
     }
 
     @Override
@@ -103,6 +120,7 @@ public abstract class _ControlledVocabEntries extends BaseDataObject {
         super.readState(in);
         this.controlledVocabId = in.readLong();
         this.seq = (Double)in.readObject();
+        this.controlledVocabEntryId = (Long)in.readObject();
     }
 
 }

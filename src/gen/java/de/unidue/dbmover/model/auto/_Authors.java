@@ -17,7 +17,6 @@ public abstract class _Authors extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String AUTHOR_ID_PK_COLUMN = "author_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Short> PRIMARY_CONTACT = Property.create("primaryContact", Short.class);
@@ -31,6 +30,7 @@ public abstract class _Authors extends BaseDataObject {
     public static final Property<String> URL = Property.create("url", String.class);
     public static final Property<Long> USER_GROUP_ID = Property.create("userGroupId", Long.class);
     public static final Property<Short> INCLUDE_IN_BROWSE = Property.create("includeInBrowse", Short.class);
+    public static final Property<Long> AUTHOR_ID = Property.create("authorId", Long.class);
 
     protected long submissionId;
     protected short primaryContact;
@@ -44,6 +44,7 @@ public abstract class _Authors extends BaseDataObject {
     protected String url;
     protected Long userGroupId;
     protected short includeInBrowse;
+    protected Long authorId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -169,6 +170,16 @@ public abstract class _Authors extends BaseDataObject {
         return this.includeInBrowse;
     }
 
+    public void setAuthorId(Long authorId) {
+        beforePropertyWrite("authorId", this.authorId, authorId);
+        this.authorId = authorId;
+    }
+
+    public Long getAuthorId() {
+        beforePropertyRead("authorId");
+        return this.authorId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -200,6 +211,8 @@ public abstract class _Authors extends BaseDataObject {
                 return this.userGroupId;
             case "includeInBrowse":
                 return this.includeInBrowse;
+            case "authorId":
+                return this.authorId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -248,6 +261,9 @@ public abstract class _Authors extends BaseDataObject {
             case "includeInBrowse":
                 this.includeInBrowse = val == null ? 0 : (short)val;
                 break;
+            case "authorId":
+                this.authorId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -276,6 +292,7 @@ public abstract class _Authors extends BaseDataObject {
         out.writeObject(this.url);
         out.writeObject(this.userGroupId);
         out.writeShort(this.includeInBrowse);
+        out.writeObject(this.authorId);
     }
 
     @Override
@@ -293,6 +310,7 @@ public abstract class _Authors extends BaseDataObject {
         this.url = (String)in.readObject();
         this.userGroupId = (Long)in.readObject();
         this.includeInBrowse = in.readShort();
+        this.authorId = (Long)in.readObject();
     }
 
 }

@@ -18,7 +18,6 @@ public abstract class _Notifications extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String NOTIFICATION_ID_PK_COLUMN = "notification_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
@@ -28,6 +27,7 @@ public abstract class _Notifications extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_READ = Property.create("dateRead", LocalDateTime.class);
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
+    public static final Property<Long> NOTIFICATION_ID = Property.create("notificationId", Long.class);
 
     protected long contextId;
     protected Long userId;
@@ -37,6 +37,7 @@ public abstract class _Notifications extends BaseDataObject {
     protected LocalDateTime dateRead;
     protected Long assocType;
     protected Long assocId;
+    protected Long notificationId;
 
 
     public void setContextId(long contextId) {
@@ -128,6 +129,16 @@ public abstract class _Notifications extends BaseDataObject {
         return this.assocId;
     }
 
+    public void setNotificationId(Long notificationId) {
+        beforePropertyWrite("notificationId", this.notificationId, notificationId);
+        this.notificationId = notificationId;
+    }
+
+    public Long getNotificationId() {
+        beforePropertyRead("notificationId");
+        return this.notificationId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -151,6 +162,8 @@ public abstract class _Notifications extends BaseDataObject {
                 return this.assocType;
             case "assocId":
                 return this.assocId;
+            case "notificationId":
+                return this.notificationId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -187,6 +200,9 @@ public abstract class _Notifications extends BaseDataObject {
             case "assocId":
                 this.assocId = (Long)val;
                 break;
+            case "notificationId":
+                this.notificationId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -211,6 +227,7 @@ public abstract class _Notifications extends BaseDataObject {
         out.writeObject(this.dateRead);
         out.writeObject(this.assocType);
         out.writeObject(this.assocId);
+        out.writeObject(this.notificationId);
     }
 
     @Override
@@ -224,6 +241,7 @@ public abstract class _Notifications extends BaseDataObject {
         this.dateRead = (LocalDateTime)in.readObject();
         this.assocType = (Long)in.readObject();
         this.assocId = (Long)in.readObject();
+        this.notificationId = (Long)in.readObject();
     }
 
 }

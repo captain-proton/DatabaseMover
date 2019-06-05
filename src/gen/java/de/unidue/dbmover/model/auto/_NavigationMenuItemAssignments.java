@@ -17,17 +17,18 @@ public abstract class _NavigationMenuItemAssignments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String NAVIGATION_MENU_ITEM_ASSIGNMENT_ID_PK_COLUMN = "navigation_menu_item_assignment_id";
 
     public static final Property<Long> NAVIGATION_MENU_ID = Property.create("navigationMenuId", Long.class);
     public static final Property<Long> NAVIGATION_MENU_ITEM_ID = Property.create("navigationMenuItemId", Long.class);
     public static final Property<Long> PARENT_ID = Property.create("parentId", Long.class);
     public static final Property<Long> SEQ = Property.create("seq", Long.class);
+    public static final Property<Integer> NAVIGATION_MENU_ITEM_ASSIGNMENT_ID = Property.create("navigationMenuItemAssignmentId", Integer.class);
 
     protected long navigationMenuId;
     protected long navigationMenuItemId;
     protected Long parentId;
     protected Long seq;
+    protected Integer navigationMenuItemAssignmentId;
 
 
     public void setNavigationMenuId(long navigationMenuId) {
@@ -76,6 +77,16 @@ public abstract class _NavigationMenuItemAssignments extends BaseDataObject {
         return this.seq;
     }
 
+    public void setNavigationMenuItemAssignmentId(Integer navigationMenuItemAssignmentId) {
+        beforePropertyWrite("navigationMenuItemAssignmentId", this.navigationMenuItemAssignmentId, navigationMenuItemAssignmentId);
+        this.navigationMenuItemAssignmentId = navigationMenuItemAssignmentId;
+    }
+
+    public Integer getNavigationMenuItemAssignmentId() {
+        beforePropertyRead("navigationMenuItemAssignmentId");
+        return this.navigationMenuItemAssignmentId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -91,6 +102,8 @@ public abstract class _NavigationMenuItemAssignments extends BaseDataObject {
                 return this.parentId;
             case "seq":
                 return this.seq;
+            case "navigationMenuItemAssignmentId":
+                return this.navigationMenuItemAssignmentId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -115,6 +128,9 @@ public abstract class _NavigationMenuItemAssignments extends BaseDataObject {
             case "seq":
                 this.seq = (Long)val;
                 break;
+            case "navigationMenuItemAssignmentId":
+                this.navigationMenuItemAssignmentId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -135,6 +151,7 @@ public abstract class _NavigationMenuItemAssignments extends BaseDataObject {
         out.writeLong(this.navigationMenuItemId);
         out.writeObject(this.parentId);
         out.writeObject(this.seq);
+        out.writeObject(this.navigationMenuItemAssignmentId);
     }
 
     @Override
@@ -144,6 +161,7 @@ public abstract class _NavigationMenuItemAssignments extends BaseDataObject {
         this.navigationMenuItemId = in.readLong();
         this.parentId = (Long)in.readObject();
         this.seq = (Long)in.readObject();
+        this.navigationMenuItemAssignmentId = (Integer)in.readObject();
     }
 
 }

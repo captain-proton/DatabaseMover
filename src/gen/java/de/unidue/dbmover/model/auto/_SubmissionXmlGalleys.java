@@ -17,19 +17,20 @@ public abstract class _SubmissionXmlGalleys extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String XML_GALLEY_ID_PK_COLUMN = "xml_galley_id";
 
     public static final Property<Long> GALLEY_ID = Property.create("galleyId", Long.class);
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<String> LABEL = Property.create("label", String.class);
     public static final Property<String> GALLEY_TYPE = Property.create("galleyType", String.class);
     public static final Property<Integer> VIEWS = Property.create("views", Integer.class);
+    public static final Property<Integer> XML_GALLEY_ID = Property.create("xmlGalleyId", Integer.class);
 
     protected long galleyId;
     protected long submissionId;
     protected String label;
     protected String galleyType;
     protected int views;
+    protected Integer xmlGalleyId;
 
 
     public void setGalleyId(long galleyId) {
@@ -82,6 +83,16 @@ public abstract class _SubmissionXmlGalleys extends BaseDataObject {
         return this.views;
     }
 
+    public void setXmlGalleyId(Integer xmlGalleyId) {
+        beforePropertyWrite("xmlGalleyId", this.xmlGalleyId, xmlGalleyId);
+        this.xmlGalleyId = xmlGalleyId;
+    }
+
+    public Integer getXmlGalleyId() {
+        beforePropertyRead("xmlGalleyId");
+        return this.xmlGalleyId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -99,6 +110,8 @@ public abstract class _SubmissionXmlGalleys extends BaseDataObject {
                 return this.galleyType;
             case "views":
                 return this.views;
+            case "xmlGalleyId":
+                return this.xmlGalleyId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -126,6 +139,9 @@ public abstract class _SubmissionXmlGalleys extends BaseDataObject {
             case "views":
                 this.views = val == null ? 0 : (int)val;
                 break;
+            case "xmlGalleyId":
+                this.xmlGalleyId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -147,6 +163,7 @@ public abstract class _SubmissionXmlGalleys extends BaseDataObject {
         out.writeObject(this.label);
         out.writeObject(this.galleyType);
         out.writeInt(this.views);
+        out.writeObject(this.xmlGalleyId);
     }
 
     @Override
@@ -157,6 +174,7 @@ public abstract class _SubmissionXmlGalleys extends BaseDataObject {
         this.label = (String)in.readObject();
         this.galleyType = (String)in.readObject();
         this.views = in.readInt();
+        this.xmlGalleyId = (Integer)in.readObject();
     }
 
 }

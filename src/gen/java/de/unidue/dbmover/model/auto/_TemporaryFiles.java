@@ -18,7 +18,6 @@ public abstract class _TemporaryFiles extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String FILE_ID_PK_COLUMN = "file_id";
 
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<String> FILE_NAME = Property.create("fileName", String.class);
@@ -26,6 +25,7 @@ public abstract class _TemporaryFiles extends BaseDataObject {
     public static final Property<Long> FILE_SIZE = Property.create("fileSize", Long.class);
     public static final Property<String> ORIGINAL_FILE_NAME = Property.create("originalFileName", String.class);
     public static final Property<LocalDateTime> DATE_UPLOADED = Property.create("dateUploaded", LocalDateTime.class);
+    public static final Property<Long> FILE_ID = Property.create("fileId", Long.class);
 
     protected long userId;
     protected String fileName;
@@ -33,6 +33,7 @@ public abstract class _TemporaryFiles extends BaseDataObject {
     protected long fileSize;
     protected String originalFileName;
     protected LocalDateTime dateUploaded;
+    protected Long fileId;
 
 
     public void setUserId(long userId) {
@@ -95,6 +96,16 @@ public abstract class _TemporaryFiles extends BaseDataObject {
         return this.dateUploaded;
     }
 
+    public void setFileId(Long fileId) {
+        beforePropertyWrite("fileId", this.fileId, fileId);
+        this.fileId = fileId;
+    }
+
+    public Long getFileId() {
+        beforePropertyRead("fileId");
+        return this.fileId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -114,6 +125,8 @@ public abstract class _TemporaryFiles extends BaseDataObject {
                 return this.originalFileName;
             case "dateUploaded":
                 return this.dateUploaded;
+            case "fileId":
+                return this.fileId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -144,6 +157,9 @@ public abstract class _TemporaryFiles extends BaseDataObject {
             case "dateUploaded":
                 this.dateUploaded = (LocalDateTime)val;
                 break;
+            case "fileId":
+                this.fileId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -166,6 +182,7 @@ public abstract class _TemporaryFiles extends BaseDataObject {
         out.writeLong(this.fileSize);
         out.writeObject(this.originalFileName);
         out.writeObject(this.dateUploaded);
+        out.writeObject(this.fileId);
     }
 
     @Override
@@ -177,6 +194,7 @@ public abstract class _TemporaryFiles extends BaseDataObject {
         this.fileSize = in.readLong();
         this.originalFileName = (String)in.readObject();
         this.dateUploaded = (LocalDateTime)in.readObject();
+        this.fileId = (Long)in.readObject();
     }
 
 }

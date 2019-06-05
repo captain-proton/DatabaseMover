@@ -17,19 +17,20 @@ public abstract class _BooksForReviewAuthors extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String AUTHOR_ID_PK_COLUMN = "author_id";
 
     public static final Property<Long> BOOK_ID = Property.create("bookId", Long.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
     public static final Property<String> FIRST_NAME = Property.create("firstName", String.class);
     public static final Property<String> MIDDLE_NAME = Property.create("middleName", String.class);
     public static final Property<String> LAST_NAME = Property.create("lastName", String.class);
+    public static final Property<Integer> AUTHOR_ID = Property.create("authorId", Integer.class);
 
     protected long bookId;
     protected double seq;
     protected String firstName;
     protected String middleName;
     protected String lastName;
+    protected Integer authorId;
 
 
     public void setBookId(long bookId) {
@@ -82,6 +83,16 @@ public abstract class _BooksForReviewAuthors extends BaseDataObject {
         return this.lastName;
     }
 
+    public void setAuthorId(Integer authorId) {
+        beforePropertyWrite("authorId", this.authorId, authorId);
+        this.authorId = authorId;
+    }
+
+    public Integer getAuthorId() {
+        beforePropertyRead("authorId");
+        return this.authorId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -99,6 +110,8 @@ public abstract class _BooksForReviewAuthors extends BaseDataObject {
                 return this.middleName;
             case "lastName":
                 return this.lastName;
+            case "authorId":
+                return this.authorId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -126,6 +139,9 @@ public abstract class _BooksForReviewAuthors extends BaseDataObject {
             case "lastName":
                 this.lastName = (String)val;
                 break;
+            case "authorId":
+                this.authorId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -147,6 +163,7 @@ public abstract class _BooksForReviewAuthors extends BaseDataObject {
         out.writeObject(this.firstName);
         out.writeObject(this.middleName);
         out.writeObject(this.lastName);
+        out.writeObject(this.authorId);
     }
 
     @Override
@@ -157,6 +174,7 @@ public abstract class _BooksForReviewAuthors extends BaseDataObject {
         this.firstName = (String)in.readObject();
         this.middleName = (String)in.readObject();
         this.lastName = (String)in.readObject();
+        this.authorId = (Integer)in.readObject();
     }
 
 }

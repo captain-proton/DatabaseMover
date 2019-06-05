@@ -18,7 +18,6 @@ public abstract class _Submissions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String SUBMISSION_ID_PK_COLUMN = "submission_id";
 
     public static final Property<String> LOCALE = Property.create("locale", String.class);
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
@@ -33,6 +32,7 @@ public abstract class _Submissions extends BaseDataObject {
     public static final Property<String> PAGES = Property.create("pages", String.class);
     public static final Property<Short> HIDE_AUTHOR = Property.create("hideAuthor", Short.class);
     public static final Property<Long> STAGE_ID = Property.create("stageId", Long.class);
+    public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
 
     protected String locale;
     protected long contextId;
@@ -47,6 +47,7 @@ public abstract class _Submissions extends BaseDataObject {
     protected String pages;
     protected short hideAuthor;
     protected long stageId;
+    protected Long submissionId;
 
 
     public void setLocale(String locale) {
@@ -182,6 +183,16 @@ public abstract class _Submissions extends BaseDataObject {
         return this.stageId;
     }
 
+    public void setSubmissionId(Long submissionId) {
+        beforePropertyWrite("submissionId", this.submissionId, submissionId);
+        this.submissionId = submissionId;
+    }
+
+    public Long getSubmissionId() {
+        beforePropertyRead("submissionId");
+        return this.submissionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -215,6 +226,8 @@ public abstract class _Submissions extends BaseDataObject {
                 return this.hideAuthor;
             case "stageId":
                 return this.stageId;
+            case "submissionId":
+                return this.submissionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -266,6 +279,9 @@ public abstract class _Submissions extends BaseDataObject {
             case "stageId":
                 this.stageId = val == null ? 0 : (long)val;
                 break;
+            case "submissionId":
+                this.submissionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -295,6 +311,7 @@ public abstract class _Submissions extends BaseDataObject {
         out.writeObject(this.pages);
         out.writeShort(this.hideAuthor);
         out.writeLong(this.stageId);
+        out.writeObject(this.submissionId);
     }
 
     @Override
@@ -313,6 +330,7 @@ public abstract class _Submissions extends BaseDataObject {
         this.pages = (String)in.readObject();
         this.hideAuthor = in.readShort();
         this.stageId = in.readLong();
+        this.submissionId = (Long)in.readObject();
     }
 
 }

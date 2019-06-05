@@ -17,13 +17,14 @@ public abstract class _StaticPages extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String STATIC_PAGE_ID_PK_COLUMN = "static_page_id";
 
     public static final Property<String> PATH = Property.create("path", String.class);
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
+    public static final Property<Long> STATIC_PAGE_ID = Property.create("staticPageId", Long.class);
 
     protected String path;
     protected long contextId;
+    protected Long staticPageId;
 
 
     public void setPath(String path) {
@@ -46,6 +47,16 @@ public abstract class _StaticPages extends BaseDataObject {
         return this.contextId;
     }
 
+    public void setStaticPageId(Long staticPageId) {
+        beforePropertyWrite("staticPageId", this.staticPageId, staticPageId);
+        this.staticPageId = staticPageId;
+    }
+
+    public Long getStaticPageId() {
+        beforePropertyRead("staticPageId");
+        return this.staticPageId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -57,6 +68,8 @@ public abstract class _StaticPages extends BaseDataObject {
                 return this.path;
             case "contextId":
                 return this.contextId;
+            case "staticPageId":
+                return this.staticPageId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -74,6 +87,9 @@ public abstract class _StaticPages extends BaseDataObject {
                 break;
             case "contextId":
                 this.contextId = val == null ? 0 : (long)val;
+                break;
+            case "staticPageId":
+                this.staticPageId = (Long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -93,6 +109,7 @@ public abstract class _StaticPages extends BaseDataObject {
         super.writeState(out);
         out.writeObject(this.path);
         out.writeLong(this.contextId);
+        out.writeObject(this.staticPageId);
     }
 
     @Override
@@ -100,6 +117,7 @@ public abstract class _StaticPages extends BaseDataObject {
         super.readState(in);
         this.path = (String)in.readObject();
         this.contextId = in.readLong();
+        this.staticPageId = (Long)in.readObject();
     }
 
 }

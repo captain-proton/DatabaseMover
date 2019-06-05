@@ -18,7 +18,6 @@ public abstract class _SubmissionFiles extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String FILE_ID_PK_COLUMN = "file_id";
     public static final String REVISION_PK_COLUMN = "revision";
 
     public static final Property<Long> SOURCE_FILE_ID = Property.create("sourceFileId", Long.class);
@@ -38,6 +37,7 @@ public abstract class _SubmissionFiles extends BaseDataObject {
     public static final Property<Long> USER_GROUP_ID = Property.create("userGroupId", Long.class);
     public static final Property<Long> UPLOADER_USER_ID = Property.create("uploaderUserId", Long.class);
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
+    public static final Property<Long> FILE_ID = Property.create("fileId", Long.class);
 
     protected Long sourceFileId;
     protected Long sourceRevision;
@@ -56,6 +56,7 @@ public abstract class _SubmissionFiles extends BaseDataObject {
     protected Long userGroupId;
     protected Long uploaderUserId;
     protected Long assocType;
+    protected Long fileId;
 
 
     public void setSourceFileId(long sourceFileId) {
@@ -252,6 +253,16 @@ public abstract class _SubmissionFiles extends BaseDataObject {
         return this.assocType;
     }
 
+    public void setFileId(Long fileId) {
+        beforePropertyWrite("fileId", this.fileId, fileId);
+        this.fileId = fileId;
+    }
+
+    public Long getFileId() {
+        beforePropertyRead("fileId");
+        return this.fileId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -293,6 +304,8 @@ public abstract class _SubmissionFiles extends BaseDataObject {
                 return this.uploaderUserId;
             case "assocType":
                 return this.assocType;
+            case "fileId":
+                return this.fileId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -356,6 +369,9 @@ public abstract class _SubmissionFiles extends BaseDataObject {
             case "assocType":
                 this.assocType = (Long)val;
                 break;
+            case "fileId":
+                this.fileId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -389,6 +405,7 @@ public abstract class _SubmissionFiles extends BaseDataObject {
         out.writeObject(this.userGroupId);
         out.writeObject(this.uploaderUserId);
         out.writeObject(this.assocType);
+        out.writeObject(this.fileId);
     }
 
     @Override
@@ -411,6 +428,7 @@ public abstract class _SubmissionFiles extends BaseDataObject {
         this.userGroupId = (Long)in.readObject();
         this.uploaderUserId = (Long)in.readObject();
         this.assocType = (Long)in.readObject();
+        this.fileId = (Long)in.readObject();
     }
 
 }

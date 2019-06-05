@@ -19,17 +19,18 @@ public abstract class _QueuedPayments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String QUEUED_PAYMENT_ID_PK_COLUMN = "queued_payment_id";
 
     public static final Property<LocalDateTime> DATE_CREATED = Property.create("dateCreated", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_MODIFIED = Property.create("dateModified", LocalDateTime.class);
     public static final Property<LocalDate> EXPIRY_DATE = Property.create("expiryDate", LocalDate.class);
     public static final Property<String> PAYMENT_DATA = Property.create("paymentData", String.class);
+    public static final Property<Long> QUEUED_PAYMENT_ID = Property.create("queuedPaymentId", Long.class);
 
     protected LocalDateTime dateCreated;
     protected LocalDateTime dateModified;
     protected LocalDate expiryDate;
     protected String paymentData;
+    protected Long queuedPaymentId;
 
 
     public void setDateCreated(LocalDateTime dateCreated) {
@@ -72,6 +73,16 @@ public abstract class _QueuedPayments extends BaseDataObject {
         return this.paymentData;
     }
 
+    public void setQueuedPaymentId(Long queuedPaymentId) {
+        beforePropertyWrite("queuedPaymentId", this.queuedPaymentId, queuedPaymentId);
+        this.queuedPaymentId = queuedPaymentId;
+    }
+
+    public Long getQueuedPaymentId() {
+        beforePropertyRead("queuedPaymentId");
+        return this.queuedPaymentId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -87,6 +98,8 @@ public abstract class _QueuedPayments extends BaseDataObject {
                 return this.expiryDate;
             case "paymentData":
                 return this.paymentData;
+            case "queuedPaymentId":
+                return this.queuedPaymentId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -111,6 +124,9 @@ public abstract class _QueuedPayments extends BaseDataObject {
             case "paymentData":
                 this.paymentData = (String)val;
                 break;
+            case "queuedPaymentId":
+                this.queuedPaymentId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -131,6 +147,7 @@ public abstract class _QueuedPayments extends BaseDataObject {
         out.writeObject(this.dateModified);
         out.writeObject(this.expiryDate);
         out.writeObject(this.paymentData);
+        out.writeObject(this.queuedPaymentId);
     }
 
     @Override
@@ -140,6 +157,7 @@ public abstract class _QueuedPayments extends BaseDataObject {
         this.dateModified = (LocalDateTime)in.readObject();
         this.expiryDate = (LocalDate)in.readObject();
         this.paymentData = (String)in.readObject();
+        this.queuedPaymentId = (Long)in.readObject();
     }
 
 }

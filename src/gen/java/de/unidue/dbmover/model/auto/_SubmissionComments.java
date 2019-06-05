@@ -18,7 +18,6 @@ public abstract class _SubmissionComments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String COMMENT_ID_PK_COLUMN = "comment_id";
 
     public static final Property<Long> COMMENT_TYPE = Property.create("commentType", Long.class);
     public static final Property<Long> ROLE_ID = Property.create("roleId", Long.class);
@@ -30,6 +29,7 @@ public abstract class _SubmissionComments extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_POSTED = Property.create("datePosted", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_MODIFIED = Property.create("dateModified", LocalDateTime.class);
     public static final Property<Short> VIEWABLE = Property.create("viewable", Short.class);
+    public static final Property<Long> COMMENT_ID = Property.create("commentId", Long.class);
 
     protected Long commentType;
     protected long roleId;
@@ -41,6 +41,7 @@ public abstract class _SubmissionComments extends BaseDataObject {
     protected LocalDateTime datePosted;
     protected LocalDateTime dateModified;
     protected Short viewable;
+    protected Long commentId;
 
 
     public void setCommentType(long commentType) {
@@ -149,6 +150,16 @@ public abstract class _SubmissionComments extends BaseDataObject {
         return this.viewable;
     }
 
+    public void setCommentId(Long commentId) {
+        beforePropertyWrite("commentId", this.commentId, commentId);
+        this.commentId = commentId;
+    }
+
+    public Long getCommentId() {
+        beforePropertyRead("commentId");
+        return this.commentId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -176,6 +187,8 @@ public abstract class _SubmissionComments extends BaseDataObject {
                 return this.dateModified;
             case "viewable":
                 return this.viewable;
+            case "commentId":
+                return this.commentId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -218,6 +231,9 @@ public abstract class _SubmissionComments extends BaseDataObject {
             case "viewable":
                 this.viewable = (Short)val;
                 break;
+            case "commentId":
+                this.commentId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -244,6 +260,7 @@ public abstract class _SubmissionComments extends BaseDataObject {
         out.writeObject(this.datePosted);
         out.writeObject(this.dateModified);
         out.writeObject(this.viewable);
+        out.writeObject(this.commentId);
     }
 
     @Override
@@ -259,6 +276,7 @@ public abstract class _SubmissionComments extends BaseDataObject {
         this.datePosted = (LocalDateTime)in.readObject();
         this.dateModified = (LocalDateTime)in.readObject();
         this.viewable = (Short)in.readObject();
+        this.commentId = (Long)in.readObject();
     }
 
 }

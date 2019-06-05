@@ -17,7 +17,6 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String PERSON_ID_PK_COLUMN = "person_id";
 
     public static final Property<Long> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Long.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
@@ -25,6 +24,7 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
     public static final Property<String> FIRST_NAME = Property.create("firstName", String.class);
     public static final Property<String> MIDDLE_NAME = Property.create("middleName", String.class);
     public static final Property<String> LAST_NAME = Property.create("lastName", String.class);
+    public static final Property<Integer> PERSON_ID = Property.create("personId", Integer.class);
 
     protected long objectIdentifier;
     protected double seq;
@@ -32,6 +32,7 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
     protected String firstName;
     protected String middleName;
     protected String lastName;
+    protected Integer personId;
 
 
     public void setObjectIdentifier(long objectIdentifier) {
@@ -94,6 +95,16 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
         return this.lastName;
     }
 
+    public void setPersonId(Integer personId) {
+        beforePropertyWrite("personId", this.personId, personId);
+        this.personId = personId;
+    }
+
+    public Integer getPersonId() {
+        beforePropertyRead("personId");
+        return this.personId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -113,6 +124,8 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
                 return this.middleName;
             case "lastName":
                 return this.lastName;
+            case "personId":
+                return this.personId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -143,6 +156,9 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
             case "lastName":
                 this.lastName = (String)val;
                 break;
+            case "personId":
+                this.personId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -165,6 +181,7 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
         out.writeObject(this.firstName);
         out.writeObject(this.middleName);
         out.writeObject(this.lastName);
+        out.writeObject(this.personId);
     }
 
     @Override
@@ -176,6 +193,7 @@ public abstract class _ObjectForReviewPersons extends BaseDataObject {
         this.firstName = (String)in.readObject();
         this.middleName = (String)in.readObject();
         this.lastName = (String)in.readObject();
+        this.personId = (Integer)in.readObject();
     }
 
 }

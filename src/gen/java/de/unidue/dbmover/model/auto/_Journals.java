@@ -17,17 +17,18 @@ public abstract class _Journals extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String JOURNAL_ID_PK_COLUMN = "journal_id";
 
     public static final Property<String> PATH = Property.create("path", String.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
     public static final Property<String> PRIMARY_LOCALE = Property.create("primaryLocale", String.class);
     public static final Property<Short> ENABLED = Property.create("enabled", Short.class);
+    public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
 
     protected String path;
     protected double seq;
     protected String primaryLocale;
     protected short enabled;
+    protected Long journalId;
 
 
     public void setPath(String path) {
@@ -70,6 +71,16 @@ public abstract class _Journals extends BaseDataObject {
         return this.enabled;
     }
 
+    public void setJournalId(Long journalId) {
+        beforePropertyWrite("journalId", this.journalId, journalId);
+        this.journalId = journalId;
+    }
+
+    public Long getJournalId() {
+        beforePropertyRead("journalId");
+        return this.journalId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -85,6 +96,8 @@ public abstract class _Journals extends BaseDataObject {
                 return this.primaryLocale;
             case "enabled":
                 return this.enabled;
+            case "journalId":
+                return this.journalId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -109,6 +122,9 @@ public abstract class _Journals extends BaseDataObject {
             case "enabled":
                 this.enabled = val == null ? 0 : (short)val;
                 break;
+            case "journalId":
+                this.journalId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -129,6 +145,7 @@ public abstract class _Journals extends BaseDataObject {
         out.writeDouble(this.seq);
         out.writeObject(this.primaryLocale);
         out.writeShort(this.enabled);
+        out.writeObject(this.journalId);
     }
 
     @Override
@@ -138,6 +155,7 @@ public abstract class _Journals extends BaseDataObject {
         this.seq = in.readDouble();
         this.primaryLocale = (String)in.readObject();
         this.enabled = in.readShort();
+        this.journalId = (Long)in.readObject();
     }
 
 }

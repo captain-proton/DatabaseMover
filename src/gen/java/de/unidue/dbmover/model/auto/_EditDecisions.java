@@ -18,7 +18,6 @@ public abstract class _EditDecisions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String EDIT_DECISION_ID_PK_COLUMN = "edit_decision_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Short> ROUND = Property.create("round", Short.class);
@@ -27,6 +26,7 @@ public abstract class _EditDecisions extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_DECIDED = Property.create("dateDecided", LocalDateTime.class);
     public static final Property<Long> REVIEW_ROUND_ID = Property.create("reviewRoundId", Long.class);
     public static final Property<Long> STAGE_ID = Property.create("stageId", Long.class);
+    public static final Property<Long> EDIT_DECISION_ID = Property.create("editDecisionId", Long.class);
 
     protected long submissionId;
     protected short round;
@@ -35,6 +35,7 @@ public abstract class _EditDecisions extends BaseDataObject {
     protected LocalDateTime dateDecided;
     protected Long reviewRoundId;
     protected Long stageId;
+    protected Long editDecisionId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -113,6 +114,16 @@ public abstract class _EditDecisions extends BaseDataObject {
         return this.stageId;
     }
 
+    public void setEditDecisionId(Long editDecisionId) {
+        beforePropertyWrite("editDecisionId", this.editDecisionId, editDecisionId);
+        this.editDecisionId = editDecisionId;
+    }
+
+    public Long getEditDecisionId() {
+        beforePropertyRead("editDecisionId");
+        return this.editDecisionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -134,6 +145,8 @@ public abstract class _EditDecisions extends BaseDataObject {
                 return this.reviewRoundId;
             case "stageId":
                 return this.stageId;
+            case "editDecisionId":
+                return this.editDecisionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -167,6 +180,9 @@ public abstract class _EditDecisions extends BaseDataObject {
             case "stageId":
                 this.stageId = (Long)val;
                 break;
+            case "editDecisionId":
+                this.editDecisionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -190,6 +206,7 @@ public abstract class _EditDecisions extends BaseDataObject {
         out.writeObject(this.dateDecided);
         out.writeObject(this.reviewRoundId);
         out.writeObject(this.stageId);
+        out.writeObject(this.editDecisionId);
     }
 
     @Override
@@ -202,6 +219,7 @@ public abstract class _EditDecisions extends BaseDataObject {
         this.dateDecided = (LocalDateTime)in.readObject();
         this.reviewRoundId = (Long)in.readObject();
         this.stageId = (Long)in.readObject();
+        this.editDecisionId = (Long)in.readObject();
     }
 
 }

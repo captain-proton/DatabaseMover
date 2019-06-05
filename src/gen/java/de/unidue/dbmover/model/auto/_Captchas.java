@@ -18,15 +18,16 @@ public abstract class _Captchas extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CAPTCHA_ID_PK_COLUMN = "captcha_id";
 
     public static final Property<String> SESSION_ID = Property.create("sessionId", String.class);
     public static final Property<String> VALUE = Property.create("value", String.class);
     public static final Property<LocalDateTime> DATE_CREATED = Property.create("dateCreated", LocalDateTime.class);
+    public static final Property<Integer> CAPTCHA_ID = Property.create("captchaId", Integer.class);
 
     protected String sessionId;
     protected String value;
     protected LocalDateTime dateCreated;
+    protected Integer captchaId;
 
 
     public void setSessionId(String sessionId) {
@@ -59,6 +60,16 @@ public abstract class _Captchas extends BaseDataObject {
         return this.dateCreated;
     }
 
+    public void setCaptchaId(Integer captchaId) {
+        beforePropertyWrite("captchaId", this.captchaId, captchaId);
+        this.captchaId = captchaId;
+    }
+
+    public Integer getCaptchaId() {
+        beforePropertyRead("captchaId");
+        return this.captchaId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -72,6 +83,8 @@ public abstract class _Captchas extends BaseDataObject {
                 return this.value;
             case "dateCreated":
                 return this.dateCreated;
+            case "captchaId":
+                return this.captchaId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -93,6 +106,9 @@ public abstract class _Captchas extends BaseDataObject {
             case "dateCreated":
                 this.dateCreated = (LocalDateTime)val;
                 break;
+            case "captchaId":
+                this.captchaId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -112,6 +128,7 @@ public abstract class _Captchas extends BaseDataObject {
         out.writeObject(this.sessionId);
         out.writeObject(this.value);
         out.writeObject(this.dateCreated);
+        out.writeObject(this.captchaId);
     }
 
     @Override
@@ -120,6 +137,7 @@ public abstract class _Captchas extends BaseDataObject {
         this.sessionId = (String)in.readObject();
         this.value = (String)in.readObject();
         this.dateCreated = (LocalDateTime)in.readObject();
+        this.captchaId = (Integer)in.readObject();
     }
 
 }

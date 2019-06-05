@@ -17,17 +17,18 @@ public abstract class _AuthSources extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String AUTH_ID_PK_COLUMN = "auth_id";
 
     public static final Property<String> TITLE = Property.create("title", String.class);
     public static final Property<String> PLUGIN = Property.create("plugin", String.class);
     public static final Property<Short> AUTH_DEFAULT = Property.create("authDefault", Short.class);
     public static final Property<String> SETTINGS = Property.create("settings", String.class);
+    public static final Property<Long> AUTH_ID = Property.create("authId", Long.class);
 
     protected String title;
     protected String plugin;
     protected short authDefault;
     protected String settings;
+    protected Long authId;
 
 
     public void setTitle(String title) {
@@ -70,6 +71,16 @@ public abstract class _AuthSources extends BaseDataObject {
         return this.settings;
     }
 
+    public void setAuthId(Long authId) {
+        beforePropertyWrite("authId", this.authId, authId);
+        this.authId = authId;
+    }
+
+    public Long getAuthId() {
+        beforePropertyRead("authId");
+        return this.authId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -85,6 +96,8 @@ public abstract class _AuthSources extends BaseDataObject {
                 return this.authDefault;
             case "settings":
                 return this.settings;
+            case "authId":
+                return this.authId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -109,6 +122,9 @@ public abstract class _AuthSources extends BaseDataObject {
             case "settings":
                 this.settings = (String)val;
                 break;
+            case "authId":
+                this.authId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -129,6 +145,7 @@ public abstract class _AuthSources extends BaseDataObject {
         out.writeObject(this.plugin);
         out.writeShort(this.authDefault);
         out.writeObject(this.settings);
+        out.writeObject(this.authId);
     }
 
     @Override
@@ -138,6 +155,7 @@ public abstract class _AuthSources extends BaseDataObject {
         this.plugin = (String)in.readObject();
         this.authDefault = in.readShort();
         this.settings = (String)in.readObject();
+        this.authId = (Long)in.readObject();
     }
 
 }

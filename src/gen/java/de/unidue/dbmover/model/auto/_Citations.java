@@ -17,7 +17,6 @@ public abstract class _Citations extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CITATION_ID_PK_COLUMN = "citation_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
@@ -25,6 +24,7 @@ public abstract class _Citations extends BaseDataObject {
     public static final Property<String> RAW_CITATION = Property.create("rawCitation", String.class);
     public static final Property<Long> SEQ = Property.create("seq", Long.class);
     public static final Property<String> LOCK_ID = Property.create("lockId", String.class);
+    public static final Property<Long> CITATION_ID = Property.create("citationId", Long.class);
 
     protected long assocType;
     protected long assocId;
@@ -32,6 +32,7 @@ public abstract class _Citations extends BaseDataObject {
     protected String rawCitation;
     protected long seq;
     protected String lockId;
+    protected Long citationId;
 
 
     public void setAssocType(long assocType) {
@@ -94,6 +95,16 @@ public abstract class _Citations extends BaseDataObject {
         return this.lockId;
     }
 
+    public void setCitationId(Long citationId) {
+        beforePropertyWrite("citationId", this.citationId, citationId);
+        this.citationId = citationId;
+    }
+
+    public Long getCitationId() {
+        beforePropertyRead("citationId");
+        return this.citationId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -113,6 +124,8 @@ public abstract class _Citations extends BaseDataObject {
                 return this.seq;
             case "lockId":
                 return this.lockId;
+            case "citationId":
+                return this.citationId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -143,6 +156,9 @@ public abstract class _Citations extends BaseDataObject {
             case "lockId":
                 this.lockId = (String)val;
                 break;
+            case "citationId":
+                this.citationId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -165,6 +181,7 @@ public abstract class _Citations extends BaseDataObject {
         out.writeObject(this.rawCitation);
         out.writeLong(this.seq);
         out.writeObject(this.lockId);
+        out.writeObject(this.citationId);
     }
 
     @Override
@@ -176,6 +193,7 @@ public abstract class _Citations extends BaseDataObject {
         this.rawCitation = (String)in.readObject();
         this.seq = in.readLong();
         this.lockId = (String)in.readObject();
+        this.citationId = (Long)in.readObject();
     }
 
 }

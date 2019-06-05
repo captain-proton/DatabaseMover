@@ -18,19 +18,20 @@ public abstract class _PublishedSubmissions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String PUBLISHED_SUBMISSION_ID_PK_COLUMN = "published_submission_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Long> ISSUE_ID = Property.create("issueId", Long.class);
     public static final Property<LocalDateTime> DATE_PUBLISHED = Property.create("datePublished", LocalDateTime.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
     public static final Property<Short> ACCESS_STATUS = Property.create("accessStatus", Short.class);
+    public static final Property<Long> PUBLISHED_SUBMISSION_ID = Property.create("publishedSubmissionId", Long.class);
 
     protected long submissionId;
     protected long issueId;
     protected LocalDateTime datePublished;
     protected double seq;
     protected short accessStatus;
+    protected Long publishedSubmissionId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -83,6 +84,16 @@ public abstract class _PublishedSubmissions extends BaseDataObject {
         return this.accessStatus;
     }
 
+    public void setPublishedSubmissionId(Long publishedSubmissionId) {
+        beforePropertyWrite("publishedSubmissionId", this.publishedSubmissionId, publishedSubmissionId);
+        this.publishedSubmissionId = publishedSubmissionId;
+    }
+
+    public Long getPublishedSubmissionId() {
+        beforePropertyRead("publishedSubmissionId");
+        return this.publishedSubmissionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -100,6 +111,8 @@ public abstract class _PublishedSubmissions extends BaseDataObject {
                 return this.seq;
             case "accessStatus":
                 return this.accessStatus;
+            case "publishedSubmissionId":
+                return this.publishedSubmissionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -127,6 +140,9 @@ public abstract class _PublishedSubmissions extends BaseDataObject {
             case "accessStatus":
                 this.accessStatus = val == null ? 0 : (short)val;
                 break;
+            case "publishedSubmissionId":
+                this.publishedSubmissionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -148,6 +164,7 @@ public abstract class _PublishedSubmissions extends BaseDataObject {
         out.writeObject(this.datePublished);
         out.writeDouble(this.seq);
         out.writeShort(this.accessStatus);
+        out.writeObject(this.publishedSubmissionId);
     }
 
     @Override
@@ -158,6 +175,7 @@ public abstract class _PublishedSubmissions extends BaseDataObject {
         this.datePublished = (LocalDateTime)in.readObject();
         this.seq = in.readDouble();
         this.accessStatus = in.readShort();
+        this.publishedSubmissionId = (Long)in.readObject();
     }
 
 }

@@ -2,11 +2,8 @@ package de.unidue.dbmover;
 
 import de.unidue.dbmover.model.AccessKeys;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.access.DataDomain;
-import org.apache.cayenne.configuration.DataChannelDescriptor;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Property;
-import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.query.ObjectSelect;
 
 import java.lang.reflect.Field;

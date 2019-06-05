@@ -27,7 +27,7 @@ public abstract class _AccessKeys extends BaseDataObject {
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
     public static final Property<LocalDateTime> EXPIRY_DATE = Property.create("expiryDate", LocalDateTime.class);
 
-    protected Long accessKeyId;
+    protected long accessKeyId;
     protected String context;
     protected String keyHash;
     protected long userId;
@@ -35,12 +35,12 @@ public abstract class _AccessKeys extends BaseDataObject {
     protected LocalDateTime expiryDate;
 
 
-    public void setAccessKeyId(Long accessKeyId) {
+    public void setAccessKeyId(long accessKeyId) {
         beforePropertyWrite("accessKeyId", this.accessKeyId, accessKeyId);
         this.accessKeyId = accessKeyId;
     }
 
-    public Long getAccessKeyId() {
+    public long getAccessKeyId() {
         beforePropertyRead("accessKeyId");
         return this.accessKeyId;
     }
@@ -130,7 +130,7 @@ public abstract class _AccessKeys extends BaseDataObject {
 
         switch (propName) {
             case "accessKeyId":
-                this.accessKeyId = (Long)val;
+                this.accessKeyId = val == null ? 0 : (long)val;
                 break;
             case "context":
                 this.context = (String)val;
@@ -163,7 +163,7 @@ public abstract class _AccessKeys extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
-        out.writeObject(this.accessKeyId);
+        out.writeLong(this.accessKeyId);
         out.writeObject(this.context);
         out.writeObject(this.keyHash);
         out.writeLong(this.userId);
@@ -174,7 +174,7 @@ public abstract class _AccessKeys extends BaseDataObject {
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
-        this.accessKeyId = (Long)in.readObject();
+        this.accessKeyId = in.readLong();
         this.context = (String)in.readObject();
         this.keyHash = (String)in.readObject();
         this.userId = in.readLong();

@@ -18,19 +18,20 @@ public abstract class _Referrals extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String REFERRAL_ID_PK_COLUMN = "referral_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Short> STATUS = Property.create("status", Short.class);
     public static final Property<String> URL = Property.create("url", String.class);
     public static final Property<LocalDateTime> DATE_ADDED = Property.create("dateAdded", LocalDateTime.class);
     public static final Property<Long> LINK_COUNT = Property.create("linkCount", Long.class);
+    public static final Property<Integer> REFERRAL_ID = Property.create("referralId", Integer.class);
 
     protected long submissionId;
     protected short status;
     protected String url;
     protected LocalDateTime dateAdded;
     protected long linkCount;
+    protected Integer referralId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -83,6 +84,16 @@ public abstract class _Referrals extends BaseDataObject {
         return this.linkCount;
     }
 
+    public void setReferralId(Integer referralId) {
+        beforePropertyWrite("referralId", this.referralId, referralId);
+        this.referralId = referralId;
+    }
+
+    public Integer getReferralId() {
+        beforePropertyRead("referralId");
+        return this.referralId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -100,6 +111,8 @@ public abstract class _Referrals extends BaseDataObject {
                 return this.dateAdded;
             case "linkCount":
                 return this.linkCount;
+            case "referralId":
+                return this.referralId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -127,6 +140,9 @@ public abstract class _Referrals extends BaseDataObject {
             case "linkCount":
                 this.linkCount = val == null ? 0 : (long)val;
                 break;
+            case "referralId":
+                this.referralId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -148,6 +164,7 @@ public abstract class _Referrals extends BaseDataObject {
         out.writeObject(this.url);
         out.writeObject(this.dateAdded);
         out.writeLong(this.linkCount);
+        out.writeObject(this.referralId);
     }
 
     @Override
@@ -158,6 +175,7 @@ public abstract class _Referrals extends BaseDataObject {
         this.url = (String)in.readObject();
         this.dateAdded = (LocalDateTime)in.readObject();
         this.linkCount = in.readLong();
+        this.referralId = (Integer)in.readObject();
     }
 
 }

@@ -17,19 +17,20 @@ public abstract class _FilterGroups extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String FILTER_GROUP_ID_PK_COLUMN = "filter_group_id";
 
     public static final Property<String> SYMBOLIC = Property.create("symbolic", String.class);
     public static final Property<String> DISPLAY_NAME = Property.create("displayName", String.class);
     public static final Property<String> DESCRIPTION = Property.create("description", String.class);
     public static final Property<String> INPUT_TYPE = Property.create("inputType", String.class);
     public static final Property<String> OUTPUT_TYPE = Property.create("outputType", String.class);
+    public static final Property<Long> FILTER_GROUP_ID = Property.create("filterGroupId", Long.class);
 
     protected String symbolic;
     protected String displayName;
     protected String description;
     protected String inputType;
     protected String outputType;
+    protected Long filterGroupId;
 
 
     public void setSymbolic(String symbolic) {
@@ -82,6 +83,16 @@ public abstract class _FilterGroups extends BaseDataObject {
         return this.outputType;
     }
 
+    public void setFilterGroupId(Long filterGroupId) {
+        beforePropertyWrite("filterGroupId", this.filterGroupId, filterGroupId);
+        this.filterGroupId = filterGroupId;
+    }
+
+    public Long getFilterGroupId() {
+        beforePropertyRead("filterGroupId");
+        return this.filterGroupId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -99,6 +110,8 @@ public abstract class _FilterGroups extends BaseDataObject {
                 return this.inputType;
             case "outputType":
                 return this.outputType;
+            case "filterGroupId":
+                return this.filterGroupId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -126,6 +139,9 @@ public abstract class _FilterGroups extends BaseDataObject {
             case "outputType":
                 this.outputType = (String)val;
                 break;
+            case "filterGroupId":
+                this.filterGroupId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -147,6 +163,7 @@ public abstract class _FilterGroups extends BaseDataObject {
         out.writeObject(this.description);
         out.writeObject(this.inputType);
         out.writeObject(this.outputType);
+        out.writeObject(this.filterGroupId);
     }
 
     @Override
@@ -157,6 +174,7 @@ public abstract class _FilterGroups extends BaseDataObject {
         this.description = (String)in.readObject();
         this.inputType = (String)in.readObject();
         this.outputType = (String)in.readObject();
+        this.filterGroupId = (Long)in.readObject();
     }
 
 }

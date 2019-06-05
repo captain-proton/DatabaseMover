@@ -17,17 +17,18 @@ public abstract class _InstitutionalSubscriptions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String INSTITUTIONAL_SUBSCRIPTION_ID_PK_COLUMN = "institutional_subscription_id";
 
     public static final Property<Long> SUBSCRIPTION_ID = Property.create("subscriptionId", Long.class);
     public static final Property<String> INSTITUTION_NAME = Property.create("institutionName", String.class);
     public static final Property<String> MAILING_ADDRESS = Property.create("mailingAddress", String.class);
     public static final Property<String> DOMAIN = Property.create("domain", String.class);
+    public static final Property<Long> INSTITUTIONAL_SUBSCRIPTION_ID = Property.create("institutionalSubscriptionId", Long.class);
 
     protected long subscriptionId;
     protected String institutionName;
     protected String mailingAddress;
     protected String domain;
+    protected Long institutionalSubscriptionId;
 
 
     public void setSubscriptionId(long subscriptionId) {
@@ -70,6 +71,16 @@ public abstract class _InstitutionalSubscriptions extends BaseDataObject {
         return this.domain;
     }
 
+    public void setInstitutionalSubscriptionId(Long institutionalSubscriptionId) {
+        beforePropertyWrite("institutionalSubscriptionId", this.institutionalSubscriptionId, institutionalSubscriptionId);
+        this.institutionalSubscriptionId = institutionalSubscriptionId;
+    }
+
+    public Long getInstitutionalSubscriptionId() {
+        beforePropertyRead("institutionalSubscriptionId");
+        return this.institutionalSubscriptionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -85,6 +96,8 @@ public abstract class _InstitutionalSubscriptions extends BaseDataObject {
                 return this.mailingAddress;
             case "domain":
                 return this.domain;
+            case "institutionalSubscriptionId":
+                return this.institutionalSubscriptionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -109,6 +122,9 @@ public abstract class _InstitutionalSubscriptions extends BaseDataObject {
             case "domain":
                 this.domain = (String)val;
                 break;
+            case "institutionalSubscriptionId":
+                this.institutionalSubscriptionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -129,6 +145,7 @@ public abstract class _InstitutionalSubscriptions extends BaseDataObject {
         out.writeObject(this.institutionName);
         out.writeObject(this.mailingAddress);
         out.writeObject(this.domain);
+        out.writeObject(this.institutionalSubscriptionId);
     }
 
     @Override
@@ -138,6 +155,7 @@ public abstract class _InstitutionalSubscriptions extends BaseDataObject {
         this.institutionName = (String)in.readObject();
         this.mailingAddress = (String)in.readObject();
         this.domain = (String)in.readObject();
+        this.institutionalSubscriptionId = (Long)in.readObject();
     }
 
 }

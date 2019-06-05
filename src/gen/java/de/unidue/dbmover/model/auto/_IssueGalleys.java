@@ -17,19 +17,20 @@ public abstract class _IssueGalleys extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String GALLEY_ID_PK_COLUMN = "galley_id";
 
     public static final Property<String> LOCALE = Property.create("locale", String.class);
     public static final Property<Long> ISSUE_ID = Property.create("issueId", Long.class);
     public static final Property<Long> FILE_ID = Property.create("fileId", Long.class);
     public static final Property<String> LABEL = Property.create("label", String.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
+    public static final Property<Long> GALLEY_ID = Property.create("galleyId", Long.class);
 
     protected String locale;
     protected long issueId;
     protected long fileId;
     protected String label;
     protected double seq;
+    protected Long galleyId;
 
 
     public void setLocale(String locale) {
@@ -82,6 +83,16 @@ public abstract class _IssueGalleys extends BaseDataObject {
         return this.seq;
     }
 
+    public void setGalleyId(Long galleyId) {
+        beforePropertyWrite("galleyId", this.galleyId, galleyId);
+        this.galleyId = galleyId;
+    }
+
+    public Long getGalleyId() {
+        beforePropertyRead("galleyId");
+        return this.galleyId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -99,6 +110,8 @@ public abstract class _IssueGalleys extends BaseDataObject {
                 return this.label;
             case "seq":
                 return this.seq;
+            case "galleyId":
+                return this.galleyId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -126,6 +139,9 @@ public abstract class _IssueGalleys extends BaseDataObject {
             case "seq":
                 this.seq = val == null ? 0 : (double)val;
                 break;
+            case "galleyId":
+                this.galleyId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -147,6 +163,7 @@ public abstract class _IssueGalleys extends BaseDataObject {
         out.writeLong(this.fileId);
         out.writeObject(this.label);
         out.writeDouble(this.seq);
+        out.writeObject(this.galleyId);
     }
 
     @Override
@@ -157,6 +174,7 @@ public abstract class _IssueGalleys extends BaseDataObject {
         this.fileId = in.readLong();
         this.label = (String)in.readObject();
         this.seq = in.readDouble();
+        this.galleyId = (Long)in.readObject();
     }
 
 }

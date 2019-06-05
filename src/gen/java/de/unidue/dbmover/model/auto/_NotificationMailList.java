@@ -17,17 +17,18 @@ public abstract class _NotificationMailList extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String NOTIFICATION_MAIL_LIST_ID_PK_COLUMN = "notification_mail_list_id";
 
     public static final Property<String> EMAIL = Property.create("email", String.class);
     public static final Property<Short> CONFIRMED = Property.create("confirmed", Short.class);
     public static final Property<String> TOKEN = Property.create("token", String.class);
     public static final Property<Long> CONTEXT = Property.create("context", Long.class);
+    public static final Property<Long> NOTIFICATION_MAIL_LIST_ID = Property.create("notificationMailListId", Long.class);
 
     protected String email;
     protected short confirmed;
     protected String token;
     protected long context;
+    protected Long notificationMailListId;
 
 
     public void setEmail(String email) {
@@ -70,6 +71,16 @@ public abstract class _NotificationMailList extends BaseDataObject {
         return this.context;
     }
 
+    public void setNotificationMailListId(Long notificationMailListId) {
+        beforePropertyWrite("notificationMailListId", this.notificationMailListId, notificationMailListId);
+        this.notificationMailListId = notificationMailListId;
+    }
+
+    public Long getNotificationMailListId() {
+        beforePropertyRead("notificationMailListId");
+        return this.notificationMailListId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -85,6 +96,8 @@ public abstract class _NotificationMailList extends BaseDataObject {
                 return this.token;
             case "context":
                 return this.context;
+            case "notificationMailListId":
+                return this.notificationMailListId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -109,6 +122,9 @@ public abstract class _NotificationMailList extends BaseDataObject {
             case "context":
                 this.context = val == null ? 0 : (long)val;
                 break;
+            case "notificationMailListId":
+                this.notificationMailListId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -129,6 +145,7 @@ public abstract class _NotificationMailList extends BaseDataObject {
         out.writeShort(this.confirmed);
         out.writeObject(this.token);
         out.writeLong(this.context);
+        out.writeObject(this.notificationMailListId);
     }
 
     @Override
@@ -138,6 +155,7 @@ public abstract class _NotificationMailList extends BaseDataObject {
         this.confirmed = in.readShort();
         this.token = (String)in.readObject();
         this.context = in.readLong();
+        this.notificationMailListId = (Long)in.readObject();
     }
 
 }

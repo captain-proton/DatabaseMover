@@ -17,17 +17,18 @@ public abstract class _ReviewForms extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String REVIEW_FORM_ID_PK_COLUMN = "review_form_id";
 
     public static final Property<Long> ASSOC_TYPE = Property.create("assocType", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
     public static final Property<Short> IS_ACTIVE = Property.create("isActive", Short.class);
+    public static final Property<Long> REVIEW_FORM_ID = Property.create("reviewFormId", Long.class);
 
     protected Long assocType;
     protected Long assocId;
     protected Double seq;
     protected Short isActive;
+    protected Long reviewFormId;
 
 
     public void setAssocType(long assocType) {
@@ -82,6 +83,16 @@ public abstract class _ReviewForms extends BaseDataObject {
         return this.isActive;
     }
 
+    public void setReviewFormId(Long reviewFormId) {
+        beforePropertyWrite("reviewFormId", this.reviewFormId, reviewFormId);
+        this.reviewFormId = reviewFormId;
+    }
+
+    public Long getReviewFormId() {
+        beforePropertyRead("reviewFormId");
+        return this.reviewFormId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -97,6 +108,8 @@ public abstract class _ReviewForms extends BaseDataObject {
                 return this.seq;
             case "isActive":
                 return this.isActive;
+            case "reviewFormId":
+                return this.reviewFormId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -121,6 +134,9 @@ public abstract class _ReviewForms extends BaseDataObject {
             case "isActive":
                 this.isActive = (Short)val;
                 break;
+            case "reviewFormId":
+                this.reviewFormId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -141,6 +157,7 @@ public abstract class _ReviewForms extends BaseDataObject {
         out.writeObject(this.assocId);
         out.writeObject(this.seq);
         out.writeObject(this.isActive);
+        out.writeObject(this.reviewFormId);
     }
 
     @Override
@@ -150,6 +167,7 @@ public abstract class _ReviewForms extends BaseDataObject {
         this.assocId = (Long)in.readObject();
         this.seq = (Double)in.readObject();
         this.isActive = (Short)in.readObject();
+        this.reviewFormId = (Long)in.readObject();
     }
 
 }

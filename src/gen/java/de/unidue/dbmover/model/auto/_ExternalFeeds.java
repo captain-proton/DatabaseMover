@@ -17,7 +17,6 @@ public abstract class _ExternalFeeds extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String FEED_ID_PK_COLUMN = "feed_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<String> URL = Property.create("url", String.class);
@@ -26,6 +25,7 @@ public abstract class _ExternalFeeds extends BaseDataObject {
     public static final Property<Short> DISPLAY_BLOCK = Property.create("displayBlock", Short.class);
     public static final Property<Short> LIMIT_ITEMS = Property.create("limitItems", Short.class);
     public static final Property<Short> RECENT_ITEMS = Property.create("recentItems", Short.class);
+    public static final Property<Integer> FEED_ID = Property.create("feedId", Integer.class);
 
     protected long journalId;
     protected String url;
@@ -34,6 +34,7 @@ public abstract class _ExternalFeeds extends BaseDataObject {
     protected short displayBlock;
     protected Short limitItems;
     protected Short recentItems;
+    protected Integer feedId;
 
 
     public void setJournalId(long journalId) {
@@ -112,6 +113,16 @@ public abstract class _ExternalFeeds extends BaseDataObject {
         return this.recentItems;
     }
 
+    public void setFeedId(Integer feedId) {
+        beforePropertyWrite("feedId", this.feedId, feedId);
+        this.feedId = feedId;
+    }
+
+    public Integer getFeedId() {
+        beforePropertyRead("feedId");
+        return this.feedId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -133,6 +144,8 @@ public abstract class _ExternalFeeds extends BaseDataObject {
                 return this.limitItems;
             case "recentItems":
                 return this.recentItems;
+            case "feedId":
+                return this.feedId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -166,6 +179,9 @@ public abstract class _ExternalFeeds extends BaseDataObject {
             case "recentItems":
                 this.recentItems = (Short)val;
                 break;
+            case "feedId":
+                this.feedId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -189,6 +205,7 @@ public abstract class _ExternalFeeds extends BaseDataObject {
         out.writeShort(this.displayBlock);
         out.writeObject(this.limitItems);
         out.writeObject(this.recentItems);
+        out.writeObject(this.feedId);
     }
 
     @Override
@@ -201,6 +218,7 @@ public abstract class _ExternalFeeds extends BaseDataObject {
         this.displayBlock = in.readShort();
         this.limitItems = (Short)in.readObject();
         this.recentItems = (Short)in.readObject();
+        this.feedId = (Integer)in.readObject();
     }
 
 }

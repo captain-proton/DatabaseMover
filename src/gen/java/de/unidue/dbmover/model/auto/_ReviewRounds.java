@@ -17,19 +17,20 @@ public abstract class _ReviewRounds extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String REVIEW_ROUND_ID_PK_COLUMN = "review_round_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Long> STAGE_ID = Property.create("stageId", Long.class);
     public static final Property<Short> ROUND = Property.create("round", Short.class);
     public static final Property<Long> REVIEW_REVISION = Property.create("reviewRevision", Long.class);
     public static final Property<Long> STATUS = Property.create("status", Long.class);
+    public static final Property<Long> REVIEW_ROUND_ID = Property.create("reviewRoundId", Long.class);
 
     protected long submissionId;
     protected Long stageId;
     protected short round;
     protected Long reviewRevision;
     protected Long status;
+    protected Long reviewRoundId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -91,6 +92,16 @@ public abstract class _ReviewRounds extends BaseDataObject {
         return this.status;
     }
 
+    public void setReviewRoundId(Long reviewRoundId) {
+        beforePropertyWrite("reviewRoundId", this.reviewRoundId, reviewRoundId);
+        this.reviewRoundId = reviewRoundId;
+    }
+
+    public Long getReviewRoundId() {
+        beforePropertyRead("reviewRoundId");
+        return this.reviewRoundId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -108,6 +119,8 @@ public abstract class _ReviewRounds extends BaseDataObject {
                 return this.reviewRevision;
             case "status":
                 return this.status;
+            case "reviewRoundId":
+                return this.reviewRoundId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -135,6 +148,9 @@ public abstract class _ReviewRounds extends BaseDataObject {
             case "status":
                 this.status = (Long)val;
                 break;
+            case "reviewRoundId":
+                this.reviewRoundId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -156,6 +172,7 @@ public abstract class _ReviewRounds extends BaseDataObject {
         out.writeShort(this.round);
         out.writeObject(this.reviewRevision);
         out.writeObject(this.status);
+        out.writeObject(this.reviewRoundId);
     }
 
     @Override
@@ -166,6 +183,7 @@ public abstract class _ReviewRounds extends BaseDataObject {
         this.round = in.readShort();
         this.reviewRevision = (Long)in.readObject();
         this.status = (Long)in.readObject();
+        this.reviewRoundId = (Long)in.readObject();
     }
 
 }

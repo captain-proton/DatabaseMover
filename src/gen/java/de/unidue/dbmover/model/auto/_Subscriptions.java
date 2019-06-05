@@ -19,7 +19,6 @@ public abstract class _Subscriptions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String SUBSCRIPTION_ID_PK_COLUMN = "subscription_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
@@ -30,6 +29,7 @@ public abstract class _Subscriptions extends BaseDataObject {
     public static final Property<String> MEMBERSHIP = Property.create("membership", String.class);
     public static final Property<String> REFERENCE_NUMBER = Property.create("referenceNumber", String.class);
     public static final Property<String> NOTES = Property.create("notes", String.class);
+    public static final Property<Long> SUBSCRIPTION_ID = Property.create("subscriptionId", Long.class);
 
     protected long journalId;
     protected long userId;
@@ -40,6 +40,7 @@ public abstract class _Subscriptions extends BaseDataObject {
     protected String membership;
     protected String referenceNumber;
     protected String notes;
+    protected Long subscriptionId;
 
 
     public void setJournalId(long journalId) {
@@ -132,6 +133,16 @@ public abstract class _Subscriptions extends BaseDataObject {
         return this.notes;
     }
 
+    public void setSubscriptionId(Long subscriptionId) {
+        beforePropertyWrite("subscriptionId", this.subscriptionId, subscriptionId);
+        this.subscriptionId = subscriptionId;
+    }
+
+    public Long getSubscriptionId() {
+        beforePropertyRead("subscriptionId");
+        return this.subscriptionId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -157,6 +168,8 @@ public abstract class _Subscriptions extends BaseDataObject {
                 return this.referenceNumber;
             case "notes":
                 return this.notes;
+            case "subscriptionId":
+                return this.subscriptionId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -196,6 +209,9 @@ public abstract class _Subscriptions extends BaseDataObject {
             case "notes":
                 this.notes = (String)val;
                 break;
+            case "subscriptionId":
+                this.subscriptionId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -221,6 +237,7 @@ public abstract class _Subscriptions extends BaseDataObject {
         out.writeObject(this.membership);
         out.writeObject(this.referenceNumber);
         out.writeObject(this.notes);
+        out.writeObject(this.subscriptionId);
     }
 
     @Override
@@ -235,6 +252,7 @@ public abstract class _Subscriptions extends BaseDataObject {
         this.membership = (String)in.readObject();
         this.referenceNumber = (String)in.readObject();
         this.notes = (String)in.readObject();
+        this.subscriptionId = (Long)in.readObject();
     }
 
 }

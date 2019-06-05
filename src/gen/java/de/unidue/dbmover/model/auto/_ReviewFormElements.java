@@ -17,19 +17,20 @@ public abstract class _ReviewFormElements extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String REVIEW_FORM_ELEMENT_ID_PK_COLUMN = "review_form_element_id";
 
     public static final Property<Long> REVIEW_FORM_ID = Property.create("reviewFormId", Long.class);
     public static final Property<Double> SEQ = Property.create("seq", Double.class);
     public static final Property<Long> ELEMENT_TYPE = Property.create("elementType", Long.class);
     public static final Property<Short> REQUIRED = Property.create("required", Short.class);
     public static final Property<Short> INCLUDED = Property.create("included", Short.class);
+    public static final Property<Long> REVIEW_FORM_ELEMENT_ID = Property.create("reviewFormElementId", Long.class);
 
     protected long reviewFormId;
     protected Double seq;
     protected Long elementType;
     protected Short required;
     protected Short included;
+    protected Long reviewFormElementId;
 
 
     public void setReviewFormId(long reviewFormId) {
@@ -94,6 +95,16 @@ public abstract class _ReviewFormElements extends BaseDataObject {
         return this.included;
     }
 
+    public void setReviewFormElementId(Long reviewFormElementId) {
+        beforePropertyWrite("reviewFormElementId", this.reviewFormElementId, reviewFormElementId);
+        this.reviewFormElementId = reviewFormElementId;
+    }
+
+    public Long getReviewFormElementId() {
+        beforePropertyRead("reviewFormElementId");
+        return this.reviewFormElementId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -111,6 +122,8 @@ public abstract class _ReviewFormElements extends BaseDataObject {
                 return this.required;
             case "included":
                 return this.included;
+            case "reviewFormElementId":
+                return this.reviewFormElementId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -138,6 +151,9 @@ public abstract class _ReviewFormElements extends BaseDataObject {
             case "included":
                 this.included = (Short)val;
                 break;
+            case "reviewFormElementId":
+                this.reviewFormElementId = (Long)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -159,6 +175,7 @@ public abstract class _ReviewFormElements extends BaseDataObject {
         out.writeObject(this.elementType);
         out.writeObject(this.required);
         out.writeObject(this.included);
+        out.writeObject(this.reviewFormElementId);
     }
 
     @Override
@@ -169,6 +186,7 @@ public abstract class _ReviewFormElements extends BaseDataObject {
         this.elementType = (Long)in.readObject();
         this.required = (Short)in.readObject();
         this.included = (Short)in.readObject();
+        this.reviewFormElementId = (Long)in.readObject();
     }
 
 }

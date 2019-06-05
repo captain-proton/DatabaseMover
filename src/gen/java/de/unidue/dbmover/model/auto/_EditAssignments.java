@@ -18,7 +18,6 @@ public abstract class _EditAssignments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String EDIT_ID_PK_COLUMN = "edit_id";
 
     public static final Property<Long> ARTICLE_ID = Property.create("articleId", Long.class);
     public static final Property<Long> EDITOR_ID = Property.create("editorId", Long.class);
@@ -27,6 +26,7 @@ public abstract class _EditAssignments extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_ASSIGNED = Property.create("dateAssigned", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_NOTIFIED = Property.create("dateNotified", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_UNDERWAY = Property.create("dateUnderway", LocalDateTime.class);
+    public static final Property<Integer> EDIT_ID = Property.create("editId", Integer.class);
 
     protected long articleId;
     protected long editorId;
@@ -35,6 +35,7 @@ public abstract class _EditAssignments extends BaseDataObject {
     protected LocalDateTime dateAssigned;
     protected LocalDateTime dateNotified;
     protected LocalDateTime dateUnderway;
+    protected Integer editId;
 
 
     public void setArticleId(long articleId) {
@@ -107,6 +108,16 @@ public abstract class _EditAssignments extends BaseDataObject {
         return this.dateUnderway;
     }
 
+    public void setEditId(Integer editId) {
+        beforePropertyWrite("editId", this.editId, editId);
+        this.editId = editId;
+    }
+
+    public Integer getEditId() {
+        beforePropertyRead("editId");
+        return this.editId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -128,6 +139,8 @@ public abstract class _EditAssignments extends BaseDataObject {
                 return this.dateNotified;
             case "dateUnderway":
                 return this.dateUnderway;
+            case "editId":
+                return this.editId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -161,6 +174,9 @@ public abstract class _EditAssignments extends BaseDataObject {
             case "dateUnderway":
                 this.dateUnderway = (LocalDateTime)val;
                 break;
+            case "editId":
+                this.editId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -184,6 +200,7 @@ public abstract class _EditAssignments extends BaseDataObject {
         out.writeObject(this.dateAssigned);
         out.writeObject(this.dateNotified);
         out.writeObject(this.dateUnderway);
+        out.writeObject(this.editId);
     }
 
     @Override
@@ -196,6 +213,7 @@ public abstract class _EditAssignments extends BaseDataObject {
         this.dateAssigned = (LocalDateTime)in.readObject();
         this.dateNotified = (LocalDateTime)in.readObject();
         this.dateUnderway = (LocalDateTime)in.readObject();
+        this.editId = (Integer)in.readObject();
     }
 
 }

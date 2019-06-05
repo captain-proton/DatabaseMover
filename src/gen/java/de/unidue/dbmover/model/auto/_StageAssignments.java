@@ -18,19 +18,20 @@ public abstract class _StageAssignments extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String STAGE_ASSIGNMENT_ID_PK_COLUMN = "stage_assignment_id";
 
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Long> USER_GROUP_ID = Property.create("userGroupId", Long.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<LocalDateTime> DATE_ASSIGNED = Property.create("dateAssigned", LocalDateTime.class);
     public static final Property<Short> RECOMMEND_ONLY = Property.create("recommendOnly", Short.class);
+    public static final Property<Integer> STAGE_ASSIGNMENT_ID = Property.create("stageAssignmentId", Integer.class);
 
     protected long submissionId;
     protected long userGroupId;
     protected long userId;
     protected LocalDateTime dateAssigned;
     protected short recommendOnly;
+    protected Integer stageAssignmentId;
 
 
     public void setSubmissionId(long submissionId) {
@@ -83,6 +84,16 @@ public abstract class _StageAssignments extends BaseDataObject {
         return this.recommendOnly;
     }
 
+    public void setStageAssignmentId(Integer stageAssignmentId) {
+        beforePropertyWrite("stageAssignmentId", this.stageAssignmentId, stageAssignmentId);
+        this.stageAssignmentId = stageAssignmentId;
+    }
+
+    public Integer getStageAssignmentId() {
+        beforePropertyRead("stageAssignmentId");
+        return this.stageAssignmentId;
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -100,6 +111,8 @@ public abstract class _StageAssignments extends BaseDataObject {
                 return this.dateAssigned;
             case "recommendOnly":
                 return this.recommendOnly;
+            case "stageAssignmentId":
+                return this.stageAssignmentId;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -127,6 +140,9 @@ public abstract class _StageAssignments extends BaseDataObject {
             case "recommendOnly":
                 this.recommendOnly = val == null ? 0 : (short)val;
                 break;
+            case "stageAssignmentId":
+                this.stageAssignmentId = (Integer)val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -148,6 +164,7 @@ public abstract class _StageAssignments extends BaseDataObject {
         out.writeLong(this.userId);
         out.writeObject(this.dateAssigned);
         out.writeShort(this.recommendOnly);
+        out.writeObject(this.stageAssignmentId);
     }
 
     @Override
@@ -158,6 +175,7 @@ public abstract class _StageAssignments extends BaseDataObject {
         this.userId = in.readLong();
         this.dateAssigned = (LocalDateTime)in.readObject();
         this.recommendOnly = in.readShort();
+        this.stageAssignmentId = (Integer)in.readObject();
     }
 
 }
