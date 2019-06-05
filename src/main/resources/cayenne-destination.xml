@@ -12,7 +12,7 @@
 			<driver value="org.mariadb.jdbc.Driver"/>
 			<url value="jdbc:mariadb://172.17.0.2:3306/ojs"/>
 			<connectionPool min="1" max="1"/>
-			<login userName="root" password="toor"/>
+			<login userName="ojs" password="ojs"/>
 		</data-source>
 	</node>
 </domain>
