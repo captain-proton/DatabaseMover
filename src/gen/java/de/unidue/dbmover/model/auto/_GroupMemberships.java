@@ -17,8 +17,6 @@ public abstract class _GroupMemberships extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String GROUP_ID_PK_COLUMN = "group_id";
-    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<Long> GROUP_ID = Property.create("groupId", Long.class);

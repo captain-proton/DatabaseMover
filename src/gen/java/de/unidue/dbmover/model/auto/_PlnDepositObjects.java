@@ -21,18 +21,18 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
     public static final String DEPOSIT_OBJECT_ID_PK_COLUMN = "deposit_object_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
+    public static final Property<Long> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Long.class);
     public static final Property<String> OBJECT_TYPE = Property.create("objectType", String.class);
     public static final Property<Long> DEPOSIT_ID = Property.create("depositId", Long.class);
     public static final Property<LocalDateTime> DATE_CREATED = Property.create("dateCreated", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_MODIFIED = Property.create("dateModified", LocalDateTime.class);
-    public static final Property<Long> ID = Property.create("id", Long.class);
 
     protected long journalId;
+    protected long objectIdentifier;
     protected String objectType;
     protected Long depositId;
     protected LocalDateTime dateCreated;
     protected LocalDateTime dateModified;
-    protected long id;
 
 
     public void setJournalId(long journalId) {
@@ -43,6 +43,16 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
     public long getJournalId() {
         beforePropertyRead("journalId");
         return this.journalId;
+    }
+
+    public void setObjectIdentifier(long objectIdentifier) {
+        beforePropertyWrite("objectIdentifier", this.objectIdentifier, objectIdentifier);
+        this.objectIdentifier = objectIdentifier;
+    }
+
+    public long getObjectIdentifier() {
+        beforePropertyRead("objectIdentifier");
+        return this.objectIdentifier;
     }
 
     public void setObjectType(String objectType) {
@@ -88,16 +98,6 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
         return this.dateModified;
     }
 
-    public void setId(long id) {
-        beforePropertyWrite("id", this.id, id);
-        this.id = id;
-    }
-
-    public long getId() {
-        beforePropertyRead("id");
-        return this.id;
-    }
-
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -107,6 +107,8 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
         switch(propName) {
             case "journalId":
                 return this.journalId;
+            case "objectIdentifier":
+                return this.objectIdentifier;
             case "objectType":
                 return this.objectType;
             case "depositId":
@@ -115,8 +117,6 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
                 return this.dateCreated;
             case "dateModified":
                 return this.dateModified;
-            case "id":
-                return this.id;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -132,6 +132,9 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
             case "journalId":
                 this.journalId = val == null ? 0 : (long)val;
                 break;
+            case "objectIdentifier":
+                this.objectIdentifier = val == null ? 0 : (long)val;
+                break;
             case "objectType":
                 this.objectType = (String)val;
                 break;
@@ -143,9 +146,6 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
                 break;
             case "dateModified":
                 this.dateModified = (LocalDateTime)val;
-                break;
-            case "id":
-                this.id = val == null ? 0 : (long)val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -164,22 +164,22 @@ public abstract class _PlnDepositObjects extends BaseDataObject {
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
         out.writeLong(this.journalId);
+        out.writeLong(this.objectIdentifier);
         out.writeObject(this.objectType);
         out.writeObject(this.depositId);
         out.writeObject(this.dateCreated);
         out.writeObject(this.dateModified);
-        out.writeLong(this.id);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
         this.journalId = in.readLong();
+        this.objectIdentifier = in.readLong();
         this.objectType = (String)in.readObject();
         this.depositId = (Long)in.readObject();
         this.dateCreated = (LocalDateTime)in.readObject();
         this.dateModified = (LocalDateTime)in.readObject();
-        this.id = in.readLong();
     }
 
 }

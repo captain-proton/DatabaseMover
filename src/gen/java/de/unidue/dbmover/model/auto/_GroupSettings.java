@@ -17,9 +17,6 @@ public abstract class _GroupSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String GROUP_ID_PK_COLUMN = "group_id";
-    public static final String LOCALE_PK_COLUMN = "locale";
-    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> GROUP_ID = Property.create("groupId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

@@ -17,9 +17,6 @@ public abstract class _SectionEditors extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CONTEXT_ID_PK_COLUMN = "context_id";
-    public static final String SECTION_ID_PK_COLUMN = "section_id";
-    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<Long> SECTION_ID = Property.create("sectionId", Long.class);

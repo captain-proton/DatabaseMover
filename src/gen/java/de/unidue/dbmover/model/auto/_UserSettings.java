@@ -17,11 +17,6 @@ public abstract class _UserSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String ASSOC_ID_PK_COLUMN = "assoc_id";
-    public static final String ASSOC_TYPE_PK_COLUMN = "assoc_type";
-    public static final String LOCALE_PK_COLUMN = "locale";
-    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
-    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);
@@ -34,8 +29,8 @@ public abstract class _UserSettings extends BaseDataObject {
     protected long userId;
     protected String locale;
     protected String settingName;
-    protected long assocType;
-    protected long assocId;
+    protected Long assocType;
+    protected Long assocId;
     protected String settingValue;
     protected String settingType;
 
@@ -77,6 +72,9 @@ public abstract class _UserSettings extends BaseDataObject {
 
     public long getAssocType() {
         beforePropertyRead("assocType");
+        if(this.assocType == null) {
+            return 0;
+        }
         return this.assocType;
     }
 
@@ -87,6 +85,9 @@ public abstract class _UserSettings extends BaseDataObject {
 
     public long getAssocId() {
         beforePropertyRead("assocId");
+        if(this.assocId == null) {
+            return 0;
+        }
         return this.assocId;
     }
 
@@ -153,10 +154,10 @@ public abstract class _UserSettings extends BaseDataObject {
                 this.settingName = (String)val;
                 break;
             case "assocType":
-                this.assocType = val == null ? 0 : (long)val;
+                this.assocType = (Long)val;
                 break;
             case "assocId":
-                this.assocId = val == null ? 0 : (long)val;
+                this.assocId = (Long)val;
                 break;
             case "settingValue":
                 this.settingValue = (String)val;
@@ -183,8 +184,8 @@ public abstract class _UserSettings extends BaseDataObject {
         out.writeLong(this.userId);
         out.writeObject(this.locale);
         out.writeObject(this.settingName);
-        out.writeLong(this.assocType);
-        out.writeLong(this.assocId);
+        out.writeObject(this.assocType);
+        out.writeObject(this.assocId);
         out.writeObject(this.settingValue);
         out.writeObject(this.settingType);
     }
@@ -195,8 +196,8 @@ public abstract class _UserSettings extends BaseDataObject {
         this.userId = in.readLong();
         this.locale = (String)in.readObject();
         this.settingName = (String)in.readObject();
-        this.assocType = in.readLong();
-        this.assocId = in.readLong();
+        this.assocType = (Long)in.readObject();
+        this.assocId = (Long)in.readObject();
         this.settingValue = (String)in.readObject();
         this.settingType = (String)in.readObject();
     }

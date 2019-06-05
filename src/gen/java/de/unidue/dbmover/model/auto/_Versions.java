@@ -18,12 +18,6 @@ public abstract class _Versions extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String BUILD_PK_COLUMN = "build";
-    public static final String MAJOR_PK_COLUMN = "major";
-    public static final String MINOR_PK_COLUMN = "minor";
-    public static final String PRODUCT_PK_COLUMN = "product";
-    public static final String PRODUCT_TYPE_PK_COLUMN = "product_type";
-    public static final String REVISION_PK_COLUMN = "revision";
 
     public static final Property<Integer> MAJOR = Property.create("major", Integer.class);
     public static final Property<Integer> MINOR = Property.create("minor", Integer.class);

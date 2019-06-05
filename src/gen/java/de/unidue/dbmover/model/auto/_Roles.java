@@ -17,9 +17,6 @@ public abstract class _Roles extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String JOURNAL_ID_PK_COLUMN = "journal_id";
-    public static final String ROLE_ID_PK_COLUMN = "role_id";
-    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);

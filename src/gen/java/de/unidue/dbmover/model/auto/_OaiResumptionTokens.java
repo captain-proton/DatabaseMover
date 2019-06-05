@@ -17,7 +17,6 @@ public abstract class _OaiResumptionTokens extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String TOKEN_PK_COLUMN = "token";
 
     public static final Property<String> TOKEN = Property.create("token", String.class);
     public static final Property<Long> EXPIRE = Property.create("expire", Long.class);

@@ -20,18 +20,30 @@ public abstract class _AccessKeys extends BaseDataObject {
 
     public static final String ACCESS_KEY_ID_PK_COLUMN = "access_key_id";
 
+    public static final Property<Long> ACCESS_KEY_ID = Property.create("accessKeyId", Long.class);
     public static final Property<String> CONTEXT = Property.create("context", String.class);
     public static final Property<String> KEY_HASH = Property.create("keyHash", String.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<Long> ASSOC_ID = Property.create("assocId", Long.class);
     public static final Property<LocalDateTime> EXPIRY_DATE = Property.create("expiryDate", LocalDateTime.class);
 
+    protected Long accessKeyId;
     protected String context;
     protected String keyHash;
     protected long userId;
     protected Long assocId;
     protected LocalDateTime expiryDate;
 
+
+    public void setAccessKeyId(Long accessKeyId) {
+        beforePropertyWrite("accessKeyId", this.accessKeyId, accessKeyId);
+        this.accessKeyId = accessKeyId;
+    }
+
+    public Long getAccessKeyId() {
+        beforePropertyRead("accessKeyId");
+        return this.accessKeyId;
+    }
 
     public void setContext(String context) {
         beforePropertyWrite("context", this.context, context);
@@ -93,6 +105,8 @@ public abstract class _AccessKeys extends BaseDataObject {
         }
 
         switch(propName) {
+            case "accessKeyId":
+                return this.accessKeyId;
             case "context":
                 return this.context;
             case "keyHash":
@@ -115,6 +129,9 @@ public abstract class _AccessKeys extends BaseDataObject {
         }
 
         switch (propName) {
+            case "accessKeyId":
+                this.accessKeyId = (Long)val;
+                break;
             case "context":
                 this.context = (String)val;
                 break;
@@ -146,6 +163,7 @@ public abstract class _AccessKeys extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
+        out.writeObject(this.accessKeyId);
         out.writeObject(this.context);
         out.writeObject(this.keyHash);
         out.writeLong(this.userId);
@@ -156,6 +174,7 @@ public abstract class _AccessKeys extends BaseDataObject {
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
+        this.accessKeyId = (Long)in.readObject();
         this.context = (String)in.readObject();
         this.keyHash = (String)in.readObject();
         this.userId = in.readLong();

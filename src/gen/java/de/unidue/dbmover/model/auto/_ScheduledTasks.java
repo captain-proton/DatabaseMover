@@ -18,7 +18,6 @@ public abstract class _ScheduledTasks extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CLASS_NAME_PK_COLUMN = "class_name";
 
     public static final Property<String> CLASS_NAME = Property.create("className", String.class);
     public static final Property<LocalDateTime> LAST_RUN = Property.create("lastRun", LocalDateTime.class);

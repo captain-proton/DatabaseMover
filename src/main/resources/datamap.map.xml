@@ -4,34 +4,34 @@
 	 xsi:schemaLocation="http://cayenne.apache.org/schema/10/modelMap https://cayenne.apache.org/schema/10/modelMap.xsd"
 	 project-version="10">
 	<property name="defaultPackage" value="de.unidue.dbmover.model"/>
-	<db-entity name="access_keys" schema="public">
-		<db-attribute name="access_key_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
+	<db-entity name="access_keys">
+		<db-attribute name="access_key_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="context" type="VARCHAR" isMandatory="true" length="40"/>
 		<db-attribute name="expiry_date" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="key_hash" type="VARCHAR" isMandatory="true" length="40"/>
 		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="announcement_settings" schema="public">
-		<db-attribute name="announcement_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="announcement_settings">
+		<db-attribute name="announcement_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="announcement_type_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="announcement_type_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="type_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="type_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="announcement_types" schema="public">
+	<db-entity name="announcement_types">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="SMALLINT" length="5"/>
-		<db-attribute name="type_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
+		<db-attribute name="type_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="announcements" schema="public">
+	<db-entity name="announcements">
 		<db-attribute name="announcement_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="SMALLINT" length="5"/>
@@ -39,21 +39,21 @@
 		<db-attribute name="date_posted" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="type_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="auth_sources" schema="public">
+	<db-entity name="auth_sources">
 		<db-attribute name="auth_default" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="auth_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="plugin" type="VARCHAR" isMandatory="true" length="32"/>
 		<db-attribute name="settings" type="CLOB" length="2147483647"/>
 		<db-attribute name="title" type="VARCHAR" isMandatory="true" length="60"/>
 	</db-entity>
-	<db-entity name="author_settings" schema="public">
-		<db-attribute name="author_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="author_settings">
+		<db-attribute name="author_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="authors" schema="public">
+	<db-entity name="authors">
 		<db-attribute name="author_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="country" type="VARCHAR" length="90"/>
 		<db-attribute name="email" type="VARCHAR" isMandatory="true" length="90"/>
@@ -68,7 +68,7 @@
 		<db-attribute name="url" type="VARCHAR" length="2047"/>
 		<db-attribute name="user_group_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="books_for_review" schema="public">
+	<db-entity name="books_for_review">
 		<db-attribute name="author_type" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="book_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="copy" type="SMALLINT" isMandatory="true" length="5"/>
@@ -92,7 +92,7 @@
 		<db-attribute name="user_id" type="BIGINT" length="19"/>
 		<db-attribute name="year" type="SMALLINT" isMandatory="true" length="5"/>
 	</db-entity>
-	<db-entity name="books_for_review_authors" schema="public">
+	<db-entity name="books_for_review_authors">
 		<db-attribute name="author_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="book_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="first_name" type="VARCHAR" isMandatory="true" length="40"/>
@@ -100,27 +100,27 @@
 		<db-attribute name="middle_name" type="VARCHAR" length="40"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="books_for_review_settings" schema="public">
-		<db-attribute name="book_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="5"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="books_for_review_settings">
+		<db-attribute name="book_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="captchas" schema="public">
+	<db-entity name="captchas">
 		<db-attribute name="captcha_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="date_created" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="session_id" type="VARCHAR" isMandatory="true" length="40"/>
 		<db-attribute name="value" type="VARCHAR" isMandatory="true" length="20"/>
 	</db-entity>
-	<db-entity name="citation_settings" schema="public">
-		<db-attribute name="citation_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="citation_settings">
+		<db-attribute name="citation_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="citations" schema="public">
+	<db-entity name="citations">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="citation_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
@@ -129,7 +129,7 @@
 		<db-attribute name="raw_citation" type="CLOB" length="2147483647"/>
 		<db-attribute name="seq" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="comments" schema="public">
+	<db-entity name="comments">
 		<db-attribute name="body" type="CLOB" length="2147483647"/>
 		<db-attribute name="comment_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="date_modified" type="TIMESTAMP" length="29"/>
@@ -143,7 +143,7 @@
 		<db-attribute name="title" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="user_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="completed_payments" schema="public">
+	<db-entity name="completed_payments">
 		<db-attribute name="amount" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="completed_payment_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
@@ -154,48 +154,48 @@
 		<db-attribute name="timestamp" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="user_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="controlled_vocab_entries" schema="public">
+	<db-entity name="controlled_vocab_entries">
 		<db-attribute name="controlled_vocab_entry_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="controlled_vocab_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="controlled_vocab_entry_settings" schema="public">
-		<db-attribute name="controlled_vocab_entry_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="controlled_vocab_entry_settings">
+		<db-attribute name="controlled_vocab_entry_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="controlled_vocabs" schema="public">
+	<db-entity name="controlled_vocabs">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="controlled_vocab_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="symbolic" type="VARCHAR" isMandatory="true" length="64"/>
 	</db-entity>
-	<db-entity name="custom_issue_orders" schema="public">
-		<db-attribute name="issue_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="custom_issue_orders">
+		<db-attribute name="issue_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="journal_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="custom_section_orders" schema="public">
-		<db-attribute name="issue_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="section_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="custom_section_orders">
+		<db-attribute name="issue_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="section_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="data_object_tombstone_oai_set_objects" schema="public">
+	<db-entity name="data_object_tombstone_oai_set_objects">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="object_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="tombstone_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="data_object_tombstone_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="data_object_tombstone_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="tombstone_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="tombstone_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="data_object_tombstones" schema="public">
+	<db-entity name="data_object_tombstones">
 		<db-attribute name="data_object_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="date_deleted" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="oai_identifier" type="VARCHAR" isMandatory="true" length="255"/>
@@ -203,14 +203,14 @@
 		<db-attribute name="set_spec" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="tombstone_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="dataverse_files" schema="public">
+	<db-entity name="dataverse_files">
 		<db-attribute name="content_source_uri" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="dvfile_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="study_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="supp_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="dataverse_studies" schema="public">
+	<db-entity name="dataverse_studies">
 		<db-attribute name="data_citation" type="CLOB" length="2147483647"/>
 		<db-attribute name="edit_media_uri" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="edit_uri" type="VARCHAR" isMandatory="true" length="255"/>
@@ -219,14 +219,14 @@
 		<db-attribute name="study_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="deposit_point_settings" schema="public">
-		<db-attribute name="deposit_point_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="5"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="deposit_point_settings">
+		<db-attribute name="deposit_point_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="deposit_points" schema="public">
+	<db-entity name="deposit_points">
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="deposit_point_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
@@ -235,7 +235,7 @@
 		<db-attribute name="type" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="url" type="VARCHAR" isMandatory="true" length="2047"/>
 	</db-entity>
-	<db-entity name="edit_assignments" schema="public">
+	<db-entity name="edit_assignments">
 		<db-attribute name="article_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="can_edit" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="can_review" type="SMALLINT" isMandatory="true" length="5"/>
@@ -245,7 +245,7 @@
 		<db-attribute name="edit_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="editor_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="edit_decisions" schema="public">
+	<db-entity name="edit_decisions">
 		<db-attribute name="date_decided" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="decision" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="edit_decision_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
@@ -255,7 +255,7 @@
 		<db-attribute name="stage_id" type="BIGINT" length="19"/>
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="email_log" schema="public">
+	<db-entity name="email_log">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="bcc_recipients" type="CLOB" length="2147483647"/>
@@ -270,26 +270,26 @@
 		<db-attribute name="sender_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="subject" type="VARCHAR" length="255"/>
 	</db-entity>
-	<db-entity name="email_log_users" schema="public">
-		<db-attribute name="email_log_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="email_log_users">
+		<db-attribute name="email_log_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="email_templates" schema="public">
+	<db-entity name="email_templates">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="email_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="email_key" type="VARCHAR" isMandatory="true" length="64"/>
 		<db-attribute name="enabled" type="SMALLINT" isMandatory="true" length="5"/>
 	</db-entity>
-	<db-entity name="email_templates_data" schema="public">
-		<db-attribute name="assoc_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="assoc_type" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="email_templates_data">
+		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
+		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="body" type="CLOB" length="2147483647"/>
-		<db-attribute name="email_key" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
+		<db-attribute name="email_key" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
 		<db-attribute name="subject" type="VARCHAR" isMandatory="true" length="120"/>
 	</db-entity>
-	<db-entity name="email_templates_default" schema="public">
+	<db-entity name="email_templates_default">
 		<db-attribute name="can_disable" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="can_edit" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="email_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
@@ -297,14 +297,14 @@
 		<db-attribute name="from_role_id" type="BIGINT" length="19"/>
 		<db-attribute name="to_role_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="email_templates_default_data" schema="public">
+	<db-entity name="email_templates_default_data">
 		<db-attribute name="body" type="CLOB" length="2147483647"/>
 		<db-attribute name="description" type="CLOB" length="2147483647"/>
-		<db-attribute name="email_key" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
+		<db-attribute name="email_key" type="VARCHAR" isMandatory="true" length="64"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
 		<db-attribute name="subject" type="VARCHAR" isMandatory="true" length="120"/>
 	</db-entity>
-	<db-entity name="event_log" schema="public">
+	<db-entity name="event_log">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="date_logged" type="TIMESTAMP" isMandatory="true" length="29"/>
@@ -315,20 +315,20 @@
 		<db-attribute name="message" type="CLOB" length="2147483647"/>
 		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="event_log_settings" schema="public">
-		<db-attribute name="log_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="event_log_settings">
+		<db-attribute name="log_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="external_feed_settings" schema="public">
-		<db-attribute name="feed_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="5"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="external_feed_settings">
+		<db-attribute name="feed_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="external_feeds" schema="public">
+	<db-entity name="external_feeds">
 		<db-attribute name="display_block" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="display_homepage" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="feed_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
@@ -338,7 +338,7 @@
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 		<db-attribute name="url" type="VARCHAR" isMandatory="true" length="255"/>
 	</db-entity>
-	<db-entity name="filter_groups" schema="public">
+	<db-entity name="filter_groups">
 		<db-attribute name="description" type="VARCHAR" length="255"/>
 		<db-attribute name="display_name" type="VARCHAR" length="255"/>
 		<db-attribute name="filter_group_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
@@ -346,14 +346,14 @@
 		<db-attribute name="output_type" type="VARCHAR" length="255"/>
 		<db-attribute name="symbolic" type="VARCHAR" length="255"/>
 	</db-entity>
-	<db-entity name="filter_settings" schema="public">
-		<db-attribute name="filter_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="filter_settings">
+		<db-attribute name="filter_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="filters" schema="public">
+	<db-entity name="filters">
 		<db-attribute name="class_name" type="VARCHAR" length="255"/>
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="display_name" type="VARCHAR" length="255"/>
@@ -363,14 +363,14 @@
 		<db-attribute name="parent_filter_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="genre_settings" schema="public">
-		<db-attribute name="genre_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="genre_settings">
+		<db-attribute name="genre_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="genres" schema="public">
+	<db-entity name="genres">
 		<db-attribute name="category" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="dependent" type="SMALLINT" isMandatory="true" length="5"/>
@@ -381,20 +381,20 @@
 		<db-attribute name="sortable" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="supplementary" type="SMALLINT" length="5"/>
 	</db-entity>
-	<db-entity name="group_memberships" schema="public">
+	<db-entity name="group_memberships">
 		<db-attribute name="about_displayed" type="SMALLINT" isMandatory="true" length="5"/>
-		<db-attribute name="group_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="group_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="group_settings" schema="public">
-		<db-attribute name="group_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="5"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="group_settings">
+		<db-attribute name="group_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="groups" schema="public">
+	<db-entity name="groups">
 		<db-attribute name="about_displayed" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="SMALLINT" length="5"/>
@@ -403,21 +403,21 @@
 		<db-attribute name="publish_email" type="SMALLINT" length="5"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="institutional_subscription_ip" schema="public">
+	<db-entity name="institutional_subscription_ip">
 		<db-attribute name="institutional_subscription_ip_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="ip_end" type="BIGINT" length="19"/>
 		<db-attribute name="ip_start" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="ip_string" type="VARCHAR" isMandatory="true" length="40"/>
 		<db-attribute name="subscription_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="institutional_subscriptions" schema="public">
+	<db-entity name="institutional_subscriptions">
 		<db-attribute name="domain" type="VARCHAR" length="255"/>
 		<db-attribute name="institution_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="institutional_subscription_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="mailing_address" type="VARCHAR" length="255"/>
 		<db-attribute name="subscription_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="issue_files" schema="public">
+	<db-entity name="issue_files">
 		<db-attribute name="content_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="date_modified" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="date_uploaded" type="TIMESTAMP" isMandatory="true" length="29"/>
@@ -428,14 +428,14 @@
 		<db-attribute name="issue_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="original_file_name" type="VARCHAR" length="127"/>
 	</db-entity>
-	<db-entity name="issue_galley_settings" schema="public">
-		<db-attribute name="galley_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="issue_galley_settings">
+		<db-attribute name="galley_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="issue_galleys" schema="public">
+	<db-entity name="issue_galleys">
 		<db-attribute name="file_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="galley_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="issue_id" type="BIGINT" isMandatory="true" length="19"/>
@@ -443,14 +443,14 @@
 		<db-attribute name="locale" type="VARCHAR" length="14"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="issue_settings" schema="public">
-		<db-attribute name="issue_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="issue_settings">
+		<db-attribute name="issue_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="issues" schema="public">
+	<db-entity name="issues">
 		<db-attribute name="access_status" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="current" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="date_notified" type="TIMESTAMP" length="29"/>
@@ -470,34 +470,34 @@
 		<db-attribute name="volume" type="SMALLINT" length="5"/>
 		<db-attribute name="year" type="SMALLINT" length="5"/>
 	</db-entity>
-	<db-entity name="item_views" schema="public">
-		<db-attribute name="assoc_id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="32"/>
-		<db-attribute name="assoc_type" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="item_views">
+		<db-attribute name="assoc_id" type="VARCHAR" isMandatory="true" length="32"/>
+		<db-attribute name="assoc_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="date_last_viewed" type="TIMESTAMP" length="29"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="journal_settings" schema="public">
-		<db-attribute name="journal_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="journal_settings">
+		<db-attribute name="journal_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="journals" schema="public">
+	<db-entity name="journals">
 		<db-attribute name="enabled" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="journal_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="path" type="VARCHAR" isMandatory="true" length="32"/>
 		<db-attribute name="primary_locale" type="VARCHAR" isMandatory="true" length="14"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="library_file_settings" schema="public">
-		<db-attribute name="file_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="library_file_settings">
+		<db-attribute name="file_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="library_files" schema="public">
+	<db-entity name="library_files">
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="date_modified" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="date_uploaded" type="TIMESTAMP" isMandatory="true" length="29"/>
@@ -509,14 +509,14 @@
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="type" type="SMALLINT" isMandatory="true" length="5"/>
 	</db-entity>
-	<db-entity name="metadata_description_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="metadata_description_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="metadata_description_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="metadata_description_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="metadata_descriptions" schema="public">
+	<db-entity name="metadata_descriptions">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="display_name" type="VARCHAR" length="255"/>
@@ -525,7 +525,7 @@
 		<db-attribute name="schema_namespace" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="seq" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="metrics" schema="public">
+	<db-entity name="metrics">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_object_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_object_type" type="BIGINT" length="19"/>
@@ -544,44 +544,44 @@
 		<db-attribute name="representation_id" type="BIGINT" length="19"/>
 		<db-attribute name="submission_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="mutex" schema="public">
+	<db-entity name="mutex">
 		<db-attribute name="i" type="SMALLINT" isPrimaryKey="true" isMandatory="true" length="5"/>
 	</db-entity>
-	<db-entity name="navigation_menu_item_assignment_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="navigation_menu_item_assignment_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="navigation_menu_item_assignment_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="navigation_menu_item_assignment_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="navigation_menu_item_assignments" schema="public">
+	<db-entity name="navigation_menu_item_assignments">
 		<db-attribute name="navigation_menu_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="navigation_menu_item_assignment_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="navigation_menu_item_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="parent_id" type="BIGINT" length="19"/>
 		<db-attribute name="seq" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="navigation_menu_item_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="navigation_menu_item_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="navigation_menu_item_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="navigation_menu_item_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="navigation_menu_items" schema="public">
+	<db-entity name="navigation_menu_items">
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="navigation_menu_item_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="path" type="VARCHAR" length="255"/>
 		<db-attribute name="type" type="VARCHAR" length="255"/>
 		<db-attribute name="url" type="VARCHAR" length="255"/>
 	</db-entity>
-	<db-entity name="navigation_menus" schema="public">
+	<db-entity name="navigation_menus">
 		<db-attribute name="area_name" type="VARCHAR" length="255"/>
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="navigation_menu_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="title" type="VARCHAR" isMandatory="true" length="255"/>
 	</db-entity>
-	<db-entity name="notes" schema="public">
+	<db-entity name="notes">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="contents" type="CLOB" length="2147483647"/>
@@ -591,21 +591,21 @@
 		<db-attribute name="title" type="VARCHAR" length="255"/>
 		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="notification_mail_list" schema="public">
+	<db-entity name="notification_mail_list">
 		<db-attribute name="confirmed" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="context" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="email" type="VARCHAR" isMandatory="true" length="90"/>
 		<db-attribute name="notification_mail_list_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="token" type="VARCHAR" isMandatory="true" length="40"/>
 	</db-entity>
-	<db-entity name="notification_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="notification_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="64"/>
+	<db-entity name="notification_settings">
+		<db-attribute name="locale" type="VARCHAR" length="14"/>
+		<db-attribute name="notification_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="64"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="notification_subscription_settings" schema="public">
+	<db-entity name="notification_subscription_settings">
 		<db-attribute name="context" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="setting_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="64"/>
@@ -613,7 +613,7 @@
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="notifications" schema="public">
+	<db-entity name="notifications">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
@@ -624,13 +624,13 @@
 		<db-attribute name="type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="user_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="oai_resumption_tokens" schema="public">
+	<db-entity name="oai_resumption_tokens">
 		<db-attribute name="expire" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="params" type="CLOB" length="2147483647"/>
 		<db-attribute name="record_offset" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="token" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="32"/>
+		<db-attribute name="token" type="VARCHAR" isMandatory="true" length="32"/>
 	</db-entity>
-	<db-entity name="object_for_review_assignments" schema="public">
+	<db-entity name="object_for_review_assignments">
 		<db-attribute name="assignment_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="date_assigned" type="TIMESTAMP" length="29"/>
 		<db-attribute name="date_due" type="TIMESTAMP" length="29"/>
@@ -644,7 +644,7 @@
 		<db-attribute name="submission_id" type="BIGINT" length="19"/>
 		<db-attribute name="user_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="object_for_review_persons" schema="public">
+	<db-entity name="object_for_review_persons">
 		<db-attribute name="first_name" type="VARCHAR" isMandatory="true" length="40"/>
 		<db-attribute name="last_name" type="VARCHAR" isMandatory="true" length="90"/>
 		<db-attribute name="middle_name" type="VARCHAR" length="40"/>
@@ -653,13 +653,13 @@
 		<db-attribute name="role" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="object_for_review_settings" schema="public">
-		<db-attribute name="object_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="review_object_metadata_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="object_for_review_settings">
+		<db-attribute name="object_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="review_object_metadata_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="objects_for_review" schema="public">
+	<db-entity name="objects_for_review">
 		<db-attribute name="available" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="date_created" type="TIMESTAMP" isMandatory="true" length="29"/>
@@ -668,7 +668,7 @@
 		<db-attribute name="object_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="review_object_type_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="paypal_transactions" schema="public">
+	<db-entity name="paypal_transactions">
 		<db-attribute name="item_number" type="VARCHAR" length="127"/>
 		<db-attribute name="payer_email" type="VARCHAR" length="127"/>
 		<db-attribute name="payer_id" type="VARCHAR" length="13"/>
@@ -678,7 +678,7 @@
 		<db-attribute name="txn_id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="17"/>
 		<db-attribute name="txn_type" type="VARCHAR" length="20"/>
 	</db-entity>
-	<db-entity name="pln_deposit_objects" schema="public">
+	<db-entity name="pln_deposit_objects">
 		<db-attribute name="date_created" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="date_modified" type="TIMESTAMP" length="29"/>
 		<db-attribute name="deposit_id" type="BIGINT" length="19"/>
@@ -687,7 +687,7 @@
 		<db-attribute name="object_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="object_type" type="VARCHAR" isMandatory="true" length="36"/>
 	</db-entity>
-	<db-entity name="pln_deposits" schema="public">
+	<db-entity name="pln_deposits">
 		<db-attribute name="date_created" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="date_modified" type="TIMESTAMP" length="29"/>
 		<db-attribute name="date_status" type="TIMESTAMP" length="29"/>
@@ -696,20 +696,20 @@
 		<db-attribute name="status" type="BIGINT" length="19"/>
 		<db-attribute name="uuid" type="VARCHAR" length="36"/>
 	</db-entity>
-	<db-entity name="plugin_settings" schema="public">
-		<db-attribute name="context_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="plugin_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="80"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="80"/>
+	<db-entity name="plugin_settings">
+		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="plugin_name" type="VARCHAR" isMandatory="true" length="80"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="80"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="processes" schema="public">
+	<db-entity name="processes">
 		<db-attribute name="obliterated" type="SMALLINT" isMandatory="true" length="5"/>
-		<db-attribute name="process_id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="23"/>
+		<db-attribute name="process_id" type="VARCHAR" isMandatory="true" length="23"/>
 		<db-attribute name="process_type" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="time_started" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="published_submissions" schema="public">
+	<db-entity name="published_submissions">
 		<db-attribute name="access_status" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="date_published" type="TIMESTAMP" length="29"/>
 		<db-attribute name="issue_id" type="BIGINT" isMandatory="true" length="19"/>
@@ -717,7 +717,7 @@
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="queries" schema="public">
+	<db-entity name="queries">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="closed" type="SMALLINT" isMandatory="true" length="5"/>
@@ -727,25 +727,25 @@
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 		<db-attribute name="stage_id" type="SMALLINT" isMandatory="true" length="5"/>
 	</db-entity>
-	<db-entity name="query_participants" schema="public">
-		<db-attribute name="query_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="query_participants">
+		<db-attribute name="query_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="queued_payments" schema="public">
+	<db-entity name="queued_payments">
 		<db-attribute name="date_created" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="date_modified" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="expiry_date" type="DATE" length="13"/>
 		<db-attribute name="payment_data" type="CLOB" length="2147483647"/>
 		<db-attribute name="queued_payment_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="referral_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="5"/>
-		<db-attribute name="referral_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="referral_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="referral_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="referrals" schema="public">
+	<db-entity name="referrals">
 		<db-attribute name="date_added" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="link_count" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="referral_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
@@ -753,7 +753,7 @@
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="url" type="VARCHAR" isMandatory="true" length="255"/>
 	</db-entity>
-	<db-entity name="review_assignments" schema="public">
+	<db-entity name="review_assignments">
 		<db-attribute name="competing_interests" type="CLOB" length="2147483647"/>
 		<db-attribute name="date_acknowledged" type="TIMESTAMP" length="29"/>
 		<db-attribute name="date_assigned" type="TIMESTAMP" length="29"/>
@@ -782,18 +782,18 @@
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="unconsidered" type="SMALLINT" length="5"/>
 	</db-entity>
-	<db-entity name="review_files" schema="public">
-		<db-attribute name="file_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="review_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="review_files">
+		<db-attribute name="file_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="review_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="review_form_element_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="review_form_element_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="review_form_element_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="review_form_element_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="review_form_elements" schema="public">
+	<db-entity name="review_form_elements">
 		<db-attribute name="element_type" type="BIGINT" length="19"/>
 		<db-attribute name="included" type="SMALLINT" length="5"/>
 		<db-attribute name="required" type="SMALLINT" length="5"/>
@@ -801,27 +801,27 @@
 		<db-attribute name="review_form_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="review_form_responses" schema="public">
+	<db-entity name="review_form_responses">
 		<db-attribute name="response_type" type="VARCHAR" length="6"/>
 		<db-attribute name="response_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="review_form_element_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="review_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="review_form_element_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="review_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="review_form_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="review_form_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="review_form_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="review_form_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="review_forms" schema="public">
+	<db-entity name="review_forms">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="is_active" type="SMALLINT" length="5"/>
 		<db-attribute name="review_form_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="review_object_metadata" schema="public">
+	<db-entity name="review_object_metadata">
 		<db-attribute name="display" type="SMALLINT" length="5"/>
 		<db-attribute name="metadata_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="metadata_key" type="VARCHAR" length="64"/>
@@ -830,34 +830,34 @@
 		<db-attribute name="review_object_type_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="review_object_metadata_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="5"/>
-		<db-attribute name="metadata_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="review_object_metadata_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="metadata_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="review_object_type_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="5"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="review_object_type_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="type_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="type_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="review_object_types" schema="public">
+	<db-entity name="review_object_types">
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="is_active" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="type_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="type_key" type="VARCHAR" length="64"/>
 	</db-entity>
-	<db-entity name="review_round_files" schema="public">
-		<db-attribute name="file_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="review_round_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="revision" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="review_round_files">
+		<db-attribute name="file_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="review_round_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="revision" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="stage_id" type="SMALLINT" isMandatory="true" length="5"/>
-		<db-attribute name="submission_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="review_rounds" schema="public">
+	<db-entity name="review_rounds">
 		<db-attribute name="review_revision" type="BIGINT" length="19"/>
 		<db-attribute name="review_round_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="round" type="SMALLINT" isMandatory="true" length="5"/>
@@ -865,12 +865,12 @@
 		<db-attribute name="status" type="BIGINT" length="19"/>
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="roles" schema="public">
-		<db-attribute name="journal_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="role_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="roles">
+		<db-attribute name="journal_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="role_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="rt_contexts" schema="public">
+	<db-entity name="rt_contexts">
 		<db-attribute name="abbrev" type="VARCHAR" isMandatory="true" length="32"/>
 		<db-attribute name="author_terms" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="cited_by" type="SMALLINT" isMandatory="true" length="5"/>
@@ -882,7 +882,7 @@
 		<db-attribute name="title" type="VARCHAR" isMandatory="true" length="120"/>
 		<db-attribute name="version_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="rt_searches" schema="public">
+	<db-entity name="rt_searches">
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="description" type="CLOB" length="2147483647"/>
 		<db-attribute name="search_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
@@ -892,7 +892,7 @@
 		<db-attribute name="title" type="VARCHAR" isMandatory="true" length="120"/>
 		<db-attribute name="url" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="rt_versions" schema="public">
+	<db-entity name="rt_versions">
 		<db-attribute name="description" type="CLOB" length="2147483647"/>
 		<db-attribute name="journal_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="locale" type="VARCHAR" length="14"/>
@@ -900,23 +900,23 @@
 		<db-attribute name="version_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="version_key" type="VARCHAR" isMandatory="true" length="40"/>
 	</db-entity>
-	<db-entity name="scheduled_tasks" schema="public">
-		<db-attribute name="class_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="scheduled_tasks">
+		<db-attribute name="class_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="last_run" type="TIMESTAMP" length="29"/>
 	</db-entity>
-	<db-entity name="section_editors" schema="public">
-		<db-attribute name="context_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="section_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="section_editors">
+		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="section_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="section_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="section_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="section_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="section_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="sections" schema="public">
+	<db-entity name="sections">
 		<db-attribute name="abstract_word_count" type="BIGINT" length="19"/>
 		<db-attribute name="abstracts_not_required" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="editor_restricted" type="SMALLINT" isMandatory="true" length="5"/>
@@ -929,18 +929,18 @@
 		<db-attribute name="section_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 	</db-entity>
-	<db-entity name="sessions" schema="public">
+	<db-entity name="sessions">
 		<db-attribute name="created" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="data" type="CLOB" length="2147483647"/>
 		<db-attribute name="domain" type="VARCHAR" length="255"/>
 		<db-attribute name="ip_address" type="VARCHAR" isMandatory="true" length="39"/>
 		<db-attribute name="last_used" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="remember" type="SMALLINT" isMandatory="true" length="5"/>
-		<db-attribute name="session_id" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="128"/>
+		<db-attribute name="session_id" type="VARCHAR" isMandatory="true" length="128"/>
 		<db-attribute name="user_agent" type="VARCHAR" length="255"/>
 		<db-attribute name="user_id" type="BIGINT" length="19"/>
 	</db-entity>
-	<db-entity name="site" schema="public">
+	<db-entity name="site">
 		<db-attribute name="installed_locales" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="min_password_length" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="original_style_file_name" type="VARCHAR" length="255"/>
@@ -948,13 +948,13 @@
 		<db-attribute name="redirect" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="supported_locales" type="VARCHAR" length="255"/>
 	</db-entity>
-	<db-entity name="site_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="site_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="stage_assignments" schema="public">
+	<db-entity name="stage_assignments">
 		<db-attribute name="date_assigned" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="recommend_only" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="stage_assignment_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
@@ -962,19 +962,19 @@
 		<db-attribute name="user_group_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="static_page_settings" schema="public">
+	<db-entity name="static_page_settings">
 		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="5"/>
 		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="static_page_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="static_page_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="static_pages" schema="public">
+	<db-entity name="static_pages">
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="path" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="static_page_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="submission_artwork_files" schema="public">
+	<db-entity name="submission_artwork_files">
 		<db-attribute name="caption" type="CLOB" length="2147483647"/>
 		<db-attribute name="chapter_id" type="BIGINT" length="19"/>
 		<db-attribute name="contact_author" type="BIGINT" length="19"/>
@@ -986,7 +986,7 @@
 		<db-attribute name="permission_terms" type="CLOB" length="2147483647"/>
 		<db-attribute name="revision" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="submission_comments" schema="public">
+	<db-entity name="submission_comments">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="author_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="comment_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
@@ -999,14 +999,14 @@
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="viewable" type="SMALLINT" length="5"/>
 	</db-entity>
-	<db-entity name="submission_file_settings" schema="public">
-		<db-attribute name="file_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="submission_file_settings">
+		<db-attribute name="file_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="submission_files" schema="public">
+	<db-entity name="submission_files">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
 		<db-attribute name="date_modified" type="TIMESTAMP" isMandatory="true" length="29"/>
@@ -1027,14 +1027,14 @@
 		<db-attribute name="user_group_id" type="BIGINT" length="19"/>
 		<db-attribute name="viewable" type="SMALLINT" length="5"/>
 	</db-entity>
-	<db-entity name="submission_galley_settings" schema="public">
-		<db-attribute name="galley_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="submission_galley_settings">
+		<db-attribute name="galley_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="submission_galleys" schema="public">
+	<db-entity name="submission_galleys">
 		<db-attribute name="file_id" type="BIGINT" length="19"/>
 		<db-attribute name="galley_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="is_approved" type="SMALLINT" isMandatory="true" length="5"/>
@@ -1044,33 +1044,33 @@
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="submission_search_keyword_list" schema="public">
+	<db-entity name="submission_search_keyword_list">
 		<db-attribute name="keyword_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="keyword_text" type="VARCHAR" isMandatory="true" length="60"/>
 	</db-entity>
-	<db-entity name="submission_search_object_keywords" schema="public">
+	<db-entity name="submission_search_object_keywords">
 		<db-attribute name="keyword_id" type="BIGINT" isMandatory="true" length="19"/>
-		<db-attribute name="object_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="pos" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="object_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="pos" type="INTEGER" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="submission_search_objects" schema="public">
+	<db-entity name="submission_search_objects">
 		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
 		<db-attribute name="object_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="type" type="INTEGER" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="submission_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="submission_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="submission_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="submission_supplementary_files" schema="public">
+	<db-entity name="submission_supplementary_files">
 		<db-attribute name="file_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
 		<db-attribute name="revision" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="submission_tombstones" schema="public">
+	<db-entity name="submission_tombstones">
 		<db-attribute name="date_deleted" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="journal_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="oai_identifier" type="VARCHAR" isMandatory="true" length="255"/>
@@ -1080,7 +1080,7 @@
 		<db-attribute name="submission_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="tombstone_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="submission_xml_galleys" schema="public">
+	<db-entity name="submission_xml_galleys">
 		<db-attribute name="galley_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="galley_type" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="label" type="VARCHAR" isMandatory="true" length="32"/>
@@ -1088,7 +1088,7 @@
 		<db-attribute name="views" type="INTEGER" isMandatory="true" length="10"/>
 		<db-attribute name="xml_galley_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="submissions" schema="public">
+	<db-entity name="submissions">
 		<db-attribute name="citations" type="CLOB" length="2147483647"/>
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="date_status_modified" type="TIMESTAMP" length="29"/>
@@ -1104,14 +1104,14 @@
 		<db-attribute name="submission_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="submission_progress" type="SMALLINT" isMandatory="true" length="5"/>
 	</db-entity>
-	<db-entity name="subscription_type_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="subscription_type_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="type_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="type_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="subscription_types" schema="public">
+	<db-entity name="subscription_types">
 		<db-attribute name="cost" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 		<db-attribute name="currency_code_alpha" type="VARCHAR" isMandatory="true" length="3"/>
 		<db-attribute name="disable_public_display" type="SMALLINT" isMandatory="true" length="5"/>
@@ -1124,7 +1124,7 @@
 		<db-attribute name="seq" type="DOUBLE" isMandatory="true" length="17" scale="17"/>
 		<db-attribute name="type_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="subscriptions" schema="public">
+	<db-entity name="subscriptions">
 		<db-attribute name="date_end" type="TIMESTAMP" length="29"/>
 		<db-attribute name="date_start" type="DATE" length="13"/>
 		<db-attribute name="journal_id" type="BIGINT" isMandatory="true" length="19"/>
@@ -1136,7 +1136,7 @@
 		<db-attribute name="type_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="temporary_files" schema="public">
+	<db-entity name="temporary_files">
 		<db-attribute name="date_uploaded" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="file_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="file_name" type="VARCHAR" isMandatory="true" length="90"/>
@@ -1145,7 +1145,7 @@
 		<db-attribute name="original_file_name" type="VARCHAR" length="127"/>
 		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="theses" schema="public">
+	<db-entity name="theses">
 		<db-attribute name="abstract" type="CLOB" length="2147483647"/>
 		<db-attribute name="comment" type="CLOB" length="2147483647"/>
 		<db-attribute name="coverage_chron" type="VARCHAR" length="255"/>
@@ -1178,7 +1178,7 @@
 		<db-attribute name="university" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="url" type="CLOB" length="2147483647"/>
 	</db-entity>
-	<db-entity name="usage_stats_temporary_records" schema="public">
+	<db-entity name="usage_stats_temporary_records">
 		<db-attribute name="assoc_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="assoc_type" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="city" type="VARCHAR" length="255"/>
@@ -1190,19 +1190,19 @@
 		<db-attribute name="metric" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="region" type="VARCHAR" length="2"/>
 	</db-entity>
-	<db-entity name="user_group_settings" schema="public">
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="user_group_settings">
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="user_group_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="user_group_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="user_group_stage" schema="public">
-		<db-attribute name="context_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="stage_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="user_group_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="user_group_stage">
+		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="stage_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="user_group_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="user_groups" schema="public">
+	<db-entity name="user_groups">
 		<db-attribute name="context_id" type="BIGINT" isMandatory="true" length="19"/>
 		<db-attribute name="is_default" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="permit_self_registration" type="SMALLINT" isMandatory="true" length="5"/>
@@ -1210,24 +1210,24 @@
 		<db-attribute name="show_title" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="user_group_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="user_interests" schema="public">
-		<db-attribute name="controlled_vocab_entry_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="user_interests">
+		<db-attribute name="controlled_vocab_entry_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="user_settings" schema="public">
-		<db-attribute name="assoc_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="assoc_type" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="locale" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="14"/>
-		<db-attribute name="setting_name" type="VARCHAR" isPrimaryKey="true" isMandatory="true" length="255"/>
+	<db-entity name="user_settings">
+		<db-attribute name="assoc_id" type="BIGINT" length="19"/>
+		<db-attribute name="assoc_type" type="BIGINT" length="19"/>
+		<db-attribute name="locale" type="VARCHAR" isMandatory="true" length="14"/>
+		<db-attribute name="setting_name" type="VARCHAR" isMandatory="true" length="255"/>
 		<db-attribute name="setting_type" type="VARCHAR" isMandatory="true" length="6"/>
 		<db-attribute name="setting_value" type="CLOB" length="2147483647"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="user_user_groups" schema="public">
-		<db-attribute name="user_group_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
-		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="19"/>
+	<db-entity name="user_user_groups">
+		<db-attribute name="user_group_id" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true" length="19"/>
 	</db-entity>
-	<db-entity name="users" schema="public">
+	<db-entity name="users">
 		<db-attribute name="auth_id" type="BIGINT" length="19"/>
 		<db-attribute name="auth_str" type="VARCHAR" length="255"/>
 		<db-attribute name="billing_address" type="VARCHAR" length="255"/>
@@ -1256,20 +1256,21 @@
 		<db-attribute name="user_id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="19"/>
 		<db-attribute name="username" type="VARCHAR" isMandatory="true" length="32"/>
 	</db-entity>
-	<db-entity name="versions" schema="public">
-		<db-attribute name="build" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	<db-entity name="versions">
+		<db-attribute name="build" type="INTEGER" isMandatory="true" length="10"/>
 		<db-attribute name="current" type="SMALLINT" isMandatory="true" length="5"/>
 		<db-attribute name="date_installed" type="TIMESTAMP" isMandatory="true" length="29"/>
 		<db-attribute name="lazy_load" type="SMALLINT" isMandatory="true" length="5"/>
-		<db-attribute name="major" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
-		<db-attribute name="minor" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
-		<db-attribute name="product" type="VARCHAR" isPrimaryKey="true" length="30"/>
+		<db-attribute name="major" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="minor" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="product" type="VARCHAR" length="30"/>
 		<db-attribute name="product_class_name" type="VARCHAR" length="80"/>
-		<db-attribute name="product_type" type="VARCHAR" isPrimaryKey="true" length="30"/>
-		<db-attribute name="revision" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="product_type" type="VARCHAR" length="30"/>
+		<db-attribute name="revision" type="INTEGER" isMandatory="true" length="10"/>
 		<db-attribute name="sitewide" type="SMALLINT" isMandatory="true" length="5"/>
 	</db-entity>
 	<obj-entity name="AccessKeys" className="de.unidue.dbmover.model.AccessKeys" dbEntityName="access_keys">
+		<obj-attribute name="accessKeyId" type="long" db-attribute-path="access_key_id"/>
 		<obj-attribute name="context" type="java.lang.String" db-attribute-path="context"/>
 		<obj-attribute name="keyHash" type="java.lang.String" db-attribute-path="key_hash"/>
 		<obj-attribute name="userId" type="long" db-attribute-path="user_id"/>
@@ -1293,6 +1294,7 @@
 	<obj-entity name="AnnouncementTypes" className="de.unidue.dbmover.model.AnnouncementTypes" dbEntityName="announcement_types">
 		<obj-attribute name="assocType" type="short" db-attribute-path="assoc_type"/>
 		<obj-attribute name="assocId" type="long" db-attribute-path="assoc_id"/>
+		<obj-attribute name="typeId" type="long" db-attribute-path="type_id"/>
 	</obj-entity>
 	<obj-entity name="Announcements" className="de.unidue.dbmover.model.Announcements" dbEntityName="announcements">
 		<obj-attribute name="assocType" type="short" db-attribute-path="assoc_type"/>
@@ -1850,6 +1852,7 @@
 		<obj-attribute name="params" type="java.lang.String" db-attribute-path="params"/>
 	</obj-entity>
 	<obj-entity name="ObjectForReviewAssignments" className="de.unidue.dbmover.model.ObjectForReviewAssignments" dbEntityName="object_for_review_assignments">
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="userId" type="long" db-attribute-path="user_id"/>
 		<obj-attribute name="submissionId" type="long" db-attribute-path="submission_id"/>
 		<obj-attribute name="status" type="short" db-attribute-path="status"/>
@@ -1860,21 +1863,20 @@
 		<obj-attribute name="dateRemindedBefore" type="java.time.LocalDateTime" db-attribute-path="date_reminded_before"/>
 		<obj-attribute name="dateRemindedAfter" type="java.time.LocalDateTime" db-attribute-path="date_reminded_after"/>
 		<obj-attribute name="notes" type="java.lang.String" db-attribute-path="notes"/>
-		<obj-attribute name="id" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="ObjectForReviewPersons" className="de.unidue.dbmover.model.ObjectForReviewPersons" dbEntityName="object_for_review_persons">
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="seq" type="double" db-attribute-path="seq"/>
 		<obj-attribute name="role" type="java.lang.String" db-attribute-path="role"/>
 		<obj-attribute name="firstName" type="java.lang.String" db-attribute-path="first_name"/>
 		<obj-attribute name="middleName" type="java.lang.String" db-attribute-path="middle_name"/>
 		<obj-attribute name="lastName" type="java.lang.String" db-attribute-path="last_name"/>
-		<obj-attribute name="id" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="ObjectForReviewSettings" className="de.unidue.dbmover.model.ObjectForReviewSettings" dbEntityName="object_for_review_settings">
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="reviewObjectMetadataId" type="long" db-attribute-path="review_object_metadata_id"/>
 		<obj-attribute name="settingValue" type="java.lang.String" db-attribute-path="setting_value"/>
 		<obj-attribute name="settingType" type="java.lang.String" db-attribute-path="setting_type"/>
-		<obj-attribute name="id" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="ObjectsForReview" className="de.unidue.dbmover.model.ObjectsForReview" dbEntityName="objects_for_review">
 		<obj-attribute name="reviewObjectTypeId" type="long" db-attribute-path="review_object_type_id"/>
@@ -1895,11 +1897,11 @@
 	</obj-entity>
 	<obj-entity name="PlnDepositObjects" className="de.unidue.dbmover.model.PlnDepositObjects" dbEntityName="pln_deposit_objects">
 		<obj-attribute name="journalId" type="long" db-attribute-path="journal_id"/>
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="objectType" type="java.lang.String" db-attribute-path="object_type"/>
 		<obj-attribute name="depositId" type="long" db-attribute-path="deposit_id"/>
 		<obj-attribute name="dateCreated" type="java.time.LocalDateTime" db-attribute-path="date_created"/>
 		<obj-attribute name="dateModified" type="java.time.LocalDateTime" db-attribute-path="date_modified"/>
-		<obj-attribute name="id" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="PlnDeposits" className="de.unidue.dbmover.model.PlnDeposits" dbEntityName="pln_deposits">
 		<obj-attribute name="journalId" type="long" db-attribute-path="journal_id"/>
@@ -2239,9 +2241,9 @@
 		<obj-attribute name="keywordText" type="java.lang.String" db-attribute-path="keyword_text"/>
 	</obj-entity>
 	<obj-entity name="SubmissionSearchObjectKeywords" className="de.unidue.dbmover.model.SubmissionSearchObjectKeywords" dbEntityName="submission_search_object_keywords">
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="keywordId" type="long" db-attribute-path="keyword_id"/>
 		<obj-attribute name="pos" type="int" db-attribute-path="pos"/>
-		<obj-attribute name="id" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="SubmissionSearchObjects" className="de.unidue.dbmover.model.SubmissionSearchObjects" dbEntityName="submission_search_objects">
 		<obj-attribute name="submissionId" type="long" db-attribute-path="submission_id"/>
@@ -2446,26 +2448,4 @@
 		<obj-attribute name="lazyLoad" type="short" db-attribute-path="lazy_load"/>
 		<obj-attribute name="sitewide" type="short" db-attribute-path="sitewide"/>
 	</obj-entity>
-	<dbImport xmlns="http://cayenne.apache.org/schema/10/dbimport">
-		<forceDataMapCatalog>false</forceDataMapCatalog>
-		<forceDataMapSchema>false</forceDataMapSchema>
-		<namingStrategy>org.apache.cayenne.dbsync.naming.DefaultObjectNameGenerator</namingStrategy>
-		<skipPrimaryKeyLoading>false</skipPrimaryKeyLoading>
-		<skipRelationshipsLoading>false</skipRelationshipsLoading>
-		<useJava7Types>false</useJava7Types>
-		<usePrimitives>true</usePrimitives>
-	</dbImport>
-	<cgen xmlns="http://cayenne.apache.org/schema/10/cgen">
-		<destDir>../java</destDir>
-		<mode>entity</mode>
-		<template>templates/v4_1/subclass.vm</template>
-		<superTemplate>templates/v4_1/superclass.vm</superTemplate>
-		<outputPattern>*.java</outputPattern>
-		<makePairs>true</makePairs>
-		<usePkgPath>true</usePkgPath>
-		<overwrite>false</overwrite>
-		<createPropertyNames>false</createPropertyNames>
-		<createPKProperties>false</createPKProperties>
-		<client>false</client>
-	</cgen>
 </data-map>

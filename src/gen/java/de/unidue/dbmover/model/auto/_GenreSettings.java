@@ -17,9 +17,6 @@ public abstract class _GenreSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String GENRE_ID_PK_COLUMN = "genre_id";
-    public static final String LOCALE_PK_COLUMN = "locale";
-    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> GENRE_ID = Property.create("genreId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

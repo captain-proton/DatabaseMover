@@ -20,6 +20,7 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
 
     public static final String ASSIGNMENT_ID_PK_COLUMN = "assignment_id";
 
+    public static final Property<Long> OBJECT_IDENTIFIER = Property.create("objectIdentifier", Long.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);
     public static final Property<Long> SUBMISSION_ID = Property.create("submissionId", Long.class);
     public static final Property<Short> STATUS = Property.create("status", Short.class);
@@ -30,8 +31,8 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
     public static final Property<LocalDateTime> DATE_REMINDED_BEFORE = Property.create("dateRemindedBefore", LocalDateTime.class);
     public static final Property<LocalDateTime> DATE_REMINDED_AFTER = Property.create("dateRemindedAfter", LocalDateTime.class);
     public static final Property<String> NOTES = Property.create("notes", String.class);
-    public static final Property<Long> ID = Property.create("id", Long.class);
 
+    protected long objectIdentifier;
     protected Long userId;
     protected Long submissionId;
     protected short status;
@@ -42,8 +43,17 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
     protected LocalDateTime dateRemindedBefore;
     protected LocalDateTime dateRemindedAfter;
     protected String notes;
-    protected long id;
 
+
+    public void setObjectIdentifier(long objectIdentifier) {
+        beforePropertyWrite("objectIdentifier", this.objectIdentifier, objectIdentifier);
+        this.objectIdentifier = objectIdentifier;
+    }
+
+    public long getObjectIdentifier() {
+        beforePropertyRead("objectIdentifier");
+        return this.objectIdentifier;
+    }
 
     public void setUserId(long userId) {
         beforePropertyWrite("userId", this.userId, userId);
@@ -151,16 +161,6 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         return this.notes;
     }
 
-    public void setId(long id) {
-        beforePropertyWrite("id", this.id, id);
-        this.id = id;
-    }
-
-    public long getId() {
-        beforePropertyRead("id");
-        return this.id;
-    }
-
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -168,6 +168,8 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         }
 
         switch(propName) {
+            case "objectIdentifier":
+                return this.objectIdentifier;
             case "userId":
                 return this.userId;
             case "submissionId":
@@ -188,8 +190,6 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
                 return this.dateRemindedAfter;
             case "notes":
                 return this.notes;
-            case "id":
-                return this.id;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -202,6 +202,9 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         }
 
         switch (propName) {
+            case "objectIdentifier":
+                this.objectIdentifier = val == null ? 0 : (long)val;
+                break;
             case "userId":
                 this.userId = (Long)val;
                 break;
@@ -232,9 +235,6 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
             case "notes":
                 this.notes = (String)val;
                 break;
-            case "id":
-                this.id = val == null ? 0 : (long)val;
-                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -251,6 +251,7 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
+        out.writeLong(this.objectIdentifier);
         out.writeObject(this.userId);
         out.writeObject(this.submissionId);
         out.writeShort(this.status);
@@ -261,12 +262,12 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         out.writeObject(this.dateRemindedBefore);
         out.writeObject(this.dateRemindedAfter);
         out.writeObject(this.notes);
-        out.writeLong(this.id);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
+        this.objectIdentifier = in.readLong();
         this.userId = (Long)in.readObject();
         this.submissionId = (Long)in.readObject();
         this.status = in.readShort();
@@ -277,7 +278,6 @@ public abstract class _ObjectForReviewAssignments extends BaseDataObject {
         this.dateRemindedBefore = (LocalDateTime)in.readObject();
         this.dateRemindedAfter = (LocalDateTime)in.readObject();
         this.notes = (String)in.readObject();
-        this.id = in.readLong();
     }
 
 }

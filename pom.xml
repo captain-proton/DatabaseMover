@@ -52,7 +52,7 @@
                 <version>${cayenne-version}</version>
 
                 <configuration>
-                    <cayenneProject>${project.basedir}/src/main/resources/cayenne-project.xml</cayenneProject>
+                    <cayenneProject>${project.basedir}/src/main/resources/cayenne-source.xml</cayenneProject>
                     <map>${project.basedir}/src/main/resources/datamap.map.xml</map>
                     <destDir>src/gen/java</destDir>
                     <adapter>org.apache.cayenne.dba.postgres.PostgresAdapter</adapter>
@@ -66,6 +66,8 @@
                         <defaultPackage>de.unidue.dbmover.model</defaultPackage>
                         <includeTable>.*</includeTable>
                         <skipPrimaryKeyLoading>true</skipPrimaryKeyLoading>
+                        <skipRelationshipsLoading>true</skipRelationshipsLoading>
+                        <tableType>TABLE</tableType>
                     </dbimport>
                 </configuration>
 

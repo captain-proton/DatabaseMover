@@ -10,12 +10,16 @@ import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.query.ObjectSelect;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class AccessKeyMover {
+
+    public static void main(String[] args) {
+        AccessKeyMover mover = new AccessKeyMover();
+        mover.move();
+    }
 
     public void move() {
 
@@ -25,8 +29,6 @@ public class AccessKeyMover {
         ServerRuntime destinationRuntime = ServerRuntime.builder()
                 .addConfig("cayenne-destination.xml")
                 .build();
-        printRuntimeMeta(sourceRuntime);
-        printRuntimeMeta(destinationRuntime);
 
         Field[] fields = AccessKeys.class.getFields();
         Set<Property> properties = new HashSet<>();
@@ -41,43 +43,47 @@ public class AccessKeyMover {
             }
         }
 
-
         ObjectContext sourceContext = sourceRuntime.newContext();
         ObjectContext destinationContext = destinationRuntime.newContext();
 
+        migrateAccessKeys(sourceContext, destinationContext, properties);
+    }
+
+    protected void migrateAccessKeys(ObjectContext sourceContext, ObjectContext destinationContext, Set<Property> properties) {
+
         int offset = 0;
         int limit = 200;
-        List<AccessKeys> accessKeys = ObjectSelect
+
+        List<AccessKeys> accessKeys = loadAccessKeys(offset, limit, sourceContext);
+
+        while (accessKeys.size() > 0) {
+
+
+            for (AccessKeys srcObject : accessKeys) {
+
+                AccessKeys dstObject = new AccessKeys();
+                dstObject.setAccessKeyId(srcObject.getAccessKeyId());
+
+                for (Property property : properties) {
+
+                    String propertyName = property.getName();
+                    Object propertyValue = srcObject.readProperty(propertyName);
+                    dstObject.writeProperty(propertyName, propertyValue);
+                }
+                destinationContext.registerNewObject(dstObject);
+            }
+            destinationContext.commitChanges();
+
+            offset += limit;
+            accessKeys = loadAccessKeys(offset, limit, sourceContext);
+        };
+    }
+
+    protected List<AccessKeys> loadAccessKeys(int offset, int limit, ObjectContext context) {
+        return ObjectSelect
                 .query(AccessKeys.class)
                 .offset(offset)
                 .limit(limit)
-                .select(sourceContext);
-
-        for (AccessKeys srcObject : accessKeys) {
-
-            AccessKeys dstObject = new AccessKeys();
-            dstObject.setObjectId(srcObject.getObjectId());
-
-            for (Property property : properties) {
-
-                String propertyName = property.getName();
-                Object propertyValue = srcObject.readProperty(propertyName);
-                dstObject.writeProperty(propertyName, propertyValue);
-            }
-            destinationContext.registerNewObject(dstObject);
-        }
-        destinationContext.commitChanges();
-    }
-
-    private void printRuntimeMeta(ServerRuntime runtime) {
-        DataDomain domain = runtime.getDataDomain();
-        domain.getDataMaps().forEach(map ->  {
-            System.out.println(map.getDefaultSchema());
-            DataChannelDescriptor channelDescriptor = map.getDataChannelDescriptor();
-        });
-        domain.getDataNodes().forEach(node -> {
-            System.out.println(node.getName());
-        });
-        System.out.println();
+                .select(context);
     }
 }

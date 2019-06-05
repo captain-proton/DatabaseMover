@@ -17,8 +17,6 @@ public abstract class _CustomSectionOrders extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String ISSUE_ID_PK_COLUMN = "issue_id";
-    public static final String SECTION_ID_PK_COLUMN = "section_id";
 
     public static final Property<Long> ISSUE_ID = Property.create("issueId", Long.class);
     public static final Property<Long> SECTION_ID = Property.create("sectionId", Long.class);

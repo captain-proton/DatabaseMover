@@ -17,7 +17,6 @@ public abstract class _StaticPageSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String STATIC_PAGE_ID_PK_COLUMN = "static_page_id";
 
     public static final Property<Long> STATIC_PAGE_ID = Property.create("staticPageId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

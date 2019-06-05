@@ -17,9 +17,6 @@ public abstract class _NavigationMenuItemSettings extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String LOCALE_PK_COLUMN = "locale";
-    public static final String NAVIGATION_MENU_ITEM_ID_PK_COLUMN = "navigation_menu_item_id";
-    public static final String SETTING_NAME_PK_COLUMN = "setting_name";
 
     public static final Property<Long> NAVIGATION_MENU_ITEM_ID = Property.create("navigationMenuItemId", Long.class);
     public static final Property<String> LOCALE = Property.create("locale", String.class);

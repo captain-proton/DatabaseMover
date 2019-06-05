@@ -17,8 +17,6 @@ public abstract class _QueryParticipants extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String QUERY_ID_PK_COLUMN = "query_id";
-    public static final String USER_ID_PK_COLUMN = "user_id";
 
     public static final Property<Long> QUERY_ID = Property.create("queryId", Long.class);
     public static final Property<Long> USER_ID = Property.create("userId", Long.class);

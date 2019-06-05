@@ -17,7 +17,6 @@ public abstract class _CustomIssueOrders extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String ISSUE_ID_PK_COLUMN = "issue_id";
 
     public static final Property<Long> ISSUE_ID = Property.create("issueId", Long.class);
     public static final Property<Long> JOURNAL_ID = Property.create("journalId", Long.class);

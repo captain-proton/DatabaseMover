@@ -17,9 +17,6 @@ public abstract class _UserGroupStage extends BaseDataObject {
 
     private static final long serialVersionUID = 1L; 
 
-    public static final String CONTEXT_ID_PK_COLUMN = "context_id";
-    public static final String STAGE_ID_PK_COLUMN = "stage_id";
-    public static final String USER_GROUP_ID_PK_COLUMN = "user_group_id";
 
     public static final Property<Long> CONTEXT_ID = Property.create("contextId", Long.class);
     public static final Property<Long> USER_GROUP_ID = Property.create("userGroupId", Long.class);
