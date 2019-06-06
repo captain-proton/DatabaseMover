@@ -23,6 +23,7 @@ public class EntityMigrationGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityMigrationGenerator.class);
 
+    private final String migrationPackageName;
     private final String migrationBasePackageName;
     private final ObjEntity objectEntity;
     private final File destinationDirectory;
@@ -30,6 +31,7 @@ public class EntityMigrationGenerator {
 
     public EntityMigrationGenerator(String migrationPackageName, ObjEntity objectEntity, File destinationDirectory) throws ClassNotFoundException {
 
+        this.migrationPackageName = migrationPackageName;
         this.migrationBasePackageName = migrationPackageName + ".auto";
         this.objectEntity = objectEntity;
         this.destinationDirectory = destinationDirectory;
@@ -47,20 +49,21 @@ public class EntityMigrationGenerator {
         File dstDir = new File("src/gen/java");
         String migrationPackageName = "de.unidue.dbmover.migration";
 
-        datamap.getObjEntities().forEach(entity ->  {
+        datamap.getObjEntities().forEach(entity -> {
 
             try {
                 EntityMigrationGenerator generator = new EntityMigrationGenerator(migrationPackageName, entity, dstDir);
-                TypeSpec base = generator.generateBase();
-                generator.generate(base, dstDir, migrationPackageName);
+                ClassName base = generator.generateBase();
+                generator.generateModifiableClass(base);
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                LOG.error("Could not generate migration class for entity " + entity.getName(), e);
             }
         });
     }
 
-    public TypeSpec generateBase() {
-        TypeSpec typeSpec = TypeSpec.classBuilder(String.join("", "_", objectEntity.getName(), "Mover"))
+    private ClassName generateBase() {
+        ClassName className = ClassName.get(migrationBasePackageName, String.join("", "_", objectEntity.getName(), "Mover"));
+        TypeSpec typeSpec = TypeSpec.classBuilder(className)
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(buildMoveMethod(objectEntity))
                 .addMethod(buildMigrateMethod(objectEntity))
@@ -73,11 +76,19 @@ public class EntityMigrationGenerator {
         } catch (IOException e) {
             LOG.error("Could not generate migration class for entity " + objectEntity.getClassName(), e);
         }
-        return typeSpec;
+        return className;
     }
 
     private MethodSpec buildMoveMethod(ObjEntity objEntity) {
         return MethodSpec.methodBuilder("move")
+                .addJavadoc("<p>Moves all records that are associated to the object entity\n"
+                        + "{@code $L}.</p>\n"
+                        + "\n"
+                        + "<p>{@code move} is the first method to be called to replicate\n"
+                        + "one record from a database to another one. It loads all\n"
+                        + "static properties ({@code $T}) from the object entity\n"
+                        + "and calls {@code migrate$L}.</p>",
+                        objEntity.getName(), Property.class, objEntity.getName())
                 .addModifiers(Modifier.PUBLIC)
                 .addStatement("$T sourceRuntime = $T.builder().addConfig(\"cayenne-source.xml\").build()", ServerRuntime.class, ServerRuntime.class)
                 .addStatement("$T destinationRuntime = $T.builder().addConfig(\"cayenne-destination.xml\").build()", ServerRuntime.class, ServerRuntime.class)
@@ -86,7 +97,7 @@ public class EntityMigrationGenerator {
                 .beginControlFlow("for ($T field : fields)", Field.class)
                 .beginControlFlow("if (field.getType().equals($T.class))", Property.class)
                 .beginControlFlow("try")
-                .addStatement("$T property = ($T) field.get(null)",  Property.class,  Property.class)
+                .addStatement("$T property = ($T) field.get(null)", Property.class, Property.class)
                 .addStatement("properties.add(property)")
                 .nextControlFlow("catch ($T e)", IllegalAccessException.class)
                 .addStatement("e.printStackTrace()")
@@ -103,16 +114,9 @@ public class EntityMigrationGenerator {
 
         String entityName = objEntity.getName();
         String entityClassName = objEntity.getClassName();
-        ClassName setClassName = ClassName.get("java.util", "Set");
         ClassName listClassName = ClassName.get("java.util", "List");
-        ClassName propertyClassName = ClassName.get(Property.class);
-        TypeName propertiesType = ParameterizedTypeName.get(setClassName, propertyClassName);
 
-        return MethodSpec.methodBuilder("migrate" + entityName)
-                .addModifiers(Modifier.PROTECTED)
-                .addParameter(ObjectContext.class, "sourceContext")
-                .addParameter(ObjectContext.class, "destinationContext")
-                .addParameter(propertiesType, "properties")
+        return buildMigrateMethodSignature()
                 .addStatement("int offset = 0")
                 .addStatement("int limit = 200")
                 .addStatement("$T<$T> sourceObjects = load$L(offset, limit, $N)", listClassName, entityClass, entityName, "sourceContext")
@@ -134,16 +138,7 @@ public class EntityMigrationGenerator {
 
     private MethodSpec buildLoadMethod(ObjEntity objEntity) {
 
-        ClassName listClassName = ClassName.get(List.class);
-        ClassName objClassName = ClassName.get(entityClass);
-        TypeName returnType = ParameterizedTypeName.get(listClassName, objClassName);
-
-        return MethodSpec.methodBuilder("load" + objEntity.getName())
-                .addModifiers(Modifier.PROTECTED)
-                .returns(returnType)
-                .addParameter(Integer.class, "offset")
-                .addParameter(Integer.class, "limit")
-                .addParameter(ObjectContext.class, "context")
+        return buildLoadMethodSignature()
                 .addStatement("return $T.query($L.class)" +
                         ".offset(offset)" +
                         ".limit(limit)" +
@@ -151,7 +146,72 @@ public class EntityMigrationGenerator {
                 .build();
     }
 
-    private void generate(TypeSpec baseClass, File dstDir, String packageName) {
+    private void generateModifiableClass(ClassName baseClass) {
 
+        // com.example._SampleMover -> com/example/SampleMover.java
+        StringBuilder classFilename = new StringBuilder(migrationPackageName.replaceAll("\\.", "/"));
+        classFilename.append("/");
+        classFilename.append(baseClass.simpleName().substring(1));
+        classFilename.append(".java");
+        File moverClassFile = new File(destinationDirectory, classFilename.toString());
+        if (moverClassFile.exists()) {
+            return;
+        }
+        TypeSpec typeSpec = TypeSpec.classBuilder(objectEntity.getName() + "Mover")
+                .superclass(baseClass)
+                .addModifiers(Modifier.PUBLIC)
+                .addMethod(buildMigrateMethodOverride())
+                .addMethod(buildLoadMethodOverride())
+                .build();
+
+        JavaFile javaFile = JavaFile.builder(migrationPackageName, typeSpec).build();
+        try {
+            javaFile.writeTo(destinationDirectory);
+        } catch (IOException e) {
+            LOG.error("Could not generate modifiable migration class for entity " + objectEntity.getClassName(), e);
+        }
+    }
+
+    private MethodSpec buildLoadMethodOverride() {
+        return buildLoadMethodSignature()
+                .addAnnotation(Override.class)
+                .addComment("Use this method to implement your own 'load" + objectEntity.getName() + "' implementation")
+                .addStatement("return super.load$L($N, $N, $N)", objectEntity.getName(), "offset", "limit", "context")
+                .build();
+    }
+
+    private MethodSpec buildMigrateMethodOverride() {
+        return buildMigrateMethodSignature()
+                .addAnnotation(Override.class)
+                .addComment("Use this method to implement your own 'migrate" + objectEntity.getName() + "' implementation")
+                .addStatement("super.migrate$L($N, $N, $N)", objectEntity.getName(), "sourceContext", "destinationContext", "properties")
+                .build();
+    }
+
+    private MethodSpec.Builder buildMigrateMethodSignature() {
+
+        ClassName setClassName = ClassName.get("java.util", "Set");
+        ClassName propertyClassName = ClassName.get(Property.class);
+        TypeName propertiesType = ParameterizedTypeName.get(setClassName, propertyClassName);
+
+        return MethodSpec.methodBuilder("migrate" + objectEntity.getName())
+                .addModifiers(Modifier.PROTECTED)
+                .addParameter(ObjectContext.class, "sourceContext")
+                .addParameter(ObjectContext.class, "destinationContext")
+                .addParameter(propertiesType, "properties");
+    }
+
+    private MethodSpec.Builder buildLoadMethodSignature() {
+
+        ClassName listClassName = ClassName.get(List.class);
+        ClassName objClassName = ClassName.get(entityClass);
+        TypeName returnType = ParameterizedTypeName.get(listClassName, objClassName);
+
+        return MethodSpec.methodBuilder("load" + objectEntity.getName())
+                .addModifiers(Modifier.PROTECTED)
+                .returns(returnType)
+                .addParameter(Integer.class, "offset")
+                .addParameter(Integer.class, "limit")
+                .addParameter(ObjectContext.class, "context");
     }
 }
