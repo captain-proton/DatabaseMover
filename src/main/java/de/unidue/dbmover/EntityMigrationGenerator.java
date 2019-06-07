@@ -75,6 +75,7 @@ public class EntityMigrationGenerator {
                 .addMethod(buildMigrateMethod(objectEntity))
                 .addMethod(buildLoadMethod(objectEntity))
                 .addMethod(buildMaxLoadedItemsGetter())
+                .addMethod(buildMaxLoadedItemsSetter())
                 .build();
 
         JavaFile javaFile = JavaFile.builder(migrationBasePackageName, typeSpec).build();
@@ -91,6 +92,14 @@ public class EntityMigrationGenerator {
                 .addModifiers(Modifier.PUBLIC)
                 .returns(Integer.class)
                 .addStatement("return $N", "maxLoadedItems")
+                .build();
+    }
+
+    private MethodSpec buildMaxLoadedItemsSetter() {
+        return MethodSpec.methodBuilder("setMaxLoadedItems")
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(Integer.class, "maxLoadedItems")
+                .addStatement("this.$N = $N", "maxLoadedItems", "maxLoadedItems")
                 .build();
     }
 
