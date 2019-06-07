@@ -22,13 +22,19 @@ public class DbMover {
                 .collect(Collectors.toSet());
 
         movers.forEach(m -> {
+            String moverName = m.getSimpleName();
             try {
                 EntityMover mover = m.newInstance();
+                LOG.info("Starting " + moverName);
+                long start = System.currentTimeMillis();
                 mover.move(cayenneSourceProjectFile, cayenneDestinationProjectFile);
+                LOG.info(moverName + " finished in " + (System.currentTimeMillis() - start) + " ms");
             } catch (InstantiationException e) {
                 LOG.error("Could not instantiate " + m.getName(), e);
             } catch (IllegalAccessException e) {
                 LOG.error("Could not access contructors of " + m.getName(), e);
+            } catch (Exception e) {
+                LOG.error(moverName + " was not able to move records", e);
             }
         });
     }
