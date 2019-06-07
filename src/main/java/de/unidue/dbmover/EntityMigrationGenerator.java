@@ -180,6 +180,7 @@ public class EntityMigrationGenerator {
 
         TypeSpec typeSpec = TypeSpec.classBuilder(objectEntity.getName() + "Mover")
                 .superclass(baseClass)
+                .addAnnotation(Mover.class)
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(buildDefaultConstructor())
                 .addMethod(buildMaxLoadedItemsConstructor())

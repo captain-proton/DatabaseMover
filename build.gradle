@@ -21,7 +21,6 @@ plugins {
 apply plugin: 'org.apache.cayenne'
 
 cayenne.defaultDataMap '${project.basedir}/src/main/resources/datamap.map.xml'
-cdbimport.cayenneProject '${project.basedir}/src/main/resources/cayenne-source.xml'
 
 repositories {
 
@@ -41,6 +40,7 @@ dependencies {
     compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
     compile 'org.apache.commons:commons-lang3:3.9'
     compile 'commons-cli:commons-cli:1.4'
+    compile 'org.reflections:reflections:0.9.11'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
