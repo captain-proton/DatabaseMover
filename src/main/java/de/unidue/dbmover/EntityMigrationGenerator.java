@@ -128,6 +128,8 @@ public class EntityMigrationGenerator {
                 .addStatement("$T sourceContext = sourceRuntime.newContext()", ObjectContext.class)
                 .addStatement("$T destinationContext = destinationRuntime.newContext()", ObjectContext.class)
                 .addStatement("migrate$L(sourceContext, destinationContext, properties)", objEntity.getName())
+                .addStatement("$N.shutdown()", "sourceRuntime")
+                .addStatement("$N.shutdown()", "destinationRuntime")
                 .build();
     }
 
