@@ -2,10 +2,8 @@ package de.unidue.dbmover;
 
 import com.squareup.javapoet.*;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.access.DataDomain;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Property;
-import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.query.ObjectSelect;
 import org.slf4j.Logger;
@@ -38,33 +36,16 @@ public class EntityMigrationGenerator {
         this.entityClass = Class.forName(objectEntity.getClassName());
     }
 
-    public static void main(String[] args) {
-
-        ServerRuntime runtime = ServerRuntime.builder()
-                .addConfig("cayenne-source.xml")
-                .build();
-        DataDomain dataDomain = runtime.getDataDomain();
-        DataMap datamap = dataDomain.getDataMap("datamap");
-
-        File dstDir = new File("src/gen/java");
-        String migrationPackageName = "de.unidue.dbmover.migration";
-
-        datamap.getObjEntities().forEach(entity -> {
-
-            try {
-                EntityMigrationGenerator generator = new EntityMigrationGenerator(migrationPackageName, entity, dstDir);
-                ClassName base = generator.generateBase();
-                generator.generateModifiableClass(base);
-            } catch (ClassNotFoundException e) {
-                LOG.error("Could not generate migration class for entity " + entity.getName(), e);
-            }
-        });
+    public void generate() {
+        ClassName base = generateBase();
+        generateModifiableClass(base);
     }
 
     private ClassName generateBase() {
         ClassName className = ClassName.get(migrationBasePackageName, String.join("", "_", objectEntity.getName(), "Mover"));
         TypeSpec typeSpec = TypeSpec.classBuilder(className)
                 .addModifiers(Modifier.PUBLIC)
+                .addSuperinterface(EntityMover.class)
                 .addField(FieldSpec.builder(Integer.class, "maxLoadedItems")
                         .addModifiers(Modifier.PRIVATE)
                         .initializer("200")

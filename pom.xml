@@ -11,12 +11,13 @@
     <properties>
         <build-helper-version>3.0.0</build-helper-version>
         <cayenne-version>4.1.B2</cayenne-version>
+        <commons-lang-version>3.9</commons-lang-version>
         <javapoet-version>1.11.1</javapoet-version>
         <jaxb-version>2.3.2</jaxb-version>
         <mariadb-version>2.4.1</mariadb-version>
+        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
         <postgresql-version>42.2.5</postgresql-version>
         <slf4j-version>1.7.26</slf4j-version>
-        <commons-lang-version>3.9</commons-lang-version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -59,12 +60,15 @@
             <version>${commons-lang-version}</version>
         </dependency>
 
-
-
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin-version}</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.cayenne.plugins</groupId>
                 <artifactId>cayenne-maven-plugin</artifactId>

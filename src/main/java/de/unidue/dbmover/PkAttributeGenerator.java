@@ -20,13 +20,8 @@ public class PkAttributeGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(PkAttributeGenerator.class);
 
-    public static void main(String[] args) {
-        PkAttributeGenerator generator = new PkAttributeGenerator();
-        generator.generateAttributes();
-    }
-
-    private void generateAttributes() {
-        File datamapFile = new File("src/main/resources/datamap.map.xml");
+    public void generateAttributes(String datamapFilename) {
+        File datamapFile = new File(datamapFilename);
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(DataMap.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
