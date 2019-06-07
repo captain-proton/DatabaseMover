@@ -109,8 +109,10 @@ public class EntityMigrationGenerator {
                         + "and calls {@code migrate$L}.</p>",
                         objEntity.getName(), Property.class, objEntity.getName())
                 .addModifiers(Modifier.PUBLIC)
-                .addStatement("$T sourceRuntime = $T.builder().addConfig(\"cayenne-source.xml\").build()", ServerRuntime.class, ServerRuntime.class)
-                .addStatement("$T destinationRuntime = $T.builder().addConfig(\"cayenne-destination.xml\").build()", ServerRuntime.class, ServerRuntime.class)
+                .addParameter(String.class, "sourceConfigFile")
+                .addParameter(String.class, "destinationConfigFile")
+                .addStatement("$T sourceRuntime = $T.builder().addConfig($N).build()", ServerRuntime.class, ServerRuntime.class, "sourceConfigFile")
+                .addStatement("$T destinationRuntime = $T.builder().addConfig($N).build()", ServerRuntime.class, ServerRuntime.class, "destinationConfigFile")
                 .addStatement("$T[] fields = $T.class.getFields()", Field.class, entityClass)
                 .addStatement("$T<$T> properties = new $T<>()", Set.class, Property.class, HashSet.class)
                 .beginControlFlow("for ($T field : fields)", Field.class)
