@@ -1850,7 +1850,6 @@
 		<obj-attribute name="params" type="java.lang.String" db-attribute-path="params"/>
 	</obj-entity>
 	<obj-entity name="ObjectForReviewAssignments" className="de.unidue.dbmover.model.ObjectForReviewAssignments" dbEntityName="object_for_review_assignments">
-		<obj-attribute name="objectId" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="userId" type="long" db-attribute-path="user_id"/>
 		<obj-attribute name="submissionId" type="long" db-attribute-path="submission_id"/>
 		<obj-attribute name="status" type="short" db-attribute-path="status"/>
@@ -1861,20 +1860,21 @@
 		<obj-attribute name="dateRemindedBefore" type="java.time.LocalDateTime" db-attribute-path="date_reminded_before"/>
 		<obj-attribute name="dateRemindedAfter" type="java.time.LocalDateTime" db-attribute-path="date_reminded_after"/>
 		<obj-attribute name="notes" type="java.lang.String" db-attribute-path="notes"/>
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="ObjectForReviewPersons" className="de.unidue.dbmover.model.ObjectForReviewPersons" dbEntityName="object_for_review_persons">
-		<obj-attribute name="objectId" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="seq" type="double" db-attribute-path="seq"/>
 		<obj-attribute name="role" type="java.lang.String" db-attribute-path="role"/>
 		<obj-attribute name="firstName" type="java.lang.String" db-attribute-path="first_name"/>
 		<obj-attribute name="middleName" type="java.lang.String" db-attribute-path="middle_name"/>
 		<obj-attribute name="lastName" type="java.lang.String" db-attribute-path="last_name"/>
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="ObjectForReviewSettings" className="de.unidue.dbmover.model.ObjectForReviewSettings" dbEntityName="object_for_review_settings">
-		<obj-attribute name="objectId" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="reviewObjectMetadataId" type="long" db-attribute-path="review_object_metadata_id"/>
 		<obj-attribute name="settingValue" type="java.lang.String" db-attribute-path="setting_value"/>
 		<obj-attribute name="settingType" type="java.lang.String" db-attribute-path="setting_type"/>
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="ObjectsForReview" className="de.unidue.dbmover.model.ObjectsForReview" dbEntityName="objects_for_review">
 		<obj-attribute name="reviewObjectTypeId" type="long" db-attribute-path="review_object_type_id"/>
@@ -1895,11 +1895,11 @@
 	</obj-entity>
 	<obj-entity name="PlnDepositObjects" className="de.unidue.dbmover.model.PlnDepositObjects" dbEntityName="pln_deposit_objects">
 		<obj-attribute name="journalId" type="long" db-attribute-path="journal_id"/>
-		<obj-attribute name="objectId" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="objectType" type="java.lang.String" db-attribute-path="object_type"/>
 		<obj-attribute name="depositId" type="long" db-attribute-path="deposit_id"/>
 		<obj-attribute name="dateCreated" type="java.time.LocalDateTime" db-attribute-path="date_created"/>
 		<obj-attribute name="dateModified" type="java.time.LocalDateTime" db-attribute-path="date_modified"/>
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="PlnDeposits" className="de.unidue.dbmover.model.PlnDeposits" dbEntityName="pln_deposits">
 		<obj-attribute name="journalId" type="long" db-attribute-path="journal_id"/>
@@ -2239,9 +2239,9 @@
 		<obj-attribute name="keywordText" type="java.lang.String" db-attribute-path="keyword_text"/>
 	</obj-entity>
 	<obj-entity name="SubmissionSearchObjectKeywords" className="de.unidue.dbmover.model.SubmissionSearchObjectKeywords" dbEntityName="submission_search_object_keywords">
-		<obj-attribute name="objectId" type="long" db-attribute-path="object_id"/>
 		<obj-attribute name="keywordId" type="long" db-attribute-path="keyword_id"/>
 		<obj-attribute name="pos" type="int" db-attribute-path="pos"/>
+		<obj-attribute name="objectIdentifier" type="long" db-attribute-path="object_id"/>
 	</obj-entity>
 	<obj-entity name="SubmissionSearchObjects" className="de.unidue.dbmover.model.SubmissionSearchObjects" dbEntityName="submission_search_objects">
 		<obj-attribute name="submissionId" type="long" db-attribute-path="submission_id"/>
