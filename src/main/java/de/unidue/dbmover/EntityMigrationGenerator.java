@@ -6,6 +6,7 @@ import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Property;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.query.ObjectSelect;
+import org.apache.cayenne.query.Orderings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,9 +14,8 @@ import javax.lang.model.element.Modifier;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class EntityMigrationGenerator {
 
@@ -114,7 +114,7 @@ public class EntityMigrationGenerator {
                 .addStatement("$T sourceRuntime = $T.builder().addConfig($N).build()", ServerRuntime.class, ServerRuntime.class, "sourceConfigFile")
                 .addStatement("$T destinationRuntime = $T.builder().addConfig($N).build()", ServerRuntime.class, ServerRuntime.class, "destinationConfigFile")
                 .addStatement("$T[] fields = $T.class.getFields()", Field.class, entityClass)
-                .addStatement("$T<$T> properties = new $T<>()", Set.class, Property.class, HashSet.class)
+                .addStatement("$T<$T> properties = new $T<>()", List.class, Property.class, ArrayList.class)
                 .beginControlFlow("for ($T field : fields)", Field.class)
                 .beginControlFlow("if (field.getType().equals($T.class))", Property.class)
                 .beginControlFlow("try")
@@ -141,7 +141,7 @@ public class EntityMigrationGenerator {
 
         return buildMigrateMethodSignature()
                 .addStatement("int offset = 0")
-                .addStatement("$T<$T> sourceObjects = load$L(offset, $N)", listClassName, entityClass, entityName, "sourceContext")
+                .addStatement("$T<$T> sourceObjects = load$L(offset, $N, $N)", listClassName, entityClass, entityName, "properties", "sourceContext")
                 .beginControlFlow("while ($N.size() > 0)", "sourceObjects")
                 .beginControlFlow("for ($L obj : $N)", entityClassName, "sourceObjects")
                 .addStatement("$T dstObject = $N.newObject($T.class)", entityClass, "destinationContext", entityClass)
@@ -153,18 +153,25 @@ public class EntityMigrationGenerator {
                 .endControlFlow()
                 .addStatement("destinationContext.commitChanges()")
                 .addStatement("offset += $N", "maxLoadedItems")
-                .addStatement("sourceObjects = load$L(offset, sourceContext)", entityName)
+                .addStatement("sourceObjects = load$L(offset, $N, sourceContext)", entityName, "properties")
                 .endControlFlow()
                 .build();
     }
 
     private MethodSpec buildLoadMethod(ObjEntity objEntity) {
 
+        CodeBlock orderingsBlock = CodeBlock.builder()
+                .addStatement("$T orderings = new $T()", Orderings.class, Orderings.class)
+                .addStatement("$N.stream().map(p -> p.asc()).forEach(o -> $N.add(o))", "properties", "orderings")
+                .build();
         return buildLoadMethodSignature()
+                .addCode(orderingsBlock)
                 .addStatement("return $T.query($L.class)" +
                         ".offset(offset)" +
+                        ".orderBy($N)" +
                         ".limit($N)" +
-                        ".select(context)", ObjectSelect.class, objEntity.getClassName(), "maxLoadedItems")
+                        ".select(context)",
+                        ObjectSelect.class, objEntity.getClassName(), "orderings", "maxLoadedItems")
                 .build();
     }
 
@@ -211,7 +218,7 @@ public class EntityMigrationGenerator {
         return buildLoadMethodSignature()
                 .addAnnotation(Override.class)
                 .addComment("Use this method to implement your own 'load" + objectEntity.getName() + "' implementation")
-                .addStatement("return super.load$L($N, $N)", objectEntity.getName(), "offset", "context")
+                .addStatement("return super.load$L($N, $N, $N)", objectEntity.getName(), "offset", "properties", "context")
                 .build();
     }
 
@@ -225,9 +232,9 @@ public class EntityMigrationGenerator {
 
     private MethodSpec.Builder buildMigrateMethodSignature() {
 
-        ClassName setClassName = ClassName.get("java.util", "Set");
+        ClassName listClassName = ClassName.get("java.util", "List");
         ClassName propertyClassName = ClassName.get(Property.class);
-        TypeName propertiesType = ParameterizedTypeName.get(setClassName, propertyClassName);
+        TypeName propertiesType = ParameterizedTypeName.get(listClassName, propertyClassName);
 
         return MethodSpec.methodBuilder("migrate" + objectEntity.getName())
                 .addModifiers(Modifier.PROTECTED)
@@ -242,10 +249,14 @@ public class EntityMigrationGenerator {
         ClassName objClassName = ClassName.get(entityClass);
         TypeName returnType = ParameterizedTypeName.get(listClassName, objClassName);
 
+        ClassName propertyClassName = ClassName.get(Property.class);
+        TypeName propertiesType = ParameterizedTypeName.get(listClassName, propertyClassName);
+
         return MethodSpec.methodBuilder("load" + objectEntity.getName())
                 .addModifiers(Modifier.PROTECTED)
                 .returns(returnType)
                 .addParameter(Integer.class, "offset")
+                .addParameter(propertiesType, "properties")
                 .addParameter(ObjectContext.class, "context");
     }
 }
