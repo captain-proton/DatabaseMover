@@ -8,8 +8,9 @@ public interface EntityMover {
      *
      * @param cayenneSourceConfigFile      Path that contains the configuration file that points to the source data source
      * @param cayenneDestinationConfigFile Path that contains the configuration file that points to the destination data source
+     * @return Number of objects that were moved to the destination
      */
-    void move(String cayenneSourceConfigFile, String cayenneDestinationConfigFile);
+    Long move(String cayenneSourceConfigFile, String cayenneDestinationConfigFile);
 
     /**
      * Sets how many maximum items should be loaded during movement.

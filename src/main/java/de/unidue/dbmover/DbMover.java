@@ -29,8 +29,8 @@ public class DbMover {
                 EntityMover mover = m.newInstance();
                 LOG.info("Starting " + moverName);
                 long start = System.currentTimeMillis();
-                mover.move(cayenneSourceProjectFile, cayenneDestinationProjectFile);
-                LOG.info(moverName + " finished in " + (System.currentTimeMillis() - start) + " ms");
+                Long count = mover.move(cayenneSourceProjectFile, cayenneDestinationProjectFile);
+                LOG.info(moverName + " moved " + count + " objects in " + (System.currentTimeMillis() - start) + " ms");
             } catch (InstantiationException e) {
                 LOG.error("Could not instantiate " + m.getName(), e);
             } catch (IllegalAccessException e) {

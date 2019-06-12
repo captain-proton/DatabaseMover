@@ -1,6 +1,7 @@
 package de.unidue.dbmover;
 
 import com.squareup.javapoet.*;
+import org.apache.cayenne.CayenneRuntimeException;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Property;
@@ -109,6 +110,7 @@ public class EntityMigrationGenerator {
                         + "and calls {@code migrate$L}.</p>",
                         objEntity.getName(), Property.class, objEntity.getName())
                 .addModifiers(Modifier.PUBLIC)
+                .returns(Long.class)
                 .addParameter(String.class, "sourceConfigFile")
                 .addParameter(String.class, "destinationConfigFile")
                 .addStatement("$T sourceRuntime = $T.builder().addConfig($N).build()", ServerRuntime.class, ServerRuntime.class, "sourceConfigFile")
@@ -125,11 +127,20 @@ public class EntityMigrationGenerator {
                 .endControlFlow()
                 .endControlFlow()
                 .endControlFlow()
+                .addStatement("long movedObjectCount = 0L")
                 .addStatement("$T sourceContext = sourceRuntime.newContext()", ObjectContext.class)
                 .addStatement("$T destinationContext = destinationRuntime.newContext()", ObjectContext.class)
-                .addStatement("migrate$L(sourceContext, destinationContext, properties)", objEntity.getName())
+                .beginControlFlow("try")
+                .addStatement("$N.select(ObjectSelect.query($L.class).limit(1))", "destinationContext", objEntity.getClassName())
+                .addStatement("$N = migrate$L(sourceContext, destinationContext, properties)", "movedObjectCount", objEntity.getName())
+                .nextControlFlow("catch ($T e)", CayenneRuntimeException.class)
+                .addStatement("System.err.println(\"Unable to access \" + $L.class.getSimpleName())", objEntity.getClassName())
+                .addStatement("$N.printStackTrace()", "e")
+                .nextControlFlow("finally")
                 .addStatement("$N.shutdown()", "sourceRuntime")
                 .addStatement("$N.shutdown()", "destinationRuntime")
+                .endControlFlow()
+                .addStatement("return $N", "movedObjectCount")
                 .build();
     }
 
@@ -141,20 +152,28 @@ public class EntityMigrationGenerator {
 
         return buildMigrateMethodSignature()
                 .addStatement("int offset = 0")
+                .addStatement("long result = 0L")
                 .addStatement("$T<$T> sourceObjects = load$L(offset, $N, $N)", listClassName, entityClass, entityName, "properties", "sourceContext")
                 .beginControlFlow("while ($N.size() > 0)", "sourceObjects")
                 .beginControlFlow("for ($L obj : $N)", entityClassName, "sourceObjects")
                 .addStatement("$T dstObject = $N.newObject($T.class)", entityClass, "destinationContext", entityClass)
+                .beginControlFlow("try")
                 .beginControlFlow("for ($T property : properties)", Property.class)
                 .addStatement("$T propertyName = property.getName()", String.class)
                 .addStatement("$T propertyValue = obj.readProperty(propertyName)", Object.class)
                 .addStatement("dstObject.writeProperty(propertyName, propertyValue)")
                 .endControlFlow()
-                .endControlFlow()
                 .addStatement("destinationContext.commitChanges()")
+                .addStatement("$N++", "result")
+                .nextControlFlow("catch ($T e)", CayenneRuntimeException.class)
+                .addStatement("$N.getGraphManager().unregisterNode($N.getObjectId())", "destinationContext", "dstObject")
+                .addStatement("System.err.println(\"Could not commit \" + $N + \"; cause: \" + $N.getCause().getMessage())", "obj", "e")
+                .endControlFlow()
+                .endControlFlow()
                 .addStatement("offset += $N", "maxLoadedItems")
                 .addStatement("sourceObjects = load$L(offset, $N, sourceContext)", entityName, "properties")
                 .endControlFlow()
+                .addStatement("return result")
                 .build();
     }
 
@@ -226,7 +245,7 @@ public class EntityMigrationGenerator {
         return buildMigrateMethodSignature()
                 .addAnnotation(Override.class)
                 .addComment("Use this method to implement your own 'migrate" + objectEntity.getName() + "' implementation")
-                .addStatement("super.migrate$L($N, $N, $N)", objectEntity.getName(), "sourceContext", "destinationContext", "properties")
+                .addStatement("return super.migrate$L($N, $N, $N)", objectEntity.getName(), "sourceContext", "destinationContext", "properties")
                 .build();
     }
 
@@ -237,6 +256,7 @@ public class EntityMigrationGenerator {
         TypeName propertiesType = ParameterizedTypeName.get(listClassName, propertyClassName);
 
         return MethodSpec.methodBuilder("migrate" + objectEntity.getName())
+                .returns(Long.class)
                 .addModifiers(Modifier.PROTECTED)
                 .addParameter(ObjectContext.class, "sourceContext")
                 .addParameter(ObjectContext.class, "destinationContext")
