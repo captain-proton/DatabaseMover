@@ -10,7 +10,7 @@ public class Cli {
 
     public static void main(String[] args) {
 
-        Option genPkOption = Option.builder("gen_pk_attributes")
+        Option genPkOption = Option.builder("gen_missing_attributes")
                 .hasArg()
                 .argName("datamap")
                 .desc("Creates settable properties for all primary key" +
@@ -65,10 +65,10 @@ public class Cli {
             if (line.hasOption('h') || !hasOptions) {
 
                 printHelp(options);
-            } else if (line.hasOption("gen_pk_attributes")) {
+            } else if (line.hasOption("gen_missing_attributes")) {
 
-                String datamapFilename = line.getOptionValue("gen_pk_attributes");
-                PkAttributeGenerator attributeGenerator = new PkAttributeGenerator();
+                String datamapFilename = line.getOptionValue("gen_missing_attributes");
+                MissingAttributeGenerator attributeGenerator = new MissingAttributeGenerator();
                 attributeGenerator.generateAttributes(datamapFilename);
             } else if (line.hasOption("gen_migrators")) {
 
