@@ -4,7 +4,8 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Set;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class DbMover {
@@ -16,10 +17,11 @@ public class DbMover {
                           String moverPackage) {
 
         Reflections reflections = new Reflections(moverPackage);
-        Set<Class<? extends EntityMover>> movers = reflections.getSubTypesOf(EntityMover.class)
+        List<Class<? extends EntityMover>> movers = reflections.getSubTypesOf(EntityMover.class)
                 .stream()
                 .filter(m -> m.isAnnotationPresent(Mover.class))
-                .collect(Collectors.toSet());
+                .sorted(Comparator.comparing(Class::getSimpleName))
+                .collect(Collectors.toList());
 
         movers.forEach(m -> {
             String moverName = m.getSimpleName();
