@@ -20,7 +20,7 @@ plugins {
 
 apply plugin: 'org.apache.cayenne'
 
-cayenne.defaultDataMap '${project.basedir}/src/main/resources/datamap.map.xml'
+cayenne.defaultDataMap 'src/main/resources/datamap.map.xml'
 
 repositories {
 
@@ -55,9 +55,9 @@ sourceCompatibility = '1.8'
 sourceSets.main.java.srcDirs += file("src/gen/java")
 
 // Define the main class for the application
-mainClassName = 'de.unidue.dbmover.Mover'
+mainClassName = 'de.unidue.dbmover.Cli'
 
-task move (type:JavaExec) {
+task cli (type:JavaExec) {
 
     main = mainClassName
     classpath = sourceSets.main.runtimeClasspath
@@ -74,3 +74,30 @@ task move (type:JavaExec) {
     args System.getProperty("exec.args", "").split(" ")
 }
 
+cdbimport {
+    // optional project file, will be created if missing
+    cayenneProject 'src/main/resources/cayenne-source.xml'
+    adapter 'org.apache.cayenne.dba.postgres.PostgresAdapter'
+
+    dataSource {
+        driver 'org.postgresql.Driver'
+        url 'jdbc:postgresql://localhost:5432/ojs'
+        username 'ojs'
+        password 'ojs'
+    }
+
+    dbImport {
+        defaultPackage 'de.unidue.dbmover.model'
+        includeTable '.*'
+        skipPrimaryKeyLoading true
+        skipRelationshipsLoading true
+        tableTypes 'TABLE'
+        meaningfulPkTables '"*"'
+    }
+}
+
+cgen {
+    map 'src/main/resources/datamap.map.xml'
+    destDir 'src/gen/java'
+    makePairs true
+}
