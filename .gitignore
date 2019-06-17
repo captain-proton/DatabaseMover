@@ -229,3 +229,5 @@ gradle-app.setting
 
 src/gen
 !src/gen/java/org/apache/cayenne
+
+conf/

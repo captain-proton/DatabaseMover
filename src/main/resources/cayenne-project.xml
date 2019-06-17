@@ -9,10 +9,10 @@
 		 schema-update-strategy="org.apache.cayenne.access.dbsync.SkipSchemaUpdateStrategy">
 		<map-ref name="datamap"/>
 		<data-source>
-			<driver value="org.postgresql.Driver"/>
-			<url value="jdbc:postgresql://localhost:5432/ojs"/>
+			<driver value=""/>
+			<url value=""/>
 			<connectionPool min="1" max="1"/>
-			<login userName="ojsdbuser" password="ojs"/>
+			<login userName="" password=""/>
 		</data-source>
 	</node>
 </domain>

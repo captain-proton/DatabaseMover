@@ -20,7 +20,7 @@ plugins {
 
 apply plugin: 'org.apache.cayenne'
 
-cayenne.defaultDataMap 'src/main/resources/datamap.map.xml'
+cayenne.defaultDataMap 'conf/datamap.map.xml'
 
 repositories {
 
@@ -41,6 +41,9 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.9'
     compile 'commons-cli:commons-cli:1.4'
     compile 'org.reflections:reflections:0.9.11'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
@@ -76,18 +79,28 @@ task cli (type:JavaExec) {
 
 cdbimport {
     // optional project file, will be created if missing
-    cayenneProject 'src/main/resources/cayenne-source.xml'
+    cayenneProject 'conf/cayenne-source.xml'
     adapter 'org.apache.cayenne.dba.postgres.PostgresAdapter'
 
+    def src = file('conf/cayenne-source.xml')
+    def domain = new XmlParser().parse(src)
+    def datasource = domain.node.'data-source'
+
     dataSource {
-        driver 'org.postgresql.Driver'
-        url 'jdbc:postgresql://localhost:5432/ojs'
-        username 'ojs'
-        password 'ojs'
+        driver datasource.driver.@value[0]
+        url datasource.url.@value[0]
+        username datasource.login.@userName[0]
+        password datasource.login.@password[0]
+    }
+
+    def datamapFile = file('conf/datamap.map.xml')
+    def datamap = new XmlSlurper().parse(datamapFile)
+    def packageProperty = datamap.'*'.find { node ->
+        node.name() == 'property' && node.@name == 'defaultPackage'
     }
 
     dbImport {
-        defaultPackage 'de.unidue.dbmover.model'
+        defaultPackage packageProperty.@value[0].text()
         includeTable '.*'
         skipPrimaryKeyLoading true
         skipRelationshipsLoading true
@@ -97,7 +110,7 @@ cdbimport {
 }
 
 cgen {
-    map 'src/main/resources/datamap.map.xml'
+    map 'conf/datamap.map.xml'
     destDir 'src/gen/java'
     makePairs true
 }

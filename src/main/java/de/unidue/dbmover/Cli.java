@@ -1,8 +1,12 @@
 package de.unidue.dbmover;
 
 import org.apache.commons.cli.*;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Cli {
 
@@ -44,12 +48,22 @@ public class Cli {
                         " and destination operates on. The package points to" +
                         " the package that contains all generated mover classes")
                 .build();
+
+        Option initOption = Option.builder("init")
+                .desc("Initializes a database moving project. A project contains" +
+                        " a datamap that is used both inside the source and" +
+                        " destination project files. These files will be put" +
+                        " under the 'conf' path and contain empty value, that" +
+                        " must be set through the use of the cayenne modeler or" +
+                        " by hand.")
+                .build();
         Option help = Option.builder("h")
                 .longOpt("help")
                 .desc("print usage help of this application")
                 .build();
 
         Options options = new Options();
+        options.addOption(initOption);
         options.addOption(genPkOption);
         options.addOption(genMigrationOption);
         options.addOption(moveOption);
@@ -58,31 +72,17 @@ public class Cli {
         // create the parser
         CommandLineParser parser = new DefaultParser();
 
+        Cli cli = new Cli();
+
         try {
-            // parse the command line arguments
-            CommandLine line = parser.parse(options, args);
-            boolean hasOptions = line.getOptions() != null && line.getOptions().length > 0;
-            if (line.hasOption('h') || !hasOptions) {
+            // parse the command commandLine arguments
+            CommandLine commandLine = parser.parse(options, args);
+            boolean hasOptions = commandLine.getOptions() != null && commandLine.getOptions().length > 0;
+            if (commandLine.hasOption('h') || !hasOptions) {
 
                 printHelp(options);
-            } else if (line.hasOption("gen_missing_attributes")) {
-
-                String datamapFilename = line.getOptionValue("gen_missing_attributes");
-                MissingAttributeGenerator attributeGenerator = new MissingAttributeGenerator();
-                attributeGenerator.generateAttributes(datamapFilename);
-            } else if (line.hasOption("gen_migrators")) {
-
-                String packageName = line.getOptionValue("gen_migrators");
-                MigrationGenerator generator = new MigrationGenerator(packageName);
-                generator.generate();
-            } else if (line.hasOption("move")) {
-
-                String[] files = line.getOptionValues("move");
-                String src = files[0];
-                String dest = files[1];
-                String moverPackage = files[2];
-                DbMover mover = new DbMover();
-                mover.invokeAll(src, dest, moverPackage);
+            } else {
+                cli.execCommand(commandLine);
             }
         } catch (ParseException e) {
             LOG.error("An error occurred on parse of arguments", e);
@@ -90,10 +90,57 @@ public class Cli {
         }
     }
 
+    private void execCommand(CommandLine commandLine) {
+
+        if (commandLine.hasOption("init")) {
+
+            File path = new File("conf");
+            initProject(path);
+        } else if (commandLine.hasOption("gen_missing_attributes")) {
+
+            String datamapFilename = commandLine.getOptionValue("gen_missing_attributes");
+            MissingAttributeGenerator attributeGenerator = new MissingAttributeGenerator();
+            attributeGenerator.generateAttributes(datamapFilename);
+        } else if (commandLine.hasOption("gen_migrators")) {
+
+            String packageName = commandLine.getOptionValue("gen_migrators");
+            MigrationGenerator generator = new MigrationGenerator(packageName);
+            generator.generate();
+        } else if (commandLine.hasOption("move")) {
+
+            String[] files = commandLine.getOptionValues("move");
+            String src = files[0];
+            String dest = files[1];
+            String moverPackage = files[2];
+            DbMover mover = new DbMover();
+            mover.invokeAll(src, dest, moverPackage);
+        }
+    }
+
+    private void initProject(File path) {
+        if (!path.exists() && !path.mkdirs()) {
+            LOG.error("Could not create project home directory " + path.getAbsolutePath());
+            return;
+        }
+        try {
+            copy("/cayenne-project.xml", path, "cayenne-source.xml");
+            copy("/cayenne-project.xml", path, "cayenne-destination.xml");
+            copy("/empty.datamap.map.xml", path, "datamap.map.xml");
+        } catch (IOException e) {
+            LOG.error("Could not copy initialization files to conf dir");
+        }
+    }
+
+    private void copy(String src, File dir, String name) throws IOException {
+        File dst = new File(dir, name);
+        FileUtils.copyInputStreamToFile(Cli.class.getResourceAsStream(src), dst);
+        LOG.info("Created " + dst.getCanonicalPath());
+    }
+
     private static void printHelp(Options options) {
 
         // automatically generate the help statement
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("./gradlew move -Dexec.args='-foo bar'", options);
+        formatter.printHelp("./gradlew cli -Dexec.args='-foo bar'", options);
     }
 }
