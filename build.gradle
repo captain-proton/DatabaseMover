@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+
 buildscript {
     // add Maven Central repository
     repositories {
@@ -60,6 +63,21 @@ sourceSets.main.java.srcDirs += file("src/gen/java")
 // Define the main class for the application
 mainClassName = 'de.unidue.dbmover.Cli'
 
+// Initialize conf dir and needed files, otherwise cdbimport task will fail
+def confDir = "conf"
+def confDirPath = Paths.get(confDir)
+def resourcesPath = Paths.get("src", "main", "resources")
+
+if (!Files.exists(confDirPath)) {
+    
+    if (Files.createDirectories(confDirPath)) {
+        
+        Files.copy(resourcesPath.resolve("cayenne-project.xml"), Paths.get(confDir, "cayenne-source.xml"))
+        Files.copy(resourcesPath.resolve("cayenne-project.xml"), Paths.get(confDir, "cayenne-destination.xml"))
+        Files.copy(resourcesPath.resolve("empty.datamap.map.xml"), Paths.get(confDir, "datamap.map.xml"))
+    }
+}
+
 task cli (type:JavaExec) {
 
     main = mainClassName
@@ -78,19 +96,24 @@ task cli (type:JavaExec) {
 }
 
 cdbimport {
-    // optional project file, will be created if missing
-    cayenneProject 'conf/cayenne-source.xml'
-    adapter 'org.apache.cayenne.dba.postgres.PostgresAdapter'
+    def srcProjectFilename = 'conf/cayenne-source.xml'
+    def srcProjectFile = file(srcProjectFilename)
+    def domain = new XmlParser().parse(srcProjectFile)
 
-    def src = file('conf/cayenne-source.xml')
-    def domain = new XmlParser().parse(src)
+    assert domain instanceof Node
+
     def datasource = domain.node.'data-source'
+    def optAdapter = datasource.node.@adapter[0 as String]
+
+    // optional project file, will be created if missing
+    cayenneProject srcProjectFilename
+    adapter optAdapter != null ? optAdapter.text() : null
 
     dataSource {
-        driver datasource.driver.@value[0]
-        url datasource.url.@value[0]
-        username datasource.login.@userName[0]
-        password datasource.login.@password[0]
+        driver datasource.driver.@value[0 as String]
+        url datasource.url.@value[0 as String]
+        username datasource.login.@userName[0 as String]
+        password datasource.login.@password[0 as String]
     }
 
     def datamapFile = file('conf/datamap.map.xml')
@@ -100,7 +123,7 @@ cdbimport {
     }
 
     dbImport {
-        defaultPackage packageProperty.@value[0].text()
+        defaultPackage packageProperty.@value[0 as String].text()
         includeTable '.*'
         skipPrimaryKeyLoading true
         skipRelationshipsLoading true

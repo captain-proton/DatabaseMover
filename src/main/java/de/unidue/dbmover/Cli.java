@@ -1,12 +1,8 @@
 package de.unidue.dbmover;
 
 import org.apache.commons.cli.*;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
 
 public class Cli {
 
@@ -14,9 +10,7 @@ public class Cli {
 
     public static void main(String[] args) {
 
-        Option genPkOption = Option.builder("gen_missing_attributes")
-                .hasArg()
-                .argName("datamap")
+        Option genAttributesOption = Option.builder("gen_missing_attributes")
                 .desc("Creates settable properties for all primary key" +
                         " attributes that have are automatically generated" +
                         " by the database. This must be done before all records" +
@@ -49,22 +43,13 @@ public class Cli {
                         " the package that contains all generated mover classes")
                 .build();
 
-        Option initOption = Option.builder("init")
-                .desc("Initializes a database moving project. A project contains" +
-                        " a datamap that is used both inside the source and" +
-                        " destination project files. These files will be put" +
-                        " under the 'conf' path and contain empty value, that" +
-                        " must be set through the use of the cayenne modeler or" +
-                        " by hand.")
-                .build();
         Option help = Option.builder("h")
                 .longOpt("help")
                 .desc("print usage help of this application")
                 .build();
 
         Options options = new Options();
-        options.addOption(initOption);
-        options.addOption(genPkOption);
+        options.addOption(genAttributesOption);
         options.addOption(genMigrationOption);
         options.addOption(moveOption);
         options.addOption(help);
@@ -92,15 +77,10 @@ public class Cli {
 
     private void execCommand(CommandLine commandLine) {
 
-        if (commandLine.hasOption("init")) {
+        if (commandLine.hasOption("gen_missing_attributes")) {
 
-            File path = new File("conf");
-            initProject(path);
-        } else if (commandLine.hasOption("gen_missing_attributes")) {
-
-            String datamapFilename = commandLine.getOptionValue("gen_missing_attributes");
             MissingAttributeGenerator attributeGenerator = new MissingAttributeGenerator();
-            attributeGenerator.generateAttributes(datamapFilename);
+            attributeGenerator.generateAttributes("conf/datamap.map.xml");
         } else if (commandLine.hasOption("gen_migrators")) {
 
             String packageName = commandLine.getOptionValue("gen_migrators");
@@ -115,26 +95,6 @@ public class Cli {
             DbMover mover = new DbMover();
             mover.invokeAll(src, dest, moverPackage);
         }
-    }
-
-    private void initProject(File path) {
-        if (!path.exists() && !path.mkdirs()) {
-            LOG.error("Could not create project home directory " + path.getAbsolutePath());
-            return;
-        }
-        try {
-            copy("/cayenne-project.xml", path, "cayenne-source.xml");
-            copy("/cayenne-project.xml", path, "cayenne-destination.xml");
-            copy("/empty.datamap.map.xml", path, "datamap.map.xml");
-        } catch (IOException e) {
-            LOG.error("Could not copy initialization files to conf dir");
-        }
-    }
-
-    private void copy(String src, File dir, String name) throws IOException {
-        File dst = new File(dir, name);
-        FileUtils.copyInputStreamToFile(Cli.class.getResourceAsStream(src), dst);
-        LOG.info("Created " + dst.getCanonicalPath());
     }
 
     private static void printHelp(Options options) {
