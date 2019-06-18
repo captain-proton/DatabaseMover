@@ -33,9 +33,7 @@ public class Cli {
                 .build();
         Option moveOption = Option.builder("move")
                 .hasArg()
-                .numberOfArgs(3)
-                .argName("src> <dest> <package")
-                .valueSeparator(' ')
+                .argName("package")
                 .desc("Invokes all mover classes that were generated in the" +
                         " gen_migrators step. Src and dest must point to" +
                         " cayenne project files that contain the domain the source" +
@@ -88,10 +86,9 @@ public class Cli {
             generator.generate();
         } else if (commandLine.hasOption("move")) {
 
-            String[] files = commandLine.getOptionValues("move");
-            String src = files[0];
-            String dest = files[1];
-            String moverPackage = files[2];
+            String src = "cayenne-source.xml";
+            String dest = "cayenne-destination.xml";
+            String moverPackage = commandLine.getOptionValue("move");
             DbMover mover = new DbMover();
             mover.invokeAll(src, dest, moverPackage);
         }

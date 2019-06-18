@@ -59,6 +59,7 @@ version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 sourceSets.main.java.srcDirs += file("src/gen/java")
+sourceSets.main.resources.srcDirs += file("conf")
 
 // Define the main class for the application
 mainClassName = 'de.unidue.dbmover.Cli'
@@ -104,7 +105,6 @@ cdbimport {
 
     def datasource = domain.node.'data-source'
     def optAdapter = domain.node.@adapter[0]
-    println optAdapter
 
     // optional project file, will be created if missing
     cayenneProject srcProjectFilename
