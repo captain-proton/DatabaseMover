@@ -78,7 +78,7 @@ public class Cli {
         if (commandLine.hasOption("gen_missing_attributes")) {
 
             MissingAttributeGenerator attributeGenerator = new MissingAttributeGenerator();
-            attributeGenerator.generateAttributes("conf/datamap.map.xml");
+            attributeGenerator.generateAttributes();
         } else if (commandLine.hasOption("gen_migrators")) {
 
             String packageName = commandLine.getOptionValue("gen_migrators");

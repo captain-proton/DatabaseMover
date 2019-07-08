@@ -2,8 +2,7 @@ package de.unidue.dbmover;
 
 import org.apache.cayenne.datamap.*;
 import org.apache.cayenne.dba.TypesMapping;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.CaseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,18 +11,17 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class MissingAttributeGenerator {
+class MissingAttributeGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(MissingAttributeGenerator.class);
 
-    public void generateAttributes(String datamapFilename) {
-        File datamapFile = new File(datamapFilename);
+    void generateAttributes() {
+        File datamapFile = new File("conf/datamap.map.xml");
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(DataMap.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
@@ -55,11 +53,9 @@ public class MissingAttributeGenerator {
     }
 
     private void addMissingProperties(DbEntity dbEntity, ObjEntity objEntity) {
-        Predicate<DbAttribute> noObjectAttribute = dbAttribute -> !objEntity.getObjAttribute()
+        Predicate<DbAttribute> noObjectAttribute = dbAttribute -> objEntity.getObjAttribute()
                 .stream()
-                .filter(objAttribute -> objAttribute.getDbAttributePath().equals(dbAttribute.getName()))
-                .findAny()
-                .isPresent();
+                .noneMatch(objAttribute -> objAttribute.getDbAttributePath().equals(dbAttribute.getName()));
 
         List<DbAttribute> targetDbAttributes = dbEntity.getDbAttribute()
                 .stream()
@@ -80,7 +76,7 @@ public class MissingAttributeGenerator {
         if (javaType != null) {
 
             String dbAttributeName = dbAttribute.getName();
-            String objAttributeName = buildJavaName(dbAttributeName);
+            String objAttributeName = CaseUtils.toCamelCase(dbAttributeName, false, StringExtensions.PUNCTUATION_CHARS);
 
             ObjAttribute objAttribute = new ObjAttribute();
             objAttribute.setType(javaType);
@@ -94,17 +90,5 @@ public class MissingAttributeGenerator {
         } else {
             LOG.warn("Did not found java type of db attribute " + dbAttribute.getName() + ":" + dbAttributeType);
         }
-    }
-
-    private String buildJavaName(String dbAttributeName) {
-        String[] split = dbAttributeName.split("[\\p{Punct}]+");
-        StringBuilder javaName = new StringBuilder(split[0]);
-        if (split.length > 1) {
-            String suffix = Arrays.stream(ArrayUtils.remove(split, 0))
-                    .map(s -> StringUtils.capitalize(s))
-                    .collect(Collectors.joining());
-            javaName.append(suffix);
-        }
-        return javaName.toString();
     }
 }

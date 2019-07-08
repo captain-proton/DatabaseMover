@@ -5,9 +5,11 @@ import org.apache.cayenne.CayenneRuntimeException;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.exp.Property;
+import org.apache.cayenne.map.ObjAttribute;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.Orderings;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +19,9 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class EntityMigrationGenerator {
+class EntityMigrationGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityMigrationGenerator.class);
 
@@ -28,7 +31,7 @@ public class EntityMigrationGenerator {
     private final File destinationDirectory;
     private final Class<?> entityClass;
 
-    public EntityMigrationGenerator(String migrationPackageName, ObjEntity objectEntity, File destinationDirectory) throws ClassNotFoundException {
+    EntityMigrationGenerator(String migrationPackageName, ObjEntity objectEntity, File destinationDirectory) throws ClassNotFoundException {
 
         this.migrationPackageName = migrationPackageName;
         this.migrationBasePackageName = migrationPackageName + ".auto";
@@ -37,7 +40,7 @@ public class EntityMigrationGenerator {
         this.entityClass = Class.forName(objectEntity.getClassName());
     }
 
-    public void generate() {
+    void generate() {
         ClassName base = generateBase();
         generateModifiableClass(base);
     }
@@ -54,6 +57,7 @@ public class EntityMigrationGenerator {
                 .addMethod(buildDefaultConstructor())
                 .addMethod(buildBaseMaxLoadedItemsConstructor())
                 .addMethod(buildMoveMethod(objectEntity))
+                .addMethods(buildSetPropertyMethods(objectEntity))
                 .addMethod(buildMigrateMethod(objectEntity))
                 .addMethod(buildLoadMethod(objectEntity))
                 .addMethod(buildMaxLoadedItemsGetter())
@@ -149,6 +153,10 @@ public class EntityMigrationGenerator {
         String entityName = objEntity.getName();
         String entityClassName = objEntity.getClassName();
         ClassName listClassName = ClassName.get("java.util", "List");
+        Map<String, ObjAttribute> attributes = objEntity.getAttributeMap();
+
+        CodeBlock.Builder migratePropertiesBlockBuilder = CodeBlock.builder();
+        attributes.forEach((propertyName, attribute) -> migratePropertiesBlockBuilder.addStatement("$N($N, $N)", buildSetPropertyMethodName(propertyName), "obj", "dstObject"));
 
         return buildMigrateMethodSignature()
                 .addStatement("int offset = 0")
@@ -158,11 +166,7 @@ public class EntityMigrationGenerator {
                 .beginControlFlow("for ($L obj : $N)", entityClassName, "sourceObjects")
                 .addStatement("$T dstObject = $N.newObject($T.class)", entityClass, "destinationContext", entityClass)
                 .beginControlFlow("try")
-                .beginControlFlow("for ($T property : properties)", Property.class)
-                .addStatement("$T propertyName = property.getName()", String.class)
-                .addStatement("$T propertyValue = obj.readProperty(propertyName)", Object.class)
-                .addStatement("dstObject.writeProperty(propertyName, propertyValue)")
-                .endControlFlow()
+                .addCode(migratePropertiesBlockBuilder.build())
                 .addStatement("destinationContext.commitChanges()")
                 .addStatement("$N++", "result")
                 .nextControlFlow("catch ($T e)", CayenneRuntimeException.class)
@@ -175,6 +179,37 @@ public class EntityMigrationGenerator {
                 .endControlFlow()
                 .addStatement("return result")
                 .build();
+    }
+
+    private Iterable<MethodSpec> buildSetPropertyMethods(ObjEntity objEntity) {
+        List<MethodSpec> migratePropertyMethods = new ArrayList<>();
+        Map<String, ObjAttribute> attributes = objEntity.getAttributeMap();
+        attributes.forEach((attributeName, attribute) -> migratePropertyMethods.add(buildSetPropertyMethod(attributeName, attribute)));
+        return migratePropertyMethods;
+    }
+
+    private MethodSpec buildSetPropertyMethod(String propertyName, ObjAttribute attribute) {
+        String upperCasePropertyName = buildUpperCasePropertyName(propertyName);
+        return buildSetPropertySignature(propertyName)
+                .addStatement("$T value = $N.get$L()", attribute.getJavaClass(), "srcObject", upperCasePropertyName)
+                .addStatement("$N.set$L($N)", "dstObject", upperCasePropertyName, "value")
+                .build();
+    }
+
+    private String buildSetPropertyMethodName(String propertyName) {
+        return "set" + buildUpperCasePropertyName(propertyName);
+    }
+
+    private String buildUpperCasePropertyName(String propertyName) {
+        return StringUtils.upperCase(propertyName.substring(0, 1)) +
+                (propertyName.length() > 1 ? propertyName.substring(1) : StringUtils.EMPTY);
+    }
+
+    private MethodSpec.Builder buildSetPropertySignature(String propertyName) {
+        return MethodSpec.methodBuilder(buildSetPropertyMethodName(propertyName))
+                .addModifiers(Modifier.PROTECTED)
+                .addParameter(entityClass, "srcObject")
+                .addParameter(entityClass, "dstObject");
     }
 
     private MethodSpec buildLoadMethod(ObjEntity objEntity) {
@@ -197,11 +232,10 @@ public class EntityMigrationGenerator {
     private void generateModifiableClass(ClassName baseClass) {
 
         // com.example._SampleMover -> com/example/SampleMover.java
-        StringBuilder classFilename = new StringBuilder(migrationPackageName.replaceAll("\\.", "/"));
-        classFilename.append("/");
-        classFilename.append(baseClass.simpleName().substring(1));
-        classFilename.append(".java");
-        File moverClassFile = new File(destinationDirectory, classFilename.toString());
+        String classFilename = migrationPackageName.replaceAll("\\.", "/") + "/" +
+                baseClass.simpleName().substring(1) +
+                ".java";
+        File moverClassFile = new File(destinationDirectory, classFilename);
         if (moverClassFile.exists()) {
             return;
         }
@@ -214,6 +248,7 @@ public class EntityMigrationGenerator {
                 .addMethod(buildMaxLoadedItemsConstructor())
                 .addMethod(buildMigrateMethodOverride())
                 .addMethod(buildLoadMethodOverride())
+                .addMethods(buildSetPropertyOverrideMethods())
                 .build();
 
         JavaFile javaFile = JavaFile.builder(migrationPackageName, typeSpec).build();
@@ -222,6 +257,18 @@ public class EntityMigrationGenerator {
         } catch (IOException e) {
             LOG.error("Could not generate modifiable migration class for entity " + objectEntity.getClassName(), e);
         }
+    }
+
+    private Iterable<MethodSpec> buildSetPropertyOverrideMethods() {
+        Map<String, ObjAttribute> attributes = objectEntity.getAttributeMap();
+        List<MethodSpec> result = new ArrayList<>();
+        attributes.forEach((propertyName, attribute) -> {
+            MethodSpec methodSpec = buildSetPropertySignature(propertyName)
+                    .addStatement("super.$L($N, $N)", buildSetPropertyMethodName(propertyName), "srcObject", "dstObject")
+                    .build();
+            result.add(methodSpec);
+        });
+        return result;
     }
 
     private MethodSpec buildMaxLoadedItemsConstructor() {
